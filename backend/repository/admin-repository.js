@@ -1,7 +1,7 @@
 import db from "../config/bd.js";
 
 class AdminRepository {
-    
+
     loginAdmin = async (username) => {
         const query = 'SELECT * FROM admins WHERE username = $1';
         const values = [username];
