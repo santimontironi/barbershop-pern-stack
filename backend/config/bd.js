@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const { Pool } = pkg
+export const { Pool } = pkg
 
 const db = new Pool({
     user: process.env.DB_USER,
