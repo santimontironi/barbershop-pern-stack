@@ -9,11 +9,11 @@ dotenv.config();
 class UserController {
     registerUser = async (req, res) => {
         try {
-            const { name, surname, email, password } = req.body;
+            const { name, surname, photo, email,  password } = req.body;
 
             const passwordHash = await bcrypt.hash(password, 10);
 
-            const userCreated = await userRepository.registerUser(name, surname, email, passwordHash);
+            const userCreated = await userRepository.registerUser(name, surname, photo, email, passwordHash);
 
             const token = jwt.sign({ id: userCreated.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
