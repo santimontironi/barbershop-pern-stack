@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
-export const verifyAdminToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -13,7 +12,7 @@ export const verifyAdminToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.adminId = decoded.id;
+        req.user = decoded.id;
         next();
     }
     catch (error) {

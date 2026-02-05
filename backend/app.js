@@ -1,5 +1,6 @@
 import express from "express";
 import adminRouter from "./routes/admin-routes.js";
+import userRouter from "./routes/user-routes.js";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -17,6 +18,7 @@ app.use(cors(
     }
 ));
 
-app.use("/api", adminRouter);
+app.use("", adminRouter);
+app.use("", userRouter);
 
 export default app;

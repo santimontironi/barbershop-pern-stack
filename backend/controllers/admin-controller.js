@@ -4,6 +4,19 @@ import jwt from "jsonwebtoken";
 
 class AdminController {
 
+    // createAdmin = async (req, res) => {
+    //     try{
+    //         const { username, password } = req.body;
+
+    //         const userCreated = await adminRepository.createAdmin(username, await bcrypt.hash(password, 10));
+
+    //         return res.status(201).json({ message: "Administrador creado exitosamente.", admin: { id: userCreated.id, username: userCreated.username } });
+    //     }
+    //     catch(error){
+    //         return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+    //     }
+    // }
+
     loginAdmin = async (req, res) => {
         try {
             const { username, password } = req.body;
