@@ -1,9 +1,9 @@
 import db from "../config/bd.js";
 
 class UserRepository {
-    registerUser = async (name, surname, photo, email, password) => {
-        const query = "INSERT INTO users (name, surname, photo, email, password, role) VALUES ($1, $2, $3, $4, $5, 'user') RETURNING *";
-        const values = [name, surname, photo, email, password];
+    registerUser = async (name, surname, username, photo, email, password) => {
+        const query = "INSERT INTO users (name, surname, username, photo, email, password, role) VALUES ($1, $2, $3, $4, $5, $6, 'user') RETURNING *";
+        const values = [name, surname, username, photo, email, password];
         const result = await db.query(query, values);
         return result.rows[0];
     }
@@ -15,9 +15,9 @@ class UserRepository {
         return result.rows[0];
     }
 
-    loginUser = async (email) => {
-        const query = "SELECT * FROM users WHERE email = $1 and role = 'user'";
-        const values = [email];
+    loginUser = async (email,username) => {
+        const query = "SELECT * FROM users WHERE (email = $1 or username = $2) and role = 'user'";
+        const values = [email, username];
         const result = await db.query(query, values);
         return result.rows[0];
     }

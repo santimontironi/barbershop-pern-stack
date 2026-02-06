@@ -9,11 +9,11 @@ dotenv.config();
 class UserController {
     registerUser = async (req, res) => {
         try {
-            const { name, surname, photo, email,  password } = req.body;
+            const { name, surname, username, photo,  email, password } = req.body;
 
             const passwordHash = await bcrypt.hash(password, 10);
 
-            const userCreated = await userRepository.registerUser(name, surname, photo, email, passwordHash);
+            const userCreated = await userRepository.registerUser(name, surname, username, photo, email, passwordHash);
 
             const token = jwt.sign({ id: userCreated.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
@@ -44,6 +44,43 @@ class UserController {
             }
 
             return res.status(200).json({ message: "Registro confirmado exitosamente." });
+        }
+        catch (error) {
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
+    loginUser = async (req, res) => {
+        try {
+            const { email, username, password } = req.body;
+            const user = await userRepository.loginUser(email, username);
+
+            if (!user) {
+                return res.status(404).json({ message: "Usuario no encontrado." });
+            }
+
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: "Contraseña incorrecta." });
+            }
+
+            const isConfirmed = await userRepository.checkConfirmation(user.id);
+
+            if (!isConfirmed.is_confirmed) {
+                return res.status(403).json({ message: "Registro no confirmado. Por favor, confirma tu registro antes de iniciar sesión." });
+            }
+
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+            res.cookie("token", token,
+            {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production" ? true : false,
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            });
+
+            return res.status(200).json({ message: "Inicio de sesión exitoso.", user: { id: user.id } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
