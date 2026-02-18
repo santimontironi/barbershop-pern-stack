@@ -31,7 +31,7 @@ class AdminController {
                 return res.status(401).json({ message: "Contraseña incorrecta." });
             }
 
-            const token = jwt.sign({ id: admin.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+            const token = jwt.sign({ id: admin.id, role: admin.role }, process.env.JWT_SECRET, { expiresIn: "8h" });
 
             res.cookie("token", token,
                 {
@@ -40,7 +40,23 @@ class AdminController {
                     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
                 });
 
-            return res.status(200).json({ message: "Inicio de sesión exitoso.", admin: { id: admin.id } });
+            return res.status(200).json({ message: "Inicio de sesión exitoso.", admin: { id: admin.id, role: admin.role } });
+        }
+        catch (error) {
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
+    dashboardAdmin = async (req, res) => {
+        try {
+            const adminId = req.user.id;
+            const admin = await adminRepository.getAdminById(adminId);
+            
+            if (!admin) {
+                return res.status(401).json({ message: "Administrador no autorizado." });
+            }
+            
+            return res.status(200).json({ admin: { id: admin.id, role: admin.role } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

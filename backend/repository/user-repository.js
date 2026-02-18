@@ -28,6 +28,13 @@ class UserRepository {
         const result = await db.query(query, values);
         return result.rows[0];
     }
+
+    getUserById = async (userId) => {
+        const query = "SELECT id, name, surname, username, photo, email FROM users WHERE id = $1 and role = 'user'";
+        const values = [userId];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const userRepository = new UserRepository();

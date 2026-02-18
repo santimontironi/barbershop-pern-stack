@@ -15,6 +15,13 @@ class AdminRepository {
         const result = await db.query(query, values);
         return result.rows[0];
     }
+
+    getAdminById = async (adminId) => {
+        const query = "SELECT id, username FROM users WHERE id = $1 and role = 'admin'";
+        const values = [adminId];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const adminRepository = new AdminRepository();

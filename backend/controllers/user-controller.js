@@ -9,7 +9,7 @@ dotenv.config();
 class UserController {
     registerUser = async (req, res) => {
         try {
-            const { name, surname, username, photo,  email, password } = req.body;
+            const { name, surname, username, photo, email, password } = req.body;
 
             const passwordHash = await bcrypt.hash(password, 10);
 
@@ -21,7 +21,7 @@ class UserController {
                 from: process.env.EMAIL_USER,
                 to: email,
                 subject: "Confirmación de registro.",
-                text: `Hola ${name}, ingresa a el siguiente enlace para confirmar tu registro: ${process.env.FRONTEND_URL}/confirm/${token}`
+                text: `Hola ${name}, ingresa a el siguiente enlace para confirmar tu registro: ${process.env.FRONTEND_URL}/confirmar/${token}`
             });
 
             return res.status(201).json({ message: "Usuario registrado exitosamente.", user: { id: userCreated.id } });
@@ -71,7 +71,7 @@ class UserController {
                 return res.status(403).json({ message: "Registro no confirmado. Por favor, confirma tu registro antes de iniciar sesión." });
             }
 
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "8h" });
 
             res.cookie("token", token,
             {
@@ -80,7 +80,23 @@ class UserController {
                 sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             });
 
-            return res.status(200).json({ message: "Inicio de sesión exitoso.", user: { id: user.id } });
+            return res.status(200).json({ message: "Inicio de sesión exitoso.", user: { id: user.id, role: user.role } });
+        }
+        catch (error) {
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
+    dashboardUser = async (req, res) => {
+        try {
+            const userId = req.user.id;
+
+            if (!userId) {
+                return res.status(401).json({ message: "No autorizado." });
+            }
+
+            const user = await userRepository.getUserById(userId);
+            return res.status(200).json({ user: { id: user.id, role: user.role } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
