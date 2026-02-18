@@ -28,18 +28,6 @@ export interface LoginUserResponse {
     };
 }
 
-export interface DashboardUserResponse {
-    user: {
-        id: number;
-        role: string;
-        name: string;
-        surname: string;
-        username: string;
-        photo: string;
-        email: string;
-    };
-}
-
 export interface LoginAdminData {
     username: string;
     password: string;
@@ -53,22 +41,14 @@ export interface LoginAdminResponse {
     };
 }
 
-export interface DashboardAdminResponse {
-    admin: {
+export interface AuthType {
+    user: {
         id: number;
-        username: string;
         role: string;
-    };
-}
-
-export interface AuthContextType {
-    auth: {
-        id: number;
-        role: string
     }
 }
 
-export interface AuthUser {
+export interface User {
     id: number;
     role?: string;
     name?: string;
@@ -76,4 +56,17 @@ export interface AuthUser {
     username?: string;
     photo?: string;
     email?: string;
+}
+
+export interface Admin {
+  id: number;
+  role: string;
+}
+
+export interface DashboardUserResponse {
+    user: User
+}
+
+export interface DashboardAdminResponse {
+    admin: Admin
 }

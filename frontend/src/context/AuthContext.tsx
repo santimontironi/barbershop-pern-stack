@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect } from "react";
-import { registerUserService, loginUserService, loginAdminService,dashboardUserService,dashboardAdminService, logoutService} from "../services/authService";
-import type {AuthUser, RegisterUserData, LoadingState, LoginUserData, LoginAdminData } from "../types";
+import { registerUserService, loginUserService, loginAdminService, meService, logoutService } from "../services/authService";
+import type { User, RegisterUserData, LoadingState, LoginUserData, LoginAdminData } from "../types";
 
 type AuthContextType = {
-    user: AuthUser | null,
+    user: User | null,
     registerUser: (data: RegisterUserData) => Promise<void>,
     loginUser: (data: LoginUserData) => Promise<void>,
     loginAdmin: (data: LoginAdminData) => Promise<void>,
@@ -15,11 +15,11 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: any) => {
 
-    const [user, setUser] = useState<AuthUser | null>(null);
-    const [loading, setLoading] = useState<LoadingState>({ 
-        register: false, 
-        login: false, 
-        dashboard: false 
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState<LoadingState>({
+        register: false,
+        login: false,
+        dashboard: false
     });
 
     const registerUser = async (data: RegisterUserData) => {
@@ -70,38 +70,27 @@ const AuthProvider = ({ children }: any) => {
     }
 
     useEffect(() => {
-        const getDashboard = async () => {
+        const checkAuth = async () => {
+            setLoading(prev => ({ ...prev, dashboard: true }));
             try {
-                setLoading(prev => ({ ...prev, dashboard: true }));
-                
-                if (!user) {
-                    throw new Error("No user logged in");
+                const res = await meService();
+                setUser({
+                    id: res.data.user.id,
+                    role: res.data.user.role
+                });
+            } catch (error: any) {
+                if (error.response?.status === 401) {
+                    setUser(null);
+                } else {
+                    console.error("Error verificando sesión:", error);
                 }
-    
-                if (user.role === 'user') {
-                    const response = await dashboardUserService();
-                    setUser({
-                        ...response.data.user,
-                        role: 'user'
-                    });
-                } else if (user.role === 'admin') {
-                    const response = await dashboardAdminService();
-                    setUser({
-                        id: response.data.admin.id,
-                        username: response.data.admin.username,
-                        role: 'admin'
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching dashboard:", error);
-                throw error;
             } finally {
                 setLoading(prev => ({ ...prev, dashboard: false }));
             }
         };
 
-        getDashboard();
-    }, [user?.id, user?.role]);
+        checkAuth();
+    }, []);
 
     const logout = async () => {
         try {
@@ -114,13 +103,13 @@ const AuthProvider = ({ children }: any) => {
     }
 
     return (
-        <AuthContext.Provider value={{ 
-            user, 
-            registerUser, 
+        <AuthContext.Provider value={{
+            user,
+            registerUser,
             loginUser,
             loginAdmin,
             logout,
-            loading, 
+            loading,
         }}>
             {children}
         </AuthContext.Provider>

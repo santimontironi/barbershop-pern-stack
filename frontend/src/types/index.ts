@@ -9,5 +9,6 @@ export type {
     LoginAdminData,
     LoginAdminResponse,
     DashboardAdminResponse,
-    AuthUser
+    AuthType,
+    User
 } from './auth.types';

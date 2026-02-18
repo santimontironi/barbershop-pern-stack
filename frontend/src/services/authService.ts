@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse,DashboardUserResponse, DashboardAdminResponse } from "../types"
+import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse,DashboardUserResponse, DashboardAdminResponse, AuthType } from "../types"
 const API_URL = import.meta.env.VITE_API_URL;
 
 // User services
@@ -30,5 +30,5 @@ export const logoutService = () => {
 }
 
 export const meService = () => {
-    return axios.get(`${API_URL}/me`, { withCredentials: true });
+    return axios.get<AuthType>(`${API_URL}/me`, { withCredentials: true });
 }

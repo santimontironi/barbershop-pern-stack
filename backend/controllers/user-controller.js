@@ -96,7 +96,7 @@ class UserController {
             }
 
             const user = await userRepository.getUserById(userId);
-            return res.status(200).json({ user: { id: user.id, role: user.role } });
+            return res.status(200).json({ user: { id: user.id, role: user.role, name: user.name, surname: user.surname, username: user.username, photo: user.photo, email: user.email } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
