@@ -8,7 +8,7 @@ router.post("/logout", userController.logoutUser);
 router.post("/loginUser", userController.loginUser);
 router.post("/registerUser", userController.registerUser);
 
-router.get("/confirmar/:token", userController.confirmRegistration);
+router.get("/confirmRegister/:token", userController.confirmRegistration);
 router.get("/dashboardUser", verifyToken, userController.dashboardUser);
 
 export default router;

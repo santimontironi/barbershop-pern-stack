@@ -1,4 +1,5 @@
 export type { LoadingState } from './loading.types';
+export type { LoginUserDataForm, RegisterUserDataForm } from './form.types';
 
 export type {
     RegisterUserData,
@@ -9,6 +10,7 @@ export type {
     LoginAdminData,
     LoginAdminResponse,
     DashboardAdminResponse,
+    confirmRegisterResponse,
     AuthType,
     User
 } from './auth.types';

@@ -47,7 +47,7 @@ const Header = () => {
                         </a>
                     </div>
 
-                    <Link to="/nuevo-turno" className="hidden md:block bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 hover:scale-105 transform">
+                    <Link to="/ingreso-usuario" className="hidden md:block bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-2.5 rounded-lg font-semibold transition shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 hover:scale-105 transform">
                         Reservar Cita
                     </Link>
 

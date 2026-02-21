@@ -2,16 +2,13 @@ export interface RegisterUserData {
     name: string;
     surname: string;
     username: string;
-    photo: string;
     email: string;
     password: string;
+    phone: string;
 }
 
 export interface RegisterUserResponse {
     message: string;
-    user: {
-        id: number
-    };
 }
 
 export interface LoginUserData {
@@ -54,7 +51,7 @@ export interface User {
     name?: string;
     surname?: string;
     username?: string;
-    photo?: string;
+    phone?: string;
     email?: string;
 }
 
@@ -69,4 +66,8 @@ export interface DashboardUserResponse {
 
 export interface DashboardAdminResponse {
     admin: Admin
+}
+
+export interface confirmRegisterResponse {
+    message: string;
 }

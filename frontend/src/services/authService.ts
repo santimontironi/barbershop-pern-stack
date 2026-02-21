@@ -32,3 +32,7 @@ export const logoutService = () => {
 export const meService = () => {
     return axios.get<AuthType>(`${API_URL}/me`, { withCredentials: true });
 }
+
+export const confirmRegisterService = (token: string) => {
+    return axios.get(`${API_URL}/confirmRegister/${token}`);
+}

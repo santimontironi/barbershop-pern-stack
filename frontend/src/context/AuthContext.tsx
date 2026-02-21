@@ -1,14 +1,15 @@
 import { createContext, useState, useEffect } from "react";
-import { registerUserService, loginUserService, loginAdminService, meService, logoutService } from "../services/authService";
-import type { User, RegisterUserData, LoadingState, LoginUserData, LoginAdminData } from "../types";
+import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService } from "../services/authService";
+import type { User, RegisterUserData, RegisterUserResponse, LoadingState, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types";
 
 type AuthContextType = {
     user: User | null,
-    registerUser: (data: RegisterUserData) => Promise<void>,
-    loginUser: (data: LoginUserData) => Promise<void>,
-    loginAdmin: (data: LoginAdminData) => Promise<void>,
+    registerUser: (data: RegisterUserData) => Promise<RegisterUserResponse>,
+    loginUser: (data: LoginUserData) => Promise<LoginUserResponse>,
+    loginAdmin: (data: LoginAdminData) => Promise<LoginAdminResponse>,
     logout: () => void,
     loading: LoadingState,
+    confirmRegister: (token: string) => Promise<confirmRegisterResponse>,
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -26,9 +27,7 @@ const AuthProvider = ({ children }: any) => {
         try {
             setLoading(prev => ({ ...prev, register: true }));
             const response = await registerUserService(data);
-            setUser({
-                id: response.data.user.id
-            })
+            return response.data;
         } catch (error) {
             console.error("Error registering user:", error);
             throw error;
@@ -45,6 +44,7 @@ const AuthProvider = ({ children }: any) => {
                 id: response.data.user.id,
                 role: response.data.user.role
             })
+            return response.data;
         } catch (error) {
             console.error("Error logging in user:", error);
             throw error;
@@ -61,6 +61,7 @@ const AuthProvider = ({ children }: any) => {
                 id: response.data.admin.id,
                 role: response.data.admin.role
             })
+            return response.data;
         } catch (error) {
             console.error("Error logging in admin:", error);
             throw error;
@@ -102,6 +103,16 @@ const AuthProvider = ({ children }: any) => {
         }
     }
 
+    const confirmRegister = async (token: string) => {
+        try {
+            const response = await confirmRegisterService(token);
+            return response.data;
+        } catch (error) {
+            console.error("Error confirming registration:", error);
+            throw error;
+        }
+    }
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -110,6 +121,7 @@ const AuthProvider = ({ children }: any) => {
             loginAdmin,
             logout,
             loading,
+            confirmRegister,
         }}>
             {children}
         </AuthContext.Provider>
