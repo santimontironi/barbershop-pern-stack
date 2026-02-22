@@ -20,7 +20,8 @@ const AuthProvider = ({ children }: any) => {
     const [loading, setLoading] = useState<LoadingState>({
         register: false,
         login: false,
-        dashboard: false
+        dashboard: false,
+        confirm: false
     });
 
     const registerUser = async (data: RegisterUserData) => {
@@ -105,11 +106,15 @@ const AuthProvider = ({ children }: any) => {
 
     const confirmRegister = async (token: string) => {
         try {
+            setLoading(prev => ({ ...prev, confirm: true }));
             const response = await confirmRegisterService(token);
             return response.data;
         } catch (error) {
             console.error("Error confirming registration:", error);
             throw error;
+        }
+        finally {            
+            setLoading(prev => ({ ...prev, confirm: false }));
         }
     }
 
