@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom"
-import Header from "../components/Header"
 
 const Home = () => {
     return (
         <>
-            <Header />
             <div className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden pt-20">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-red-500 rounded-full blur-3xl opacity-20"></div>
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>

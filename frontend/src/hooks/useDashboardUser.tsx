@@ -15,7 +15,6 @@ export const useDashboardUser = () => {
                 name: res.data.user.name,
                 surname: res.data.user.surname,
                 username: res.data.user.username,
-                photo: res.data.user.photo,
                 email: res.data.user.email
             });
         } catch (error) {

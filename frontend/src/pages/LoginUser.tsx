@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import type { LoginUserDataForm } from "../types"
+import GoBack from "../components/GoBack"
 
 
 const LoginUser = () => {
@@ -25,6 +26,10 @@ const LoginUser = () => {
             <div className="absolute top-0 right-0 w-96 h-96 bg-red-500 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-white rounded-full blur-3xl opacity-5 pointer-events-none"></div>
+
+            <div className="absolute top-5 left-5">
+                <GoBack url="/" />
+            </div>
 
             <div className="relative w-full max-w-md">
 
@@ -57,10 +62,10 @@ const LoginUser = () => {
                                 {...register("identifier", {
                                     required: "El correo o nombre de usuario es obligatorio"
                                 })}
-                                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
+                                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/70 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                             />
                             {errors.identifier && (
-                                <p className="mt-1.5 text-red-400 text-xs">{errors.identifier.message}</p>
+                                <p className="mt-1.5 text-red-400 text-xs font-bold">{errors.identifier.message}</p>
                             )}
                         </div>
 
@@ -74,16 +79,16 @@ const LoginUser = () => {
                                 {...register("password", {
                                     required: "La contraseña es obligatoria"
                                 })}
-                                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
+                                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/70 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                             />
                             {errors.password && (
-                                <p className="mt-1.5 text-red-400 text-xs">{errors.password.message}</p>
+                                <p className="mt-1.5 text-red-400 text-xs font-bold">{errors.password.message}</p>
                             )}
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-red-500/30 hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105 transform mt-2"
+                            className="w-full bg-linear-to-r cursor-pointer from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-red-500/30 hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105 transform mt-2"
                         >
                             Iniciar sesión
                         </button>

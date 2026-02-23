@@ -69,13 +69,12 @@ const RegisterUser = () => {
                                         type="text"
                                         placeholder="Tu nombre"
                                         {...register("name", {
-                                            required: "El nombre es obligatorio",
-                                            minLength: { value: 2, message: "Mínimo 2 caracteres" }
+                                            required: "El nombre es obligatorio"
                                         })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                     />
                                     {errors.name && (
-                                        <p className="mt-1.5 text-violet-400 text-xs">{errors.name.message}</p>
+                                        <p className="mt-1.5 text-red-400 font-bold">{errors.name.message}</p>
                                     )}
                                 </div>
 
@@ -89,10 +88,10 @@ const RegisterUser = () => {
                                         {...register("surname", {
                                             required: "El apellido es obligatorio"
                                         })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                     />
                                     {errors.surname && (
-                                        <p className="mt-1.5 text-violet-400 text-xs">{errors.surname.message}</p>
+                                        <p className="mt-1.5 text-red-400 font-bold">{errors.surname.message}</p>
                                     )}
                                 </div>
                             </div>
@@ -108,10 +107,10 @@ const RegisterUser = () => {
                                         {...register("username", {
                                             required: "El nombre de usuario es obligatorio"
                                         })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                     />
                                     {errors.username && (
-                                        <p className="mt-1.5 text-violet-400 text-xs">{errors.username.message}</p>
+                                        <p className="mt-1.5 text-red-400 font-bold">{errors.username.message}</p>
                                     )}
                                 </div>
 
@@ -129,10 +128,10 @@ const RegisterUser = () => {
                                                 message: "Teléfono inválido"
                                             }
                                         })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                     />
                                     {errors.phone && (
-                                        <p className="mt-1.5 text-violet-400 text-xs">{errors.phone.message}</p>
+                                        <p className="mt-1.5 text-red-400 font-bold">{errors.phone.message}</p>
                                     )}
                                 </div>
                             </div>
@@ -151,10 +150,10 @@ const RegisterUser = () => {
                                             message: "Correo inválido"
                                         }
                                     })}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                 />
                                 {errors.email && (
-                                    <p className="mt-1.5 text-violet-400 text-xs">{errors.email.message}</p>
+                                    <p className="mt-1.5 text-red-400 font-bold">{errors.email.message}</p>
                                 )}
                             </div>
 
@@ -168,16 +167,16 @@ const RegisterUser = () => {
                                     {...register("password", {
                                         required: "La contraseña es obligatoria"
                                     })}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30 transition backdrop-blur-sm"
+                                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                                 />
                                 {errors.password && (
-                                    <p className="mt-1.5 text-violet-400 text-xs">{errors.password.message}</p>
+                                    <p className="mt-1.5 text-red-400 font-bold">{errors.password.message}</p>
                                 )}
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full bg-linear-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-violet-500/30 hover:shadow-2xl hover:shadow-violet-500/50 hover:scale-105 transform mt-2"
+                                className="w-full cursor-pointer bg-linear-to-r from-red-500 to-red-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-red-500/30 hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105 transform mt-2"
                             >
                                 Crear cuenta
                             </button>
@@ -204,7 +203,7 @@ const RegisterUser = () => {
                         </div>
 
                         <Link
-                            to="/login"
+                            to="/ingreso-usuario"
                             className="block w-full text-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/20 px-8 py-3 rounded-xl font-semibold transition hover:scale-105 transform"
                         >
                             Iniciar sesión
