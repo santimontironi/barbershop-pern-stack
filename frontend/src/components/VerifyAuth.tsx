@@ -22,7 +22,7 @@ const VerifyAuth = ({children} : any) => {
     }
 
     if (user.role === "user") {
-        return <Navigate to="/panel" replace />;
+        return <Navigate to="/panel-usuario" replace />;
     }
 
     return children;

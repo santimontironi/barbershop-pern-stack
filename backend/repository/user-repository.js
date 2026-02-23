@@ -15,9 +15,9 @@ class UserRepository {
         return result.rows[0];
     }
 
-    loginUser = async (email,username) => {
-        const query = "SELECT * FROM users WHERE (email = $1 or username = $2) and role = 'user'";
-        const values = [email, username];
+    loginUser = async (identifier) => {
+        const query = "SELECT * FROM users WHERE (email = $1 or username = $1) and role = 'user'";
+        const values = [identifier];
         const result = await db.query(query, values);
         return result.rows[0];
     }

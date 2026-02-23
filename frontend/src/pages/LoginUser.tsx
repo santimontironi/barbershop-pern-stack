@@ -1,22 +1,32 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import type { LoginUserDataForm } from "../types"
 import GoBack from "../components/GoBack"
-
+import { useNavigate } from "react-router-dom"
 
 const LoginUser = () => {
     const auth = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
     if (!auth) return null;
 
     const { loginUser } = auth
 
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginUserDataForm>()
 
-    const onSubmit = (data: LoginUserDataForm) => {
-        loginUser(data)
+    const onSubmit = async (data: LoginUserDataForm) => {
+        try{
+            await loginUser(data)
+            navigate("/panel-usuario")
+        }
+        catch(error: any){
+            setErrorMessage(error.response?.data?.message)
+        }
         reset()
     }
 
@@ -106,6 +116,12 @@ const LoginUser = () => {
                     >
                         Crear cuenta
                     </Link>
+
+                    {errorMessage && (
+                        <div className="mt-4 bg-red-500/20 backdrop-blur-sm text-red-400 px-4 py-3 rounded-lg text-sm font-bold border border-red-500/30">
+                            {errorMessage}
+                        </div>
+                    )}
                 </div>
 
             </div>

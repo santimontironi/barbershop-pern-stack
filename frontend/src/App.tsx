@@ -12,23 +12,16 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-      </Routes>
 
-      <AuthProvider>
-        <Routes>
-          <Route path='/confirmar/:token' element={<ConfirmedUser />} />
+        <Route element={<AuthProvider />}>
+          <Route path="/confirmar/:token" element={<ConfirmedUser />} />
+          <Route path="/ingreso-usuario" element={<LoginUser />} />
+          <Route path="/registro-usuario" element={<RegisterUser />} />
 
-          <Route path='/ingreso-usuario' element={<LoginUser />} />
+          <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth> }/>
           
-          <Route path='/registro-usuario' element={<RegisterUser />} />
-
-          <Route path='/panel-usuario' element={
-            <VerifyAuth>
-              <UserPanel />
-            </VerifyAuth>
-          } />
-        </Routes>
-      </AuthProvider>
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }

@@ -52,8 +52,8 @@ class UserController {
 
     loginUser = async (req, res) => {
         try {
-            const { email, username, password } = req.body;
-            const user = await userRepository.loginUser(email, username);
+            const { identifier, password } = req.body;
+            const user = await userRepository.loginUser(identifier);
 
             if (!user) {
                 return res.status(404).json({ message: "Usuario no encontrado." });

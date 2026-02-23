@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService } from "../services/authService";
 import type { User, RegisterUserData, RegisterUserResponse, LoadingState, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types";
+import { Outlet } from "react-router-dom";
 
 type AuthContextType = {
     user: User | null,
@@ -14,7 +15,7 @@ type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const AuthProvider = ({ children }: any) => {
+const AuthProvider = () => {
 
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<LoadingState>({
@@ -128,7 +129,7 @@ const AuthProvider = ({ children }: any) => {
             loading,
             confirmRegister,
         }}>
-            {children}
+            <Outlet />
         </AuthContext.Provider>
     )
 }
