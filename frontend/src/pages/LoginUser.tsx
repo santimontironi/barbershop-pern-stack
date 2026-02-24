@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
@@ -29,6 +29,12 @@ const LoginUser = () => {
         }
         reset()
     }
+
+    useEffect(() => {
+        if (auth.user && auth.user.role === "user") {
+            navigate("/panel-usuario")
+        }
+    }, [auth.user?.role])
 
     return (
         <section className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden flex items-center justify-center px-4">

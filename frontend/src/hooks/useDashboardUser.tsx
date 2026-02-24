@@ -9,14 +9,7 @@ export const useDashboardUser = () => {
     const fetchData = async () => {
         try {
             const res = await dashboardUserService();
-            setData({
-                id: res.data.user.id,
-                role: res.data.user.role,
-                name: res.data.user.name,
-                surname: res.data.user.surname,
-                username: res.data.user.username,
-                email: res.data.user.email
-            });
+            setData(res.data.user);
         } catch (error) {
             console.error(error);
         } finally {

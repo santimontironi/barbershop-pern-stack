@@ -9,11 +9,7 @@ export const useDashboardAdmin = () => {
     const fetchData = async () => {
         try {
             const res = await dashboardAdminService();
-            setData({
-                username: res.data.admin.username,
-                id: res.data.admin.id,
-                role: res.data.admin.role
-            });
+            setData(res.data.admin);
         } catch (error) {
             console.error(error);
         } finally {

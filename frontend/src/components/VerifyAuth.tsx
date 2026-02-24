@@ -3,7 +3,8 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Loader from "./Loader";
 
-const VerifyAuth = ({children} : any) => {
+
+const VerifyAuth = ({children}: any) => {
     const auth = useContext(AuthContext);
 
     if (!auth) return null;
