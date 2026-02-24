@@ -6,6 +6,8 @@ import LoginUser from "./pages/LoginUser"
 import UserPanel from "./pages/UserPanel"
 import VerifyAuth from "./components/VerifyAuth"
 import RegisterUser from "./pages/RegisterUser"
+import LoginAdmin from "./pages/LoginAdmin"
+import AdminPanel from "./pages/AdminPanel"
 
 const App = () => {
   return (
@@ -18,7 +20,11 @@ const App = () => {
           <Route path="/ingreso-usuario" element={<LoginUser />} />
           <Route path="/registro-usuario" element={<RegisterUser />} />
 
+          <Route path="/ingreso-admin" element={<LoginAdmin />} />
+
           <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth> }/>
+
+          <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
           
         </Route>
       </Routes>

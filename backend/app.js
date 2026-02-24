@@ -4,6 +4,7 @@ import userRouter from "./routes/user-routes.js";
 import turnRouter from "./routes/turn-routes.js";
 import authRouter from "./routes/auth-routes.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,6 +12,9 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+
+// parse cookies for routes that need to read the auth cookie
+app.use(cookieParser());
 
 app.use(cors(
     {

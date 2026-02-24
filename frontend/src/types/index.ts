@@ -1,5 +1,5 @@
 export type { LoadingState } from './loading.types';
-export type { LoginUserDataForm, RegisterUserDataForm } from './form.types';
+export type { LoginUserDataForm, RegisterUserDataForm, LoginAdminDataForm } from './form.types';
 export type { GoBackProps } from './props.types'
 
 export type {

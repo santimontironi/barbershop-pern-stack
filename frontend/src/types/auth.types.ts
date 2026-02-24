@@ -56,6 +56,7 @@ export interface User {
 }
 
 export interface Admin {
+  username: string;
   id: number;
   role: string;
 }

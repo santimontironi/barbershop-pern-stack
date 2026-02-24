@@ -21,7 +21,7 @@ const AuthProvider = () => {
     const [loading, setLoading] = useState<LoadingState>({
         register: false,
         login: false,
-        dashboard: false,
+        dashboard: true,
         confirm: false
     });
 
@@ -74,7 +74,6 @@ const AuthProvider = () => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            setLoading(prev => ({ ...prev, dashboard: true }));
             try {
                 const res = await meService();
                 setUser({

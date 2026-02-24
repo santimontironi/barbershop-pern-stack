@@ -11,3 +11,8 @@ export interface RegisterUserDataForm {
     password: string;
     phone: string;
 }
+
+export interface LoginAdminDataForm {
+    username: string;
+    password: string;
+}

@@ -73,10 +73,9 @@ class UserController {
 
             const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "8h" });
 
-            res.cookie("token", token,
-            {
+            res.cookie("token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production" ? true : false,
+                secure: process.env.NODE_ENV === "production",
                 sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             });
 
@@ -106,7 +105,7 @@ class UserController {
     logoutUser = (req, res) => {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production" ? true : false,
+            secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         });
         return res.status(200).json({ message: "Cierre de sesión exitoso." });

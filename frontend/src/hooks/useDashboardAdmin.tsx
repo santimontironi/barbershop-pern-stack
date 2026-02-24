@@ -10,6 +10,7 @@ export const useDashboardAdmin = () => {
         try {
             const res = await dashboardAdminService();
             setData({
+                username: res.data.admin.username,
                 id: res.data.admin.id,
                 role: res.data.admin.role
             });
