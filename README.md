@@ -12,10 +12,10 @@ Sistema web para la gestión de turnos de una barbería. Permite a los usuarios 
 
 | Capa | Tecnología | Versión |
 |---|---|---|
-| **P**ostgreSQL | Base de datos relacional | — |
+| **P**ostgreSQL | Base de datos relacional | 20 |
 | **E**xpress | Framework de servidor HTTP | ^5.2.1 |
 | **R**eact | Librería de UI | ^19.2.0 |
-| **N**ode.js | Runtime del servidor | — |
+| **N**ode.js | Runtime del servidor | 22 |
 
 ### Frontend adicional
 
