@@ -7,6 +7,13 @@ class TurnRepository {
         const result = await db.query(query, values);
         return result.rows;
     }
+
+    createTurn = async (userId, serviceId, date, time) => {
+        const query = "INSERT INTO turns (user_id, service_id, date, time) VALUES ($1, $2, $3, $4) RETURNING *";
+        const values = [userId, serviceId, date, time];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const turnRepository = new TurnRepository();

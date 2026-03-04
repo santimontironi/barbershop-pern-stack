@@ -30,7 +30,7 @@ const AdminPanel = () => {
         <section>
             {loading ? <Loader /> : (
                 <div>
-                    {data?.username}
+                    {data?.username} {data?.role}
                 </div>
             )}
         </section>

@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import type { LoginAdminDataForm } from "../types/form.types";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const LoginAdmin = () => {
 
@@ -11,7 +11,7 @@ const LoginAdmin = () => {
 
     if (!auth) return null;
 
-    const { loginAdmin, loading } = auth;
+    const { loginAdmin, loading, user } = auth;
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginAdminDataForm>();
 
@@ -28,6 +28,12 @@ const LoginAdmin = () => {
             reset();
         }
     };
+
+    useEffect(() => {
+        if (user && user.role === "admin") {
+            navigate("/panel-admin");
+        }
+    }, [user, navigate]);
 
     return (
         <section className="min-h-screen bg-linear-to-br from-slate-900 via-indigo-900 to-slate-800 relative overflow-hidden flex items-center justify-center px-4 py-12">

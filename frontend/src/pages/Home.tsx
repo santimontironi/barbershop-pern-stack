@@ -30,7 +30,7 @@ const Home = () => {
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <Link to="/nuevo-turno" className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition shadow-xl shadow-red-500/30 hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105 transform text-center">
+                                    <Link to="/ingreso-usuario" className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition shadow-xl shadow-red-500/30 hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105 transform text-center">
                                         Agendar Turno
                                     </Link>
                                     <a href="#servicios" className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/20 px-8 py-4 rounded-lg font-semibold text-lg transition hover:scale-105 transform text-center">

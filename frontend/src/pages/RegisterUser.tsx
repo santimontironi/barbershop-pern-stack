@@ -24,7 +24,7 @@ const RegisterUser = () => {
             reset()
         } catch (error: any) {
             console.log(error.response?.data?.error);
-            setErrorMessage(error.response?.data?.message || "Error al registrar usuario");
+            setErrorMessage(error.response?.data?.message);
             reset();
         }
     };
@@ -44,12 +44,6 @@ const RegisterUser = () => {
                     <div className="absolute inset-0 bg-linear-to-r from-violet-500 to-indigo-500 rounded-3xl blur-2xl opacity-20"></div>
 
                     <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-
-                        <div className="flex justify-center mb-6">
-                            <span className="bg-violet-500/20 backdrop-blur-sm text-violet-300 px-4 py-2 rounded-full text-sm font-semibold border border-violet-500/30">
-                                💈 Crear Cuenta
-                            </span>
-                        </div>
 
                         <h1 className="text-4xl font-bold text-white text-center leading-tight mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                             Registrate

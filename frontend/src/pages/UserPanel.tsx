@@ -6,7 +6,13 @@ import { useNavigate } from "react-router-dom"
 
 const UserPanel = () => {
   const auth = useContext(AuthContext)
+
+  if (!auth) return null;
+
+  const { user } = auth
+
   const navigate = useNavigate()
+  
   const { data, loading, fetchData } = useDashboardUser()
 
   useEffect(() => {
@@ -14,10 +20,10 @@ const UserPanel = () => {
   }, [])
 
   useEffect(() => {
-    if (auth?.user && auth.user.role !== "user") {
+    if (user && user.role !== "user") {
       navigate("/panel-admin")
     }
-  }, [auth?.user, navigate])
+  }, [user, navigate])
 
   return (
     <section>

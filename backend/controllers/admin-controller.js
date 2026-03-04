@@ -31,7 +31,7 @@ class AdminController {
                 return res.status(401).json({ message: "Contraseña incorrecta." });
             }
 
-            const token = jwt.sign({ id: admin.id, role: admin.role }, process.env.JWT_SECRET, { expiresIn: "8h" });
+            const token = jwt.sign({ id: admin.id, role: admin.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
             res.cookie("token", token,
                 {

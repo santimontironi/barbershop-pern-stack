@@ -13,7 +13,7 @@ const LoginUser = () => {
 
     if (!auth) return null;
 
-    const { loginUser } = auth
+    const { loginUser, user } = auth
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -26,15 +26,15 @@ const LoginUser = () => {
         }
         catch(error: any){
             setErrorMessage(error.response?.data?.message)
+            reset()
         }
-        reset()
     }
 
     useEffect(() => {
-        if (auth.user && auth.user.role === "user") {
+        if (user && user.role === "user") {
             navigate("/panel-usuario")
         }
-    }, [auth.user?.role])
+    }, [user, navigate])
 
     return (
         <section className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden flex items-center justify-center px-4">
@@ -52,12 +52,6 @@ const LoginUser = () => {
                 <div className="absolute inset-0 bg-linear-to-r from-red-500 to-blue-500 rounded-3xl blur-2xl opacity-20"></div>
 
                 <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-
-                    <div className="flex justify-center mb-6">
-                        <span className="bg-red-500/20 backdrop-blur-sm text-red-300 px-4 py-2 rounded-full text-sm font-semibold border border-red-500/30">
-                            ✂️ Barbería Profesional
-                        </span>
-                    </div>
 
                     <h1 className="text-4xl font-bold text-white text-center leading-tight mb-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                         Bienvenido

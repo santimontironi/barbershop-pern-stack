@@ -11,6 +11,16 @@ class UserController {
         try {
             const { name, surname, username, email, password, phone } = req.body;
 
+            if (!name || !surname || !username || !email || !password || !phone) {
+                return res.status(400).json({ message: "Todos los campos son obligatorios." });
+            }
+            
+            const existingUser = await userRepository.findUserByEmailOrUsername(email, username);
+
+            if (existingUser) {
+                return res.status(400).json({ message: "El correo electrónico o nombre de usuario ya está en uso." });
+            }
+
             const passwordHash = await bcrypt.hash(password, 10);
 
             const userCreated = await userRepository.registerUser(name, surname, username, email, passwordHash, phone);
@@ -71,7 +81,7 @@ class UserController {
                 return res.status(403).json({ message: "Registro no confirmado. Por favor, confirma tu registro antes de iniciar sesión." });
             }
 
-            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "8h" });
+            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
             res.cookie("token", token, {
                 httpOnly: true,
@@ -95,7 +105,12 @@ class UserController {
             }
 
             const user = await userRepository.getUserById(userId);
-            return res.status(200).json({ user: { id: user.id, role: user.role, name: user.name, surname: user.surname, username: user.username, photo: user.photo, email: user.email } });
+
+            if (!user) {
+                return res.status(404).json({ message: "Usuario no encontrado." });
+            }
+
+            return res.status(200).json({ user: { id: user.id, role: user.role, name: user.name, surname: user.surname, username: user.username, email: user.email } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

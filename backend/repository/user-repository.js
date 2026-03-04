@@ -35,6 +35,13 @@ class UserRepository {
         const result = await db.query(query, values);
         return result.rows[0];
     }
+
+    findUserByEmailOrUsername = async (email, username) => {
+        const query = "SELECT * FROM users WHERE email = $1 OR username = $2";
+        const values = [email, username];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const userRepository = new UserRepository();
