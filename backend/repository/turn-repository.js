@@ -9,7 +9,7 @@ class TurnRepository {
     }
 
     adminTurns = async () => {
-        const query = "SELECT t.id, t.date, t.time, t.date_start, t.time_end, t.notes, s.name AS service_name, u.username AS user_name FROM turns t JOIN services s ON t.service_id = s.id JOIN users u ON t.fk_user = u.id WHERE t.state = 'active' ORDER BY t.date DESC, t.time DESC";
+        const query = "SELECT t.id, t.date, t.time, t.date_start, t.time_end, t.notes, s.name AS service_name, u.name AS user_name, u.surname as user_surname, u.phone as user_phone FROM turns t JOIN services s ON t.service_id = s.id JOIN users u ON t.fk_user = u.id WHERE t.state = 'active' ORDER BY t.date DESC, t.time DESC";
         const result = await db.query(query);
         return result.rows;
     }

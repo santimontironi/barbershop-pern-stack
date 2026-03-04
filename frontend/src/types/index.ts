@@ -102,3 +102,21 @@ export interface LoadingState {
 export interface GoBackProps {
     url: string;
 }
+
+// -------------- Turns --------------
+
+export interface TurnsUser {
+    id: number;
+    date: string;
+    time: string;
+    date_start: string;
+    time_end: string;
+    notes: string | null;
+    service_name: string;
+}
+
+export interface TurnsAdmin extends TurnsUser {
+    user_name: string;
+    user_surname: string;
+    user_phone: string;
+}
