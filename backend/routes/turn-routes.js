@@ -1,9 +1,11 @@
 import turnController from "../controllers/turn-controller.js";
 import { verifyToken } from "../middleware/auth-middleware.js";
+import { verifyRole } from "../middleware/role-middleware.js";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/myTurns", verifyToken, turnController.myTurns);
+router.get("/userTurns", verifyToken, verifyRole("user"), turnController.getAllUserTurns);
+router.get("/adminTurns", verifyToken, verifyRole("admin"), turnController.getAllAdminTurns);
 
 export default router;
