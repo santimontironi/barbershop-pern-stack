@@ -12,12 +12,7 @@ const Home = () => {
                     <div className="container mx-auto px-6 py-20 md:py-32">
                         <div className="grid md:grid-cols-2 gap-16 items-center">
                             <div className="space-y-8">
-                                <div className="inline-block">
-                                    <span className="bg-red-500/20 backdrop-blur-sm text-red-300 px-4 py-2 rounded-full text-sm font-semibold border border-red-500/30">
-                                        ✂️ Barbería Profesional
-                                    </span>
-                                </div>
-
+                            
                                 <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                                     Tu estilo,
                                     <span className="block text-transparent bg-clip-text bg-linear-to-r from-red-400 via-white to-blue-400 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)]">

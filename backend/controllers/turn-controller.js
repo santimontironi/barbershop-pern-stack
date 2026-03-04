@@ -1,10 +1,16 @@
 import turnRepository from "../repository/turn-repository.js";
 
 class TurnController {
-    myTurns = async (req, res) => {
+    getAllUserTurns = async (req, res) => {
         try{
             const userId = req.user.id;
+            
             const turns = await turnRepository.userTurns(userId);
+
+            if (!turns || turns.length === 0) {
+                return res.status(404).json({ message: "No se encontraron turnos activos." });
+            }
+
             return res.status(200).json({ turns: turns });
         }
         catch(error){
