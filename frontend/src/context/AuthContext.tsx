@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService } from "../services/authService";
-import type { User, RegisterUserData, RegisterUserResponse, LoadingState, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types";
+import type { Session, RegisterUserData, RegisterUserResponse, LoadingState, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types";
 import { Outlet } from "react-router-dom";
 
 type AuthContextType = {
-    user: User | null,
+    user: Session | null,
     registerUser: (data: RegisterUserData) => Promise<RegisterUserResponse>,
     loginUser: (data: LoginUserData) => Promise<LoginUserResponse>,
     loginAdmin: (data: LoginAdminData) => Promise<LoginAdminResponse>,
@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = () => {
 
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<Session | null>(null);
     const [loading, setLoading] = useState<LoadingState>({
         register: false,
         login: false,

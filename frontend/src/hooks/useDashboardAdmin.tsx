@@ -1,6 +1,6 @@
 import { dashboardAdminService } from "../services/authService";
 import { useState } from "react";
-import type { Admin } from "../types/auth.types";
+import type { Admin } from "../types";
 
 export const useDashboardAdmin = () => {
     const [data, setData] = useState<Admin | null>(null);

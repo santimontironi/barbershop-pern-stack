@@ -34,7 +34,7 @@ class UserController {
                 text: `Hola ${name}, ingresa a el siguiente enlace para confirmar tu registro: ${process.env.FRONTEND_URL}/confirmar/${token}`
             });
 
-            return res.status(201).json({ message: "Usuario registrado exitosamente.", user: { id: userCreated.id } });
+            return res.status(201).json({ message: "Usuario registrado exitosamente. Por favor, revisa tu correo electrónico para confirmar tu registro." });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

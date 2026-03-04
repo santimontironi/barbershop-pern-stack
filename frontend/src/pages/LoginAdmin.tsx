@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import type { LoginAdminDataForm } from "../types/form.types";
+import type { LoginAdminData } from "../types";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ const LoginAdmin = () => {
 
     const { loginAdmin, loading, user } = auth;
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginAdminDataForm>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginAdminData>();
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const navigate = useNavigate();
