@@ -115,8 +115,16 @@ export interface TurnsUser {
     service_name: string;
 }
 
+export interface TurnsUserResponse {
+    turns: TurnsUser[];
+}
+
 export interface TurnsAdmin extends TurnsUser {
     user_name: string;
     user_surname: string;
     user_phone: string;
+}
+
+export interface TurnsAdminResponse {
+    turns: TurnsAdmin[];
 }
