@@ -93,10 +93,12 @@ export interface RegisterUserDataForm {
 // -------------- UI / State --------------
 
 export interface LoadingState {
-    register: boolean;
-    login: boolean;
-    dashboard: boolean;
-    confirm: boolean;
+    register?: boolean;
+    login?: boolean;
+    dashboard?: boolean;
+    confirm?: boolean;
+    adminTurns?: boolean;
+    userTurns?: boolean;
 }
 
 export interface GoBackProps {
