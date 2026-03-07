@@ -98,7 +98,7 @@ const AuthProvider = () => {
         try {
             await logoutService();
         } catch (error) {
-            console.error("Error during logout:", error);
+            console.error("Error cerrando sesión:", error);
         } finally {
             setUser(null);
         }
@@ -106,7 +106,8 @@ const AuthProvider = () => {
 
     const confirmRegister = async (token: string) => {
         try {
-            setLoading(prev => ({ ...prev, confirm: true }));
+            setLoading(prev => (
+                { ...prev, confirm: true }));
             const response = await confirmRegisterService(token);
             return response.data;
         } catch (error) {
