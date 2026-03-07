@@ -1,6 +1,6 @@
 import { useDashboardAdmin } from "../hooks/useDashboardAdmin"
 import { useEffect } from "react"
-import Loader from "../components/Loader"
+import Loader from "../components/common/Loader"
 import { useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"

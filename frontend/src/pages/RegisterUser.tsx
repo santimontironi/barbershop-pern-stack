@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import type { RegisterUserDataForm } from "../types";
-import Loader from "../components/Loader";
+import Loader from "../components/common/Loader";
 
 const RegisterUser = () => {
     const auth = useContext(AuthContext);

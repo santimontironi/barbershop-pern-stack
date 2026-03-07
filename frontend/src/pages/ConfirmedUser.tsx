@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../components/common/Loader";
 
 const ConfirmedUser = () => {
   const { token } = useParams<{ token: string }>();

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import Loader from "./Loader";
+import { AuthContext } from "../../context/AuthContext";
+import Loader from "../common/Loader";
 
 
 const VerifyAuth = ({children}: any) => {

@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import type { LoginUserData } from "../types"
-import GoBack from "../components/GoBack"
+import GoBack from "../components/common/GoBack"
 import { useNavigate } from "react-router-dom"
 
 const LoginUser = () => {
