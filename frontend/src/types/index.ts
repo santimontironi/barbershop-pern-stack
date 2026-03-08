@@ -109,10 +109,8 @@ export interface GoBackProps {
 
 export interface TurnsUser {
     id: number;
-    date: string;
-    time: string;
-    date_start: string;
-    time_end: string;
+    date_turn: string;
+    time_turn: string;
     notes: string | null;
     service_name: string;
 }
@@ -129,4 +127,24 @@ export interface TurnsAdmin extends TurnsUser {
 
 export interface TurnsAdminResponse {
     turns: TurnsAdmin[];
+}
+
+export interface AddTurnData {
+    date: string;
+    time: string;
+    service: number;
+    notes?: string;
+}
+
+export interface AddTurnResponse {
+    message: string;
+    turn: {
+        id: number;
+        fk_user: number;
+        fk_service: number;
+        date_turn: string;
+        time_turn: string;
+        notes: string | null;
+        state: string;
+    };
 }
