@@ -1,6 +1,26 @@
 import turnRepository from "../repository/turn-repository.js";
 
 class TurnController {
+    createTurn = async (req, res) => {
+        try {
+            const userId = req.user.id;
+            const { date, time, service, notes } = req.body;
+
+            const userHasActiveTurn = await turnRepository.userHasTurn(userId)
+
+            if (userHasActiveTurn) {
+                return res.status(400).json({ message: "Ya tienes un turno activo. No puedes crear otro turno hasta que el actual sea cancelado." });
+            }
+
+            const newTurn = await turnRepository.createTurn(userId, service, date, time, notes);
+
+            return res.status(201).json({ message: "Turno creado exitosamente.", turn: newTurn });
+        }
+        catch (error) {
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
     getAllUserTurns = async (req, res) => {
         try{
             const userId = req.user.id;

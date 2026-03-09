@@ -10,7 +10,7 @@ const RegisterUser = () => {
     const auth = useAuth();
 
     const { registerUser, loading } = auth;
-    
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm<RegisterUserData>();
 
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
