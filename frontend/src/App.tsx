@@ -20,11 +20,11 @@ const App = () => {
           <Route path="/ingreso-usuario" element={<LoginUser />} />
           <Route path="/registro-usuario" element={<RegisterUser />} />
 
-          <Route path="/ingreso-admin" element={<LoginAdmin />} />
 
           <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth> }/>
 
           <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
+          <Route path="/ingreso-admin" element={<LoginAdmin />} />
           
         </Route>
       </Routes>

@@ -79,16 +79,6 @@ export interface confirmRegisterResponse {
     message: string;
 }
 
-// -------------- Forms --------------
-
-export interface RegisterUserDataForm {
-    name: string;
-    surname: string;
-    username: string;
-    email: string;
-    password: string;
-    phone: string;
-}
 
 // -------------- UI / State --------------
 

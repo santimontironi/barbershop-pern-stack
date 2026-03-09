@@ -1,39 +1,38 @@
-import { useContext, useState, useEffect } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { useState, useEffect } from "react"
+import useAuth from "../hooks/useAuth"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import type { LoginUserData } from "../types"
-import GoBack from "../components/common/GoBack"
+import GoBack from "../components/ui/GoBack"
 import { useNavigate } from "react-router-dom"
 
 const LoginUser = () => {
-    const auth = useContext(AuthContext)
+    const auth = useAuth();
+
+    const { loginUser, user } = auth;
+
     const navigate = useNavigate()
+
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    
     const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginUserData>()
 
-    useEffect(() => {
-        if (auth?.user && auth.user.role === "user") {
-            navigate("/panel-usuario")
-        }
-    }, [auth?.user, navigate])
-
-    if (!auth) return null;
-
-    const { loginUser } = auth
-
     const onSubmit = async (data: LoginUserData) => {
-        try{
+        try {
             await loginUser(data)
-            navigate("/panel-usuario")
         }
-        catch(error: any){
+        catch (error: any) {
             setErrorMessage(error.response?.data?.message)
             reset()
         }
     }
 
-    if (!auth) return null;
+    useEffect(() => {
+        if (auth?.user?.role === "user") {
+            navigate("/panel-usuario")
+        }
+    }, [user, navigate])
+
 
     return (
         <section className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden flex items-center justify-center px-4">

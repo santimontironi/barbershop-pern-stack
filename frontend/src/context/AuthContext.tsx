@@ -13,7 +13,7 @@ type AuthContextType = {
     confirmRegister: (token: string) => Promise<confirmRegisterResponse>,
 };
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = () => {
 

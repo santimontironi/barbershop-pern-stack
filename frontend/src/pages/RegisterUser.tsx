@@ -1,21 +1,22 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import type { RegisterUserDataForm } from "../types";
-import Loader from "../components/common/Loader";
+import type { RegisterUserData } from "../types";
+import Loader from "../components/ui/Loader";
+import useAuth from "../hooks/useAuth";
 
 const RegisterUser = () => {
-    const auth = useContext(AuthContext);
-    if (!auth) return null;
+
+    const auth = useAuth();
 
     const { registerUser, loading } = auth;
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<RegisterUserDataForm>();
+    
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<RegisterUserData>();
 
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const onSubmit = async (data: RegisterUserDataForm) => {
+    const onSubmit = async (data: RegisterUserData) => {
         setErrorMessage(null);
         setResponseMessage(null);
         try {
