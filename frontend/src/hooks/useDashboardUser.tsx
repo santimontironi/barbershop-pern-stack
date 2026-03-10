@@ -13,7 +13,9 @@ export const useDashboardUser = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000)
         }
     };
 

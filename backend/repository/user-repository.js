@@ -1,9 +1,9 @@
 import db from "../config/bd.js";
 
 class UserRepository {
-    registerUser = async (name, surname, username, email, password, phone) => {
-        const query = "INSERT INTO users (name, surname, username, email, password, phone, role) VALUES ($1, $2, $3, $4, $5, $6, 'user') RETURNING *";
-        const values = [name, surname, username, email, password, phone];
+    registerUser = async (name, surname, email, password, phone, photo) => {
+        const query = "INSERT INTO users (name, surname, email, password, phone, photo, role) VALUES ($1, $2, $3, $4, $5, $6, 'user') RETURNING *";
+        const values = [name, surname, email, password, phone, photo];
         const result = await db.query(query, values);
         return result.rows[0];
     }
@@ -15,9 +15,9 @@ class UserRepository {
         return result.rows[0];
     }
 
-    loginUser = async (identifier) => {
-        const query = "SELECT * FROM users WHERE (email = $1 or username = $1) and role = 'user'";
-        const values = [identifier];
+    loginUser = async (email) => {
+        const query = "SELECT * FROM users WHERE email = $1 and role = 'user'";
+        const values = [email];
         const result = await db.query(query, values);
         return result.rows[0];
     }
@@ -30,15 +30,15 @@ class UserRepository {
     }
 
     getUserById = async (userId) => {
-        const query = "SELECT id, name, surname, username, email, phone FROM users WHERE id = $1 and role = 'user'";
+        const query = "SELECT id, name, surname, username, email, phone, photo FROM users WHERE id = $1 and role = 'user'";
         const values = [userId];
         const result = await db.query(query, values);
         return result.rows[0];
     }
 
-    findUserByEmailOrUsername = async (email, username) => {
-        const query = "SELECT * FROM users WHERE email = $1 OR username = $2";
-        const values = [email, username];
+    findUserByEmail = async (email) => {
+        const query = "SELECT * FROM users WHERE email = $1";
+        const values = [email];
         const result = await db.query(query, values);
         return result.rows[0];
     }

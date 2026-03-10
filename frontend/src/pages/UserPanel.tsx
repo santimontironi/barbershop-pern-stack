@@ -1,13 +1,11 @@
 import { useDashboardUser } from "../hooks/useDashboardUser"
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 import Loader from "../components/ui/Loader"
-import { AuthContext } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import useAuth from "../hooks/useAuth"
 
 const UserPanel = () => {
-  const auth = useContext(AuthContext)
-
-  if (!auth) return null;
+  const auth = useAuth()
 
   const { user } = auth
 

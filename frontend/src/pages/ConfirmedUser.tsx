@@ -63,7 +63,7 @@ const ConfirmedUser = () => {
                 <p className="text-slate-300 text-sm mb-8">{messageResponse}</p>
 
                 <Link
-                  to="/login"
+                  to="/ingreso-usuario"
                   className="block w-full bg-linear-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-violet-500/30 hover:shadow-2xl hover:shadow-violet-500/50 hover:scale-105 transform"
                 >
                   Iniciar sesión

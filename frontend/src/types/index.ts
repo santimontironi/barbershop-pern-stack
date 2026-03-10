@@ -3,10 +3,10 @@
 export interface RegisterUserData {
     name: string;
     surname: string;
-    username: string;
     email: string;
     password: string;
     phone: string;
+    photo: FileList; //FileList es un tipo que representa una lista de archivos, comúnmente utilizado para manejar archivos seleccionados a través de un input de tipo "file" en HTML.
 }
 
 export interface RegisterUserResponse {
@@ -14,7 +14,7 @@ export interface RegisterUserResponse {
 }
 
 export interface LoginUserData {
-    identifier: string; // Puede ser email o username
+    email: string;
     password: string;
 }
 
@@ -59,6 +59,7 @@ export interface User {
     username?: string;
     phone?: string;
     email?: string;
+    photo?: string;
 }
 
 export interface Admin {

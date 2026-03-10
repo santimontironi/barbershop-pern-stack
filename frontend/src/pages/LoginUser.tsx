@@ -62,18 +62,22 @@ const LoginUser = () => {
 
                         <div>
                             <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                                Correo electrónico o nombre de usuario
+                                Correo electrónico
                             </label>
                             <input
-                                type="text"
-                                placeholder="tu@email.com o usuario123"
-                                {...register("identifier", {
-                                    required: "El correo o nombre de usuario es obligatorio"
+                                type="email"
+                                placeholder="tu@email.com"
+                                {...register("email", {
+                                    required: "El correo es obligatorio",
+                                    pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "Correo inválido"
+                                    }
                                 })}
                                 className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/70 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
                             />
-                            {errors.identifier && (
-                                <p className="mt-1.5 text-red-400 text-xs font-bold">{errors.identifier.message}</p>
+                            {errors.email && (
+                                <p className="mt-1.5 text-red-400 text-xs font-bold">{errors.email.message}</p>
                             )}
                         </div>
 

@@ -91,44 +91,21 @@ const RegisterUser = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                                        Nombre de usuario
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Tu nombre de usuario"
-                                        {...register("username", {
-                                            required: "El nombre de usuario es obligatorio"
-                                        })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
-                                    />
-                                    {errors.username && (
-                                        <p className="mt-1.5 text-red-400 font-bold">{errors.username.message}</p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                                        Teléfono
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        placeholder="+54 9 11 0000-0000"
-                                        {...register("phone", {
-                                            required: "El teléfono es obligatorio",
-                                            pattern: {
-                                                value: /^[+\d][\d\s\-().]{6,19}$/,
-                                                message: "Teléfono inválido"
-                                            }
-                                        })}
-                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
-                                    />
-                                    {errors.phone && (
-                                        <p className="mt-1.5 text-red-400 font-bold">{errors.phone.message}</p>
-                                    )}
-                                </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-300 mb-1.5">
+                                    Foto de perfil
+                                </label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    {...register("photo", {
+                                        required: "La foto de perfil es obligatoria"
+                                    })}
+                                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-white/20 file:text-white file:cursor-pointer hover:file:bg-white/30 transition"
+                                />
+                                {errors.photo && (
+                                    <p className="mt-1.5 text-red-400 font-bold">{errors.photo.message}</p>
+                                )}
                             </div>
 
                             <div>
@@ -150,6 +127,29 @@ const RegisterUser = () => {
                                 {errors.email && (
                                     <p className="mt-1.5 text-red-400 font-bold">{errors.email.message}</p>
                                 )}
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-300 mb-1.5">
+                                        Teléfono
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        placeholder="+54 9 11 0000-0000"
+                                        {...register("phone", {
+                                            required: "El teléfono es obligatorio",
+                                            pattern: {
+                                                value: /^[+\d][\d\s\-().]{6,19}$/,
+                                                message: "Teléfono inválido"
+                                            }
+                                        })}
+                                        className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-500/30 transition backdrop-blur-sm"
+                                    />
+                                    {errors.phone && (
+                                        <p className="mt-1.5 text-red-400 font-bold">{errors.phone.message}</p>
+                                    )}
+                                </div>
                             </div>
 
                             <div>

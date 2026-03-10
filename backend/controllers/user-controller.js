@@ -3,27 +3,36 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import mail_transporter from "../config/mailConfig.js";
+import cloudinary from "../config/cloudinary.js";
 
 dotenv.config();
 
 class UserController {
     registerUser = async (req, res) => {
         try {
-            const { name, surname, username, email, password, phone } = req.body;
+            const { name, surname, email, password, phone } = req.body;
 
-            if (!name || !surname || !username || !email || !password || !phone) {
+            if (!name || !surname || !email || !password || !phone) {
                 return res.status(400).json({ message: "Todos los campos son obligatorios." });
             }
-            
-            const existingUser = await userRepository.findUserByEmailOrUsername(email, username);
+
+            const existingUser = await userRepository.findUserByEmail(email);
 
             if (existingUser) {
-                return res.status(400).json({ message: "El correo electrónico o nombre de usuario ya está en uso." });
+                return res.status(400).json({ message: "El correo electrónico ya está en uso." });
             }
+
+            if (!req.file) {
+                return res.status(400).json({ message: "La foto de perfil es obligatoria." });
+            }
+
+            const fileBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+            const result = await cloudinary.uploader.upload(fileBase64, { folder: "turnero/users" });
+            const photoUrl = result.secure_url;
 
             const passwordHash = await bcrypt.hash(password, 10);
 
-            const userCreated = await userRepository.registerUser(name, surname, username, email, passwordHash, phone);
+            const userCreated = await userRepository.registerUser(name, surname, email, passwordHash, phone, photoUrl);
 
             const token = jwt.sign({ id: userCreated.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
@@ -62,8 +71,8 @@ class UserController {
 
     loginUser = async (req, res) => {
         try {
-            const { identifier, password } = req.body;
-            const user = await userRepository.loginUser(identifier);
+            const { email, password } = req.body;
+            const user = await userRepository.loginUser(email);
 
             if (!user) {
                 return res.status(404).json({ message: "Usuario no encontrado." });
