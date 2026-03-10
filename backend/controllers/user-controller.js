@@ -119,7 +119,7 @@ class UserController {
                 return res.status(404).json({ message: "Usuario no encontrado." });
             }
 
-            return res.status(200).json({ user: { id: user.id, role: user.role, name: user.name, surname: user.surname, username: user.username, email: user.email } });
+            return res.status(200).json({ user: { id: user.id, role: user.role, name: user.name, surname: user.surname, email: user.email, phone: user.phone, photo: user.photo } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

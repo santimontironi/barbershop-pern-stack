@@ -81,11 +81,7 @@ const AuthProvider = () => {
                     role: res.data.user.role
                 });
             } catch (error: any) {
-                if (error.response?.status === 401) {
-                    setUser(null);
-                } else {
-                    console.error("Error verificando sesión:", error);
-                }
+                setUser(null);
             } finally {
                 setLoading(prev => ({ ...prev, dashboard: false }));
             }

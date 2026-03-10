@@ -3,11 +3,12 @@ import { useEffect } from "react"
 import Loader from "../components/ui/Loader"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
+import HeaderDashboardUser from "../components/layout/HeaderDashboardUser"
 
 const UserPanel = () => {
   const auth = useAuth()
 
-  const { user } = auth
+  const { user, logout } = auth
 
   const navigate = useNavigate()
   
@@ -24,10 +25,10 @@ const UserPanel = () => {
   }, [user, navigate])
 
   return (
-    <section>
+    <section className="h-screen w-full">
       {loading ? <Loader /> : (
         <div>
-          {data?.name} {data?.surname}
+          <HeaderDashboardUser photo={data?.photo} name={data?.name} logout={logout} />
         </div>
       )}
     </section>

@@ -18,7 +18,7 @@ const LoginAdmin = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const onSubmit = async (data: LoginAdminDataForm) => {
+    const onSubmit = async (data: LoginAdminData) => {
         setErrorMessage(null);
         try {
             await loginAdmin(data);

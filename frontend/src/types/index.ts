@@ -56,7 +56,6 @@ export interface User {
     role?: string;
     name?: string;
     surname?: string;
-    username?: string;
     phone?: string;
     email?: string;
     photo?: string;
@@ -94,6 +93,12 @@ export interface LoadingState {
 
 export interface GoBackProps {
     url: string;
+}
+
+export interface HeaderDashboardUserProps {
+    photo?: string;
+    name?: string;
+    logout: () => void;
 }
 
 // -------------- Turns --------------
