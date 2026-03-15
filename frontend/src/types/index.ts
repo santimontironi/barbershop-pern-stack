@@ -144,3 +144,16 @@ export interface AddTurnResponse {
         state: string;
     };
 }
+
+export interface NextTurn {
+    id: number;
+    date_turn: string;
+    time_turn: string;
+    notes: string | null;
+    service_name: string;
+}
+
+export interface NextUserTurnResponse {
+    message: string;
+    nextTurn: NextTurn[];
+}

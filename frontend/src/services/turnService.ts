@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { TurnsUserResponse, TurnsAdminResponse} from "../types";
+import type { TurnsUserResponse, TurnsAdminResponse, NextUserTurnResponse} from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,4 +9,8 @@ export const getTurnsUserService = () => {
 
 export const getTurnsAdminService = () => {
     return axios.get<TurnsAdminResponse>(`${API_URL}/adminTurns`, { withCredentials: true });
+}
+
+export const nextTurnService = () => {
+    return axios.get<NextUserTurnResponse>(`${API_URL}/nextTurn`, { withCredentials: true });
 }

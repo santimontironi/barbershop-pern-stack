@@ -15,6 +15,14 @@ class TurnRepository {
         return result.rows.length > 0;  // Devuelve true si el usuario tiene un turno activo, false en caso contrario 
     }
 
+
+    userNextTurn = async (userId) => {
+        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn ASC, t.time_turn ASC LIMIT 1";
+        const values = [userId];
+        const result = await db.query(query, values);
+        return result.rows;
+    }
+
     adminTurns = async () => {
         const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name, u.name AS user_name, u.surname as user_surname, u.phone as user_phone FROM turns t JOIN services s ON t.fk_service = s.id JOIN users u ON t.fk_user = u.id WHERE t.state = 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
         const result = await db.query(query);

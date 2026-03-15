@@ -1,13 +1,15 @@
 import { createContext, useState } from "react";
-import { getTurnsAdminService, getTurnsUserService } from "../services/turnService";
-import type { TurnsUser, TurnsAdmin, LoadingState } from "../types";
+import { getTurnsAdminService, getTurnsUserService, nextTurnService } from "../services/turnService";
+import type { TurnsUser, TurnsAdmin, LoadingState, NextTurn } from "../types";
 import { Outlet } from "react-router-dom";
 
 type TurnContextType = {
     turnsUser: TurnsUser[];
     turnsAdmin: TurnsAdmin[];
+    nextTurn: NextTurn[];
     fetchTurnsUser: () => Promise<void>;
     fetchTurnsAdmin: () => Promise<void>;
+    fetchNextTurn: () => Promise<void>;
     loading: LoadingState;
 }
 
@@ -15,7 +17,11 @@ export const TurnContext = createContext<TurnContextType | null>(null);
 
 const TurnProvider = () => {
     const [turnsUser, setTurnsUser] = useState<TurnsUser[]>([]);
+
     const [turnsAdmin, setTurnsAdmin] = useState<TurnsAdmin[]>([]);
+
+    const [nextTurn, setNextTurn] = useState<NextTurn[]>([]);
+
     const [loading, setLoading] = useState<LoadingState>({
         adminTurns: false,
         userTurns: false,
@@ -46,8 +52,17 @@ const TurnProvider = () => {
         }
     }
 
+    const fetchNextTurn = async () => {
+        try {
+            const res = await nextTurnService();
+            setNextTurn(res.data.nextTurn);
+        } catch (error) {
+            console.error("Error fetching next turn:", error);
+        }
+    }
+
     return (
-        <TurnContext.Provider value={{ turnsUser, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading }}>
+        <TurnContext.Provider value={{ turnsUser, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading, nextTurn, fetchNextTurn }}>
             <Outlet />
         </TurnContext.Provider>
     )

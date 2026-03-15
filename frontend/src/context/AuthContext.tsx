@@ -18,6 +18,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 const AuthProvider = () => {
 
     const [user, setUser] = useState<Session | null>(null);
+    
     const [loading, setLoading] = useState<LoadingState>({
         register: false,
         login: false,
