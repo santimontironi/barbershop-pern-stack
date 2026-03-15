@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 type TurnContextType = {
     turnsUser: TurnsUser[];
     turnsAdmin: TurnsAdmin[];
-    nextTurn: NextTurn[];
+    nextTurn: NextTurn | null;
     fetchTurnsUser: () => Promise<void>;
     fetchTurnsAdmin: () => Promise<void>;
     fetchNextTurn: () => Promise<void>;
@@ -20,7 +20,7 @@ const TurnProvider = () => {
 
     const [turnsAdmin, setTurnsAdmin] = useState<TurnsAdmin[]>([]);
 
-    const [nextTurn, setNextTurn] = useState<NextTurn[]>([]);
+    const [nextTurn, setNextTurn] = useState<NextTurn | null>(null);
 
     const [loading, setLoading] = useState<LoadingState>({
         adminTurns: false,

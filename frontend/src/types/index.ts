@@ -101,6 +101,10 @@ export interface HeaderDashboardUserProps {
     logout: () => void;
 }
 
+export interface NextTurnProps {
+    turn: NextTurn | null;
+}
+
 // -------------- Turns --------------
 
 export interface TurnsUser {
@@ -155,5 +159,5 @@ export interface NextTurn {
 
 export interface NextUserTurnResponse {
     message: string;
-    nextTurn: NextTurn[];
+    nextTurn: NextTurn | null;
 }

@@ -3,14 +3,20 @@ import { useEffect } from "react"
 import Loader from "../components/ui/Loader"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
+import useTurns from "../hooks/useTurns"
 import HeaderDashboardUser from "../components/layout/HeaderDashboardUser"
-import NewTurnBtn from "../components/ui/NewTurnBtn"
+import NextTurn from "../components/layout/NextTurn"
 
 const UserPanel = () => {
+
   const auth = useAuth()
   const { user, logout } = auth
+
   const navigate = useNavigate()
+
   const { data, loading, fetchData } = useDashboardUser()
+
+  const { fetchNextTurn, nextTurn } = useTurns()
 
   useEffect(() => {
     fetchData()
@@ -22,6 +28,10 @@ const UserPanel = () => {
     }
   }, [user, navigate])
 
+  useEffect(() => {
+    fetchNextTurn()
+  }, [])
+
   return (
     <section className="relative h-screen w-full bg-linear-to-br from-blue-950 to-blue-900 overflow-hidden">
 
@@ -32,7 +42,7 @@ const UserPanel = () => {
         <div>
           <HeaderDashboardUser photo={data?.photo} name={data?.name} logout={logout} />
 
-          <NewTurnBtn />
+          <NextTurn turn={nextTurn} />
 
         </div>
       )}

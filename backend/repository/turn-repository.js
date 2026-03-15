@@ -5,7 +5,7 @@ class TurnRepository {
         const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
         const values = [userId];
         const result = await db.query(query, values);
-        return result.rows;
+        return result.rows; //result.rows devuelve un array con los turnos del usuario, cada turno es un objeto con las propiedades id, date_turn, time_turn, notes y service_name
     }
 
     userHasTurn = async (userId) => {
@@ -20,7 +20,7 @@ class TurnRepository {
         const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn ASC, t.time_turn ASC LIMIT 1";
         const values = [userId];
         const result = await db.query(query, values);
-        return result.rows;
+        return result.rows[0]; //el [0] devuelve el primer turno del array, que es el próximo turno del usuario en formato de objeto
     }
 
     adminTurns = async () => {
