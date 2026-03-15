@@ -16,6 +16,12 @@ class TurnController {
                 return res.status(400).json({ message: "Ya tienes un turno activo. No puedes crear otro turno hasta que el actual sea cancelado." });
             }
 
+            const invalidDateTime = await turnRepository.invalidDateTimeTurn(date, time);
+
+            if (invalidDateTime) {
+                return res.status(400).json({ message: "La fecha y hora seleccionadas ya están ocupadas por otro turno activo. Por favor, elige otra fecha u hora." });
+            }
+
             const newTurn = await turnRepository.createTurn(userId, service, date, time, notes);
 
             return res.status(201).json({ message: "Turno creado exitosamente.", turn: newTurn });

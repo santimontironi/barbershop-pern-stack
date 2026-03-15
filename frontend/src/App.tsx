@@ -8,6 +8,7 @@ import VerifyAuth from "./components/auth/VerifyAuth"
 import RegisterUser from "./pages/RegisterUser"
 import LoginAdmin from "./pages/LoginAdmin"
 import AdminPanel from "./pages/AdminPanel"
+import NewTurn from "./pages/NewTurn"
 import TurnProvider from "./context/TurnContext"
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth>} />
             <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
             <Route path="/ingreso-admin" element={<LoginAdmin />} />
+            <Route path="/nuevo-turno" element={<VerifyAuth><NewTurn /></VerifyAuth>} />
           </Route>
 
         </Route>

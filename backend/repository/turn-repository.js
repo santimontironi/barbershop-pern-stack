@@ -2,7 +2,7 @@ import db from "../config/bd.js";
 
 class TurnRepository {
     userTurns = async (userId) => {
-        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
+        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state != 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
         const values = [userId];
         const result = await db.query(query, values);
         return result.rows; //result.rows devuelve un array con los turnos del usuario, cada turno es un objeto con las propiedades id, date_turn, time_turn, notes y service_name
@@ -14,7 +14,6 @@ class TurnRepository {
         const result = await db.query(query, values);
         return result.rows.length > 0;  // Devuelve true si el usuario tiene un turno activo, false en caso contrario 
     }
-
 
     userNextTurn = async (userId) => {
         const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn ASC, t.time_turn ASC LIMIT 1";
@@ -30,10 +29,17 @@ class TurnRepository {
     }
 
     createTurn = async (userId, serviceId, dateTurn, timeTurn, notes) => {
-        const query = "INSERT INTO turns (fk_user, fk_service, date_turn, time_turn, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+        const query = "INSERT INTO turns (fk_user, fk_service, date_turn, time_turn, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *"; //returning * devuelve el turno recién insertado
         const values = [userId, serviceId, dateTurn, timeTurn, notes];
         const result = await db.query(query, values);
         return result.rows[0];
+    }
+
+    invalidDateTimeTurn = async (dateTurn, timeTurn) => {
+        const query = "SELECT * FROM turns WHERE date_turn = $1 AND time_turn = $2 AND state = 'active'";
+        const values = [dateTurn, timeTurn];
+        const result = await db.query(query, values);
+        return result.rows.length > 0;
     }
 
     cancelTurnByUser = async (turnId, userId) => {

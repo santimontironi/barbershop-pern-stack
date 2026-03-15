@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
-import { getTurnsAdminService, getTurnsUserService, nextTurnService } from "../services/turnService";
-import type { TurnsUser, TurnsAdmin, LoadingState, NextTurn } from "../types";
+import { getTurnsAdminService, getTurnsUserService, newTurnService, nextTurnService } from "../services/turnService";
+import type { TurnsUser, TurnsAdmin, LoadingState, NextTurn, NewTurnData, NewTurnResponse } from "../types";
 import { Outlet } from "react-router-dom";
 
 type TurnContextType = {
@@ -10,6 +10,7 @@ type TurnContextType = {
     fetchTurnsUser: () => Promise<void>;
     fetchTurnsAdmin: () => Promise<void>;
     fetchNextTurn: () => Promise<void>;
+    newTurn: (data: NewTurnData) => Promise<NewTurnResponse>;
     loading: LoadingState;
 }
 
@@ -25,6 +26,7 @@ const TurnProvider = () => {
     const [loading, setLoading] = useState<LoadingState>({
         adminTurns: false,
         userTurns: false,
+        createTurn: false
     });
 
     const fetchTurnsUser = async () => {
@@ -52,6 +54,20 @@ const TurnProvider = () => {
         }
     }
 
+    const newTurn = async (data: NewTurnData) => {
+        setLoading(prev => ({ ...prev, createTurn: true }));
+        try {
+            const res = await newTurnService(data);
+            await fetchNextTurn();
+            return res.data;
+        } catch (error) {
+            console.error("Error creating new turn:", error);
+            throw error;
+        } finally {
+            setLoading(prev => ({ ...prev, createTurn: false }));
+        }
+    }
+
     const fetchNextTurn = async () => {
         try {
             const res = await nextTurnService();
@@ -62,7 +78,7 @@ const TurnProvider = () => {
     }
 
     return (
-        <TurnContext.Provider value={{ turnsUser, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading, nextTurn, fetchNextTurn }}>
+        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading, nextTurn, fetchNextTurn }}>
             <Outlet />
         </TurnContext.Provider>
     )

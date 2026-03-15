@@ -89,6 +89,7 @@ export interface LoadingState {
     confirm?: boolean;
     adminTurns?: boolean;
     userTurns?: boolean;
+    createTurn?: boolean;
 }
 
 export interface GoBackProps {
@@ -129,14 +130,14 @@ export interface TurnsAdminResponse {
     turns: TurnsAdmin[];
 }
 
-export interface AddTurnData {
+export interface NewTurnData {
     date: string;
     time: string;
     service: number;
     notes?: string;
 }
 
-export interface AddTurnResponse {
+export interface NewTurnResponse {
     message: string;
     turn: {
         id: number;
