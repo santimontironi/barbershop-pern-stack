@@ -56,7 +56,7 @@ class AdminController {
                 return res.status(401).json({ message: "Administrador no autorizado." });
             }
             
-            return res.status(200).json({ admin: { id: admin.id, role: admin.role } });
+            return res.status(200).json({ admin: { username: admin.username, id: admin.id, role: admin.role } });
         }
         catch (error) {
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

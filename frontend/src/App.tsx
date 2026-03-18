@@ -10,6 +10,7 @@ import LoginAdmin from "./pages/LoginAdmin"
 import AdminPanel from "./pages/AdminPanel"
 import NewTurn from "./pages/NewTurn"
 import TurnProvider from "./context/TurnContext"
+import ServiceProvider from "./context/ServiceContext"
 
 const App = () => {
   return (
@@ -23,10 +24,12 @@ const App = () => {
           <Route path="/registro-usuario" element={<RegisterUser />} />
 
           <Route element={<TurnProvider />}>
-            <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth>} />
-            <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
-            <Route path="/ingreso-admin" element={<LoginAdmin />} />
-            <Route path="/nuevo-turno" element={<VerifyAuth><NewTurn /></VerifyAuth>} />
+            <Route element={<ServiceProvider />}>
+              <Route path="/panel-usuario" element={<VerifyAuth><UserPanel /></VerifyAuth>} />
+              <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
+              <Route path="/ingreso-admin" element={<LoginAdmin />} />
+              <Route path="/nuevo-turno" element={<VerifyAuth><NewTurn /></VerifyAuth>} />
+            </Route>
           </Route>
 
         </Route>

@@ -62,7 +62,6 @@ export interface User {
 }
 
 export interface Admin {
-    username: string;
     id: number;
     role: string;
 }
@@ -99,6 +98,10 @@ export interface GoBackProps {
 export interface HeaderDashboardUserProps {
     photo?: string;
     name?: string;
+    logout: () => void;
+}
+
+export interface HeaderDashboardAdminProps {
     logout: () => void;
 }
 
@@ -161,4 +164,29 @@ export interface NextTurn {
 export interface NextUserTurnResponse {
     message: string;
     nextTurn: NextTurn | null;
+}
+
+// -------------- Services --------------
+
+export interface Service {
+    id: number;
+    name: string;
+    description: string;
+    duration: number;
+    price: number;
+}
+
+export interface ServicesResponse {
+    services: Service[];
+}
+
+export interface NewServiceData {
+    name: string;
+    description: string;
+    duration: number;
+    price: number;
+}
+
+export interface NewServiceResponse {
+    service: Service;
 }

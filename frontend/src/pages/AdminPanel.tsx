@@ -1,20 +1,19 @@
 import { useDashboardAdmin } from "../hooks/useDashboardAdmin"
 import { useEffect } from "react"
 import Loader from "../components/ui/Loader"
-import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import HeaderDashboardAdmin from "../components/layout/HeaderDashboardAdmin"
+import useAuth from "../hooks/useAuth"
 
 const AdminPanel = () => {
 
-    const auth = useContext(AuthContext);
+    const auth = useAuth();
+
     const navigate = useNavigate();
 
-    if (!auth) return null;
+    const { user, logout } = auth;
 
-    const { user } = auth;
-
-    const { loading, fetchData, data } = useDashboardAdmin();
+    const { loading, fetchData } = useDashboardAdmin();
 
     useEffect(() => {
         fetchData();
@@ -27,11 +26,17 @@ const AdminPanel = () => {
     }, [user, navigate])
 
     return (
-        <section>
+        <section className="min-h-screen w-full">
             {loading ? <Loader /> : (
-                <div>
-                    {data?.username} {data?.role}
+                <div className="flex">
+                    <HeaderDashboardAdmin logout={logout} />
+
+                    <main>
+                        <p>HOLA</p>
+                    </main>
                 </div>
+
+                
             )}
         </section>
     )
