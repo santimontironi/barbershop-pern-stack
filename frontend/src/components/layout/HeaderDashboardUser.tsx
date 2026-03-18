@@ -1,4 +1,4 @@
-import type { HeaderDashboardUserProps } from "../../types"
+import type { HeaderDashboardUserProps } from "../../types/ui.state"
 import { Link } from "react-router-dom"
 
 const HeaderDashboardUser = ({ photo, name, logout }: HeaderDashboardUserProps) => {

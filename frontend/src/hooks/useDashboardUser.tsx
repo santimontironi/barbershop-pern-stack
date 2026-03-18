@@ -1,6 +1,6 @@
 import { dashboardUserService } from "../services/authService";
 import { useState } from "react";
-import type { User } from "../types";
+import type { User } from "../types/auth.types";
 
 export const useDashboardUser = () => {
     const [data, setData] = useState<User | null>(null);

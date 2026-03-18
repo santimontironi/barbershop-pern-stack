@@ -4,14 +4,15 @@ import Loader from "../components/ui/Loader"
 import { useNavigate } from "react-router-dom"
 import HeaderDashboardAdmin from "../components/layout/HeaderDashboardAdmin"
 import useAuth from "../hooks/useAuth"
+import useTurns from "../hooks/useTurns"
+import AdminTurn from "../components/layout/AdminTurn"
 
 const AdminPanel = () => {
 
-    const auth = useAuth();
+    const { user, logout } = useAuth();
+    const { fetchTurnsAdmin, turnsAdmin } = useTurns();
 
     const navigate = useNavigate();
-
-    const { user, logout } = auth;
 
     const { loading, fetchData } = useDashboardAdmin();
 
@@ -25,6 +26,10 @@ const AdminPanel = () => {
         }
     }, [user, navigate])
 
+    useEffect(() => {
+        fetchTurnsAdmin();
+    }, [])
+
     return (
         <section className="min-h-screen w-full">
             {loading ? <Loader /> : (
@@ -32,7 +37,9 @@ const AdminPanel = () => {
                     <HeaderDashboardAdmin logout={logout} />
 
                     <main>
-                        <p>HOLA</p>
+                        {turnsAdmin.length === 0 && <p>No hay turnos activos</p>}
+                        
+                        {turnsAdmin.map(turn => <AdminTurn key={turn.id} turn={turn} />)}
                     </main>
                 </div>
 

@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import type { Service, NewServiceResponse, NewServiceData, ServicesResponse } from "../types";
+import type { Service, NewServiceResponse, NewServiceData, ServicesResponse } from "../types/services.types";
 import { createServiceService, getServicesService } from "../services/serviceService";
 import { Outlet } from "react-router-dom";
 

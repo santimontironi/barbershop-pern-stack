@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import useAuth from "../hooks/useAuth"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
-import type { LoginUserData } from "../types"
+import type { LoginUserData } from "../types/auth.types"
 import GoBack from "../components/ui/GoBack"
 import { useNavigate } from "react-router-dom"
 

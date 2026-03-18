@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse,DashboardUserResponse, DashboardAdminResponse, AuthType } from "../types"
+import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, DashboardUserResponse, DashboardAdminResponse, AuthType } from "../types/auth.types"
 
 const API_URL = import.meta.env.VITE_API_URL;
 

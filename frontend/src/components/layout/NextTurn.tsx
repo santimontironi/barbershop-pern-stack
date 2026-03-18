@@ -1,4 +1,4 @@
-import type { NextTurnProps } from "../../types"
+import type { NextTurnProps } from "../../types/turns.types"
 import NewTurnBtn from "../ui/NewTurnBtn"
 
 const NextTurn = ({ turn }: NextTurnProps) => {

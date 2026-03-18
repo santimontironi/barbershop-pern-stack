@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { getTurnsAdminService, getTurnsUserService, newTurnService, nextTurnService } from "../services/turnService";
-import type { TurnsUser, TurnsAdmin, LoadingState, NextTurn, NewTurnData, NewTurnResponse } from "../types";
+import type { TurnsUser, TurnsAdmin, NextTurn, NewTurnData, NewTurnResponse } from "../types/turns.types";
+import type { LoadingState } from "../types/ui.state";
 import { Outlet } from "react-router-dom";
 
 type TurnContextType = {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { TurnsUserResponse, TurnsAdminResponse, NextUserTurnResponse, NewTurnData, NewTurnResponse} from "../types";
+import type { TurnsUserResponse, TurnsAdminResponse, NextUserTurnResponse, NewTurnData, NewTurnResponse } from "../types/turns.types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

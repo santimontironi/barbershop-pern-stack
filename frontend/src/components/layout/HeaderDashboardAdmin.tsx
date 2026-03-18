@@ -1,4 +1,4 @@
-import type { HeaderDashboardAdminProps } from "../../types"
+import type { HeaderDashboardAdminProps } from "../../types/ui.state"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 

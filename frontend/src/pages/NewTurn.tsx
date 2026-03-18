@@ -1,6 +1,6 @@
 import useTurns from "../hooks/useTurns"
 import { useForm } from "react-hook-form"
-import type { NewTurnData } from "../types";
+import type { NewTurnData } from "../types/turns.types";
 import { useState } from "react";
 
 const NewTurn = () => {
