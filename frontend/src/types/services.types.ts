@@ -20,3 +20,7 @@ export interface NewServiceData {
 export interface NewServiceResponse {
     service: Service;
 }
+
+export interface ServiceCardProps {
+    service: Service
+}
