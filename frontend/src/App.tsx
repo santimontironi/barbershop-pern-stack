@@ -11,6 +11,7 @@ import AdminPanel from "./pages/AdminPanel"
 import NewTurn from "./pages/NewTurn"
 import TurnProvider from "./context/TurnContext"
 import ServiceProvider from "./context/ServiceContext"
+import NewService from "./pages/NewService"
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/panel-admin" element={<VerifyAuth><AdminPanel /></VerifyAuth>} />
               <Route path="/ingreso-admin" element={<LoginAdmin />} />
               <Route path="/nuevo-turno" element={<VerifyAuth><NewTurn /></VerifyAuth>} />
+              <Route path="/agregar-servicio" element={<VerifyAuth><NewService /></VerifyAuth>} />
             </Route>
           </Route>
 

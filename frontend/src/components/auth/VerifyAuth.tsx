@@ -5,9 +5,7 @@ import Loader from "../ui/Loader";
 
 const VerifyAuth = ({children}: any) => {
     
-    const auth = useAuth();
-
-    const { user, loading } = auth;
+    const { user, loading } = useAuth();
 
     if (loading.dashboard) {
         return <Loader />;

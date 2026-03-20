@@ -6,6 +6,8 @@ export interface LoadingState {
     adminTurns?: boolean;
     userTurns?: boolean;
     createTurn?: boolean;
+    createService?: boolean;
+    fetchServices?: boolean;
 }
 
 export interface GoBackProps {

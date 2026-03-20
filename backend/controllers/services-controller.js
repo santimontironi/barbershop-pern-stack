@@ -9,6 +9,14 @@ class ServicesController {
                 return res.status(400).json({ message: "Todos los campos son obligatorios." });
             }
 
+            if(isNaN(duration) || isNaN(price)) {
+                return res.status(400).json({ message: "La duración y el precio deben ser números." });
+            }
+
+            if (duration <= 0 || price <= 0) {
+                return res.status(400).json({ message: "La duración y el precio deben ser mayores a cero." });
+            }
+
             const newService = await serviceRepository.createService(name, description, duration, price);
 
             return res.status(201).json({ service: newService });

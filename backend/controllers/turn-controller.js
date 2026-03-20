@@ -9,6 +9,10 @@ class TurnController {
             if (!date || !time || !service) {
                 return res.status(400).json({ message: "Todos los campos son obligatorios." });
             }
+            
+            if (new Date(date) < new Date()) {
+                return res.status(400).json({ message: "Fecha incorrecta. Por favor, elige una fecha futura." });
+            }
 
             const userHasActiveTurn = await turnRepository.userHasTurn(userId)
 
