@@ -5,7 +5,7 @@ import ServiceCard from "../components/layout/ServiceCard";
 
 const AllServices = () => {
 
-    const { services, loading, fetchServices } = useServices();
+    const { services, loading, fetchServices, deleteService } = useServices();
 
     useEffect(() => {
         fetchServices();
@@ -29,7 +29,7 @@ const AllServices = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {services.map(service => (
-                            <ServiceCard key={service.id} service={service} />
+                            <ServiceCard key={service.id} service={service} onDelete={() => deleteService(service.id)} />
                         ))}
                     </div>
                 </div>

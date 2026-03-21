@@ -13,6 +13,13 @@ class ServiceRepository {
         const result = await db.query(query);
         return result.rows;
     }
+
+    deleteService = async (id) => {
+        const query = "UPDATE services SET active = false WHERE id = $1 RETURNING *";
+        const values = [id];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const serviceRepository = new ServiceRepository();

@@ -40,6 +40,27 @@ class ServicesController {
             return res.status(500).json({ message: error.message });
         }
     }
+
+    deleteService = async (req, res) => {
+        try{
+            const { id } = req.params;
+
+            if(!id){
+                return res.status(400).json({ message: "El ID del servicio es obligatorio." });
+            }
+
+            const deletedService = await serviceRepository.deleteService(id);
+
+            if (!deletedService) {
+                return res.status(404).json({ message: "Servicio no encontrado." });
+            }
+
+            return res.status(200).json({ message: "Servicio eliminado exitosamente.", service: deletedService });
+        }
+        catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 const servicesController = new ServicesController();

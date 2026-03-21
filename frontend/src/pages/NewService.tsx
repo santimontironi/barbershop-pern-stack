@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useServices from "../hooks/useServices";
 import Loader from "../components/ui/Loader";
 import type { NewServiceData } from "../types/services.types";
+import Swal from "sweetalert2";
 
 const NewService = () => {
 
@@ -12,7 +13,12 @@ const NewService = () => {
     async function formSubmit(data: NewServiceData) {
         try {
             await createService(data);
-            alert("Servicio creado exitosamente");
+            Swal.fire({
+                icon: 'success',
+                title: 'Servicio creado',
+                text: 'El servicio se ha creado exitosamente',
+                confirmButtonColor: '#fbbf24',
+            });
             reset();
         }
         catch (error: any) {

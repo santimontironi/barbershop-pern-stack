@@ -22,5 +22,11 @@ export interface NewServiceResponse {
 }
 
 export interface ServiceCardProps {
-    service: Service
+    service: Service;
+    onDelete: () => void;
+}
+
+export interface ServiceDeleteResponse {
+    message: string;
+    service: Service;
 }

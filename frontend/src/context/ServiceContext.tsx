@@ -1,13 +1,14 @@
 import { createContext, useState } from "react";
-import type { Service, NewServiceResponse, NewServiceData, ServicesResponse } from "../types/services.types";
+import type { Service, NewServiceResponse, NewServiceData, ServicesResponse, ServiceDeleteResponse } from "../types/services.types";
 import type { LoadingState } from "../types/ui.state";
-import { createServiceService, getServicesService } from "../services/serviceService";
+import { createServiceService, getServicesService, deleteServiceService } from "../services/serviceService";
 import { Outlet } from "react-router-dom";
 
 type ServiceContextType = {
     services: Service[],
     createService: (data: NewServiceData) => Promise<NewServiceResponse>,
     fetchServices: () => Promise<ServicesResponse>,
+    deleteService: (id: number) => Promise<ServiceDeleteResponse>,
     loading: LoadingState
 }
 
@@ -49,7 +50,18 @@ const ServiceProvider = () => {
         }
     }
 
-    return <ServiceContext.Provider value={{services, createService, fetchServices, loading}}>
+    const deleteService = async (id: number) => {
+        try{
+            const response = await deleteServiceService(id);
+            setServices(prev => prev.filter(service => service.id !== id));
+            return response.data;
+        } catch (error) {
+            console.error("Error deleting service:", error);
+            throw error;
+        }
+    }
+
+    return <ServiceContext.Provider value={{services, createService, fetchServices, deleteService, loading}}>
         <Outlet />
     </ServiceContext.Provider>
 }
