@@ -1,8 +1,7 @@
 import type { HeaderDashboardAdminProps } from "../../types/ui.state"
 import { useState } from "react"
-import { Link } from "react-router-dom"
 
-const HeaderDashboardAdmin = ({ logout }: HeaderDashboardAdminProps) => {
+const HeaderDashboardAdmin = ({ logout, selected, onSelect }: HeaderDashboardAdminProps) => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -47,35 +46,32 @@ const HeaderDashboardAdmin = ({ logout }: HeaderDashboardAdminProps) => {
                 </div>
 
                 <nav className="flex flex-col gap-1 px-3 flex-1">
-                    <Link
-                        to="/agregar-servicio"
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200
-                            text-zinc-300 hover:bg-amber-500/20 hover:border-amber-500/40 hover:text-amber-200"
+                    <button
+                        onClick={() => { onSelect("turns"); setIsOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200 cursor-pointer
+                            ${selected === "turns" ? "bg-amber-500/20 text-amber-200 border border-amber-500/40" : "text-zinc-300 hover:text-amber-200 hover:bg-zinc-800/70"}`}
+                    >
+                        <i className="bi bi-calendar-check text-base text-amber-400" />
+                        <span>Turnos activos</span>
+                    </button>
+
+                    <button
+                        onClick={() => { onSelect("newService"); setIsOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200 cursor-pointer
+                            ${selected === "newService" ? "bg-amber-500/20 text-amber-200 border border-amber-500/40" : "text-zinc-300 hover:bg-amber-500/20 hover:border-amber-500/40 hover:text-amber-200"}`}
                     >
                         <i className="bi bi-plus-circle-fill text-base text-amber-400" />
                         <span>Agregar servicio</span>
-                    </Link>
+                    </button>
 
-                    <Link
-                        to="/historial-turnos"
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200
-                            text-zinc-300 hover:text-amber-200 hover:bg-zinc-800/70"
-                    >
-                        <i className="bi bi-clock-history text-base text-amber-400" />
-                        <span>Historial de turnos</span>
-                    </Link>
-
-                    <Link
-                        to="/listado-servicios"
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200
-                            text-zinc-300 hover:text-amber-200 hover:bg-zinc-800/70"
+                    <button
+                        onClick={() => { onSelect("services"); setIsOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200 cursor-pointer
+                            ${selected === "services" ? "bg-amber-500/20 text-amber-200 border border-amber-500/40" : "text-zinc-300 hover:text-amber-200 hover:bg-zinc-800/70"}`}
                     >
                         <i className="bi bi-scissors text-base text-amber-400" />
                         <span>Listado de servicios</span>
-                    </Link>
+                    </button>
                 </nav>
 
                 <div className="px-3 py-5 border-t border-zinc-400">

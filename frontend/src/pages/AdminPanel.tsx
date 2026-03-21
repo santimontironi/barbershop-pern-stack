@@ -1,11 +1,14 @@
 import { useDashboardAdmin } from "../hooks/useDashboardAdmin"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Loader from "../components/ui/Loader"
 import { useNavigate } from "react-router-dom"
 import HeaderDashboardAdmin from "../components/layout/HeaderDashboardAdmin"
 import useAuth from "../hooks/useAuth"
 import useTurns from "../hooks/useTurns"
 import AdminTurn from "../components/layout/AdminTurn"
+import AllServices from "./AllServices"
+import NewService from "./NewService"
+import type { AdminPanelView } from "../types/ui.state"
 
 const AdminPanel = () => {
 
@@ -15,6 +18,7 @@ const AdminPanel = () => {
     const navigate = useNavigate();
 
     const { loading, fetchData } = useDashboardAdmin();
+    const [selectedItem, setSelectedItem] = useState<AdminPanelView>("turns");
 
     useEffect(() => {
         fetchData();
@@ -34,16 +38,21 @@ const AdminPanel = () => {
         <section className="min-h-screen w-full">
             {loading ? <Loader /> : (
                 <div className="flex">
-                    <HeaderDashboardAdmin logout={logout} />
+                    <HeaderDashboardAdmin logout={logout} selected={selectedItem} onSelect={setSelectedItem} />
 
-                    <main>
-                        {turnsAdmin.length === 0 && <p>No hay turnos activos</p>}
-                        
-                        {turnsAdmin.map(turn => <AdminTurn key={turn.id} turn={turn} />)}
+                    <main className="flex-1">
+                        {selectedItem === "turns" && (
+                            <>
+                                {turnsAdmin.length === 0 && <p>No hay turnos activos</p>}
+                                {turnsAdmin.map(turn => <AdminTurn key={turn.id} turn={turn} />)}
+                            </>
+                        )}
+
+                        {selectedItem === "services" && <AllServices />}
+
+                        {selectedItem === "newService" && <NewService />}
                     </main>
                 </div>
-
-                
             )}
         </section>
     )

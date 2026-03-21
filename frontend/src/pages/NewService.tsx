@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import useServices from "../hooks/useServices";
 import Loader from "../components/ui/Loader";
-import GoBack from "../components/ui/GoBack";
 import type { NewServiceData } from "../types/services.types";
 
 const NewService = () => {
@@ -33,7 +32,6 @@ const NewService = () => {
                 <div className="w-full max-w-2xl">
 
                     <div className="mb-8 flex items-center gap-3">
-                        <GoBack url="/panel-admin" />
                         <div>
                             <h1 className="text-amber-100 font-semibold text-lg tracking-wide leading-none">
                                 Nuevo servicio
