@@ -14,6 +14,10 @@ class TurnController {
                 return res.status(400).json({ message: "Fecha incorrecta. Por favor, elige una fecha futura." });
             }
 
+            if(time < "08:00" || time > "18:00"){
+                return res.status(400).json({ message: "Hora incorrecta. Por favor, elige una hora entre las 08:00 y las 18:00." });
+            }
+
             const userHasActiveTurn = await turnRepository.userHasTurn(userId)
 
             if (userHasActiveTurn) {

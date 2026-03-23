@@ -1,14 +1,38 @@
 import type { ServiceCardProps } from "../../types/services.types"
+import Swal from "sweetalert2"
 
 const ServiceCard = ({ service, onDelete }: ServiceCardProps) => {
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Si, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete();
+        Swal.fire(
+          "Eliminado",
+          "El servicio ha sido eliminado",
+          "success"
+        )
+      }
+    })
+  }
+
   return (
     <div className="group relative flex flex-col bg-linear-to-br from-zinc-800/90 to-zinc-900 border border-zinc-700/80 rounded-3xl overflow-hidden transition-all duration-500 hover:border-yellow-500/60 hover:shadow-[0_8px_48px_rgba(234,179,8,0.18)] hover:-translate-y-1.5 shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
 
       <div className="h-0.5 w-full bg-linear-to-r from-yellow-600/60 via-yellow-400 to-yellow-600/60 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
       <button
-        onClick={onDelete}
-        className="absolute top-4 right-4 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-zinc-700/80 text-zinc-400 hover:bg-red-500/25 hover:text-red-400 transition-all duration-200 cursor-pointer opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100"
+        onClick={handleDelete}
+        className="absolute top-4 right-4 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-zinc-700/80 text-zinc-400 hover:bg-red-500/25 hover:text-red-400 transition-all duration-200 cursor-pointer"
         aria-label="Eliminar servicio"
       >
         <i className="bi bi-trash text-xs" />
