@@ -15,7 +15,7 @@ class TurnRepository {
         return result.rows.length > 0;  // Devuelve true si el usuario tiene un turno activo, false en caso contrario 
     }
 
-    userNextTurn = async (userId) => {
+    userActiveTurn = async (userId) => {
         const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state = 'active' ORDER BY t.date_turn ASC, t.time_turn ASC LIMIT 1";
         const values = [userId];
         const result = await db.query(query, values);

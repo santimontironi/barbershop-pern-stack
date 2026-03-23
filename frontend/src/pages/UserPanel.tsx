@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
 import useTurns from "../hooks/useTurns"
 import HeaderDashboardUser from "../components/layout/HeaderDashboardUser"
-import NextTurn from "../components/layout/NextTurn"
+import ActiveTurn from "../components/layout/ActiveTurn"
 
 const UserPanel = () => {
 
@@ -13,7 +13,7 @@ const UserPanel = () => {
   const { user, logout } = auth
   const navigate = useNavigate()
   const { data, loading, fetchData } = useDashboardUser()
-  const { fetchNextTurn, nextTurn } = useTurns()
+  const { fetchActiveTurn, activeTurn } = useTurns()
 
   useEffect(() => { fetchData() }, [])
 
@@ -21,7 +21,7 @@ const UserPanel = () => {
     if (user && user.role !== "user") navigate("/panel-admin")
   }, [user, navigate])
 
-  useEffect(() => { fetchNextTurn() }, [])
+  useEffect(() => { fetchActiveTurn() }, [])
 
   return (
     <section className="relative min-h-screen w-full bg-linear-to-br from-blue-950 to-blue-900 overflow-hidden">
@@ -31,7 +31,7 @@ const UserPanel = () => {
       {loading ? <Loader /> : (
         <div className="relative z-10">
           <HeaderDashboardUser photo={data?.photo} name={data?.name} logout={logout} />
-          <NextTurn turn={nextTurn} />
+          <ActiveTurn turn={activeTurn} />
         </div>
       )}
     </section>

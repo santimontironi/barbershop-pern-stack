@@ -41,7 +41,7 @@ export interface NewTurnResponse {
     };
 }
 
-export interface NextTurn {
+export interface ActiveTurn {
     id: number;
     date_turn: string;
     time_turn: string;
@@ -49,13 +49,13 @@ export interface NextTurn {
     service_name: string;
 }
 
-export interface NextUserTurnResponse {
+export interface ActiveUserTurnResponse {
     message: string;
-    nextTurn: NextTurn | null;
+    activeTurn: ActiveTurn | null;
 }
 
-export interface NextTurnProps {
-    turn: NextTurn | null;
+export interface ActiveTurnProps {
+    turn: ActiveTurn | null;
 }
 
 export interface AdminTurnProps {

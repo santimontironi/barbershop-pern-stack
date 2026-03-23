@@ -6,7 +6,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/userTurns", verifyToken, verifyRole("user"), turnController.getAllUserTurns);
-router.get("/nextTurn", verifyToken, verifyRole("user"), turnController.userNextTurn);
+router.get("/activeTurn", verifyToken, verifyRole("user"), turnController.userActiveTurn);
 router.get("/adminTurns", verifyToken, verifyRole("admin"), turnController.getAllAdminTurns);
 router.post("/newTurn", verifyToken, verifyRole("user"), turnController.createTurn);
 

@@ -1,8 +1,8 @@
-import type { NextTurnProps } from "../../types/turns.types"
+import type { ActiveTurnProps } from "../../types/turns.types"
 import { Link } from "react-router-dom"
 import { formatDateLong, formatTime } from "../../utils/formatTurn"
 
-const NextTurn = ({ turn }: NextTurnProps) => {
+const ActiveTurn = ({ turn }: ActiveTurnProps) => {
 
   return (
     <div className="px-5 md:px-8 xl:px-30 2xl:px-60 mt-10 md:mt-14 xl:mt-16">
@@ -86,4 +86,4 @@ const NextTurn = ({ turn }: NextTurnProps) => {
   )
 }
 
-export default NextTurn
+export default ActiveTurn

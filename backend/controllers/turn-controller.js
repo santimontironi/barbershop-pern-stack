@@ -56,17 +56,17 @@ class TurnController {
         }
     }
 
-    userNextTurn = async (req, res) => {
+    userActiveTurn = async (req, res) => {
         try{
             const userId = req.user.id;
 
-            const nextTurn = await turnRepository.userNextTurn(userId);
+            const activeTurn = await turnRepository.userActiveTurn(userId);
 
-            if (!nextTurn) {
+            if (!activeTurn) {
                 return res.status(404).json({ message: "No tienes turnos activos." });
             }
 
-            return res.status(200).json({ nextTurn: nextTurn });
+            return res.status(200).json({ activeTurn: activeTurn });
         }
         catch(error){
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
