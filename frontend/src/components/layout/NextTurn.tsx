@@ -1,27 +1,8 @@
 import type { NextTurnProps } from "../../types/turns.types"
 import { Link } from "react-router-dom"
+import { formatDateLong, formatTime } from "../../utils/formatTurn"
 
 const NextTurn = ({ turn }: NextTurnProps) => {
-
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr)
-
-    return date.toLocaleDateString("es-AR", {
-      weekday: "long",
-      day: "numeric",
-      month: "long"
-    })
-  }
-
-  const formatTime = (timeStr: string) => {
-    const date = new Date(`1970-01-01T${timeStr}`)
-
-    return date.toLocaleTimeString("es-AR", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true
-    })
-  }
 
   return (
     <div className="px-5 md:px-8 xl:px-30 2xl:px-60 mt-10 md:mt-14 xl:mt-16">
@@ -45,7 +26,7 @@ const NextTurn = ({ turn }: NextTurnProps) => {
                   <div className="flex items-center gap-2 text-white">
                     <i className="bi bi-calendar3 text-blue-400 text-sm md:text-base" />
                     <span className="font-semibold text-base md:text-lg xl:text-xl capitalize">
-                      {formatDate(turn.date_turn)}
+                      {formatDateLong(turn.date_turn)}
                     </span>
                   </div>
                   <div className="w-px h-5 bg-blue-600/50" />

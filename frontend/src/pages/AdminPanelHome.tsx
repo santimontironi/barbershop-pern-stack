@@ -12,7 +12,7 @@ const AdminPanelHome = () => {
     }, [])
 
     return (
-        <section className="min-h-screen bg-black px-5 py-10 md:px-10 xl:px-20 2xl:px-40">
+        <section className="min-h-screen bg-black px-5 py-20 md:px-10 xl:px-20 2xl:px-40">
             {loading.adminTurns ? <Loader /> : (
                 <div>
                     <div className="mb-10">
