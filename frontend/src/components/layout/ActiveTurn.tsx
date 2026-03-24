@@ -1,8 +1,34 @@
 import type { ActiveTurnProps } from "../../types/turns.types"
 import { Link } from "react-router-dom"
 import { formatDateLong, formatTime } from "../../utils/formatTurn"
+import useTurns from "../../hooks/useTurns"
+import Swal from "sweetalert2"
 
-const ActiveTurn = ({ turn }: ActiveTurnProps) => {
+const ActiveTurn = ({ turn, cancelTurnByUser }: ActiveTurnProps) => {
+
+  const { activeTurn } = useTurns()
+
+  const handleCancelTurnByUser = () => {
+    Swal.fire({
+      title: "¿Querés cancelar tu turno?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Si, cancelar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+          cancelTurnByUser()
+          Swal.fire(
+            "Turno cancelado",
+            "Tu turno ha sido cancelado exitosamente",
+            "success"
+          )
+        }
+    })
+  }
 
   return (
     <div className="px-5 md:px-8 xl:px-30 2xl:px-60 mt-10 md:mt-14 xl:mt-16">
@@ -53,7 +79,7 @@ const ActiveTurn = ({ turn }: ActiveTurnProps) => {
 
               {turn.notes && (
                 <>
-                  <div className="h-px bg-blue-700/30" />
+                  <div className="h-px bg-blue-400/90" />
                   <div className="flex flex-col gap-1.5">
                     <span className="text-blue-200 font-bold text-[12px] tracking-widest">Nota</span>
                     <div className="flex items-start gap-2 text-blue-300/70">
@@ -63,6 +89,13 @@ const ActiveTurn = ({ turn }: ActiveTurnProps) => {
                   </div>
                 </>
               )}
+
+              <div className="h-px bg-blue-400/90" />
+
+              <button onClick={handleCancelTurnByUser} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-red-500/40 bg-red-500/10 text-red-400 text-sm font-medium tracking-wide transition-all duration-200 hover:bg-red-500 hover:border-red-500 hover:text-white w-fit cursor-pointer">
+                <i className="bi bi-x-circle text-base" />
+                <span>Cancelar turno</span>
+              </button>
 
             </div>
           </div>
@@ -74,12 +107,14 @@ const ActiveTurn = ({ turn }: ActiveTurnProps) => {
           </div>
         )}
 
-        <div className="mt-5 md:mt-6">
-          <Link to="/nuevo-turno" className="flex items-center gap-2 md:gap-2.5 px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-linear-to-r from-red-600 to-red-500 text-white text-sm md:text-base font-medium tracking-wide shadow-[0_4px_14px_rgba(220,38,38,0.35)] hover:shadow-[0_4px_20px_rgba(220,38,38,0.55)] hover:brightness-110 transition-all duration-200 w-fit cursor-pointer">
-            <i className="bi bi-plus-circle text-base md:text-lg" />
-            <span>Nuevo turno</span>
-          </Link>
-        </div>
+        {activeTurn === null && (
+          <div className="mt-5 md:mt-6">
+            <Link to="/nuevo-turno" className="flex items-center gap-2 md:gap-2.5 px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-linear-to-r from-red-600 to-red-500 text-white text-sm md:text-base font-medium tracking-wide shadow-[0_4px_14px_rgba(220,38,38,0.35)] hover:shadow-[0_4px_20px_rgba(220,38,38,0.55)] hover:brightness-110 transition-all duration-200 w-fit cursor-pointer">
+              <i className="bi bi-plus-circle text-base md:text-lg" />
+              <span>Nuevo turno</span>
+            </Link>
+          </div>
+        )}
 
       </div>
     </div>

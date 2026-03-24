@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getTurnsAdminService, getTurnsUserService, newTurnService, activeTurnService } from "../services/turnService";
+import { getTurnsAdminService, getTurnsUserService, newTurnService, activeTurnService, cancelTurnByUserService } from "../services/turnService";
 import type { TurnsUser, TurnsAdmin, ActiveTurn, NewTurnData, NewTurnResponse } from "../types/turns.types";
 import type { LoadingState } from "../types/ui.state";
 import { Outlet } from "react-router-dom";
@@ -11,10 +11,10 @@ type TurnContextType = {
     fetchTurnsUser: () => Promise<void>;
     fetchTurnsAdmin: () => Promise<void>;
     fetchActiveTurn: () => Promise<void>;
+    cancelTurnByUser: (turnId: number) => Promise<void>;
     newTurn: (data: NewTurnData) => Promise<NewTurnResponse>;
     loading: LoadingState;
 }
-
 
 export const TurnContext = createContext<TurnContextType | null>(null);
 
@@ -28,7 +28,8 @@ const TurnProvider = () => {
     const [loading, setLoading] = useState<LoadingState>({
         adminTurns: false,
         userTurns: false,
-        createTurn: false
+        createTurn: false,
+        cancelTurnByUser: false,
     });
 
     const fetchTurnsUser = async () => {
@@ -79,8 +80,23 @@ const TurnProvider = () => {
         }
     }
 
+    const cancelTurnByUser = async (turnId: number) => {
+        setLoading(prev => ({ ...prev, cancelTurnByUser: true }));
+        try{
+            await cancelTurnByUserService(turnId);
+            await fetchActiveTurn();
+            setActiveTurn(null);
+        }
+        catch(error){
+            console.error("Error canceling turn:", error);
+            throw error;
+        } finally {
+            setLoading(prev => ({ ...prev, cancelTurnByUser: false }));
+        }
+    }
+
     return (
-        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading, activeTurn, fetchActiveTurn }}>
+        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, fetchTurnsUser, fetchTurnsAdmin, loading, activeTurn, fetchActiveTurn, cancelTurnByUser }}>
             <Outlet />
         </TurnContext.Provider>
     )

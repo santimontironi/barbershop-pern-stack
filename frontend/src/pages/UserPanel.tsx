@@ -13,15 +13,19 @@ const UserPanel = () => {
   const { user, logout } = auth
   const navigate = useNavigate()
   const { data, loading, fetchData } = useDashboardUser()
-  const { fetchActiveTurn, activeTurn } = useTurns()
+  const { fetchActiveTurn, activeTurn, cancelTurnByUser } = useTurns()
 
-  useEffect(() => { fetchData() }, [])
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   useEffect(() => {
     if (user && user.role !== "user") navigate("/panel-admin")
   }, [user, navigate])
 
-  useEffect(() => { fetchActiveTurn() }, [])
+  useEffect(() => {
+    fetchActiveTurn()
+  }, [])
 
   return (
     <section className="relative min-h-screen w-full bg-linear-to-br from-blue-950 to-blue-900 overflow-hidden">
@@ -31,7 +35,7 @@ const UserPanel = () => {
       {loading ? <Loader /> : (
         <div className="relative z-10">
           <HeaderDashboardUser photo={data?.photo} name={data?.name} logout={logout} />
-          <ActiveTurn turn={activeTurn} />
+          <ActiveTurn turn={activeTurn} cancelTurnByUser={() => activeTurn && cancelTurnByUser(activeTurn.id)} />
         </div>
       )}
     </section>

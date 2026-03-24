@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { TurnsUserResponse, TurnsAdminResponse, ActiveUserTurnResponse, NewTurnData, NewTurnResponse } from "../types/turns.types";
+import type { TurnsUserResponse, TurnsAdminResponse, ActiveUserTurnResponse, NewTurnData, NewTurnResponse, CancelTurnByUserResponse } from "../types/turns.types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,4 +17,8 @@ export const activeTurnService = () => {
 
 export const newTurnService = (data: NewTurnData) => {
     return axios.post<NewTurnResponse>(`${API_URL}/newTurn`, data, { withCredentials: true });
+}
+
+export const cancelTurnByUserService = (turnId: number) => {
+    return axios.patch<CancelTurnByUserResponse>(`${API_URL}/cancelTurnByUser/${turnId}`, {}, { withCredentials: true });
 }

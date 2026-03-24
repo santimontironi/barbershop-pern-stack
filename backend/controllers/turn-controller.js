@@ -1,4 +1,7 @@
 import turnRepository from "../repository/turn-repository.js";
+import serviceRepository from "../repository/services-repository.js";
+import mail_transporter from "../config/mailConfig.js";
+import userRepository from "../repository/user-repository.js";
 
 class TurnController {
     createTurn = async (req, res) => {
@@ -82,6 +85,44 @@ class TurnController {
             }
 
             return res.status(200).json({ turns: turns });
+        }
+        catch(error){
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
+    turnCancelByUser = async (req, res) => {
+        try{
+            const userId = req.user.id;
+
+            const { turnId } = req.params;
+
+            const cancelledTurn = await turnRepository.cancelTurnByUser(turnId, userId);
+
+            if (!cancelledTurn) {
+                return res.status(404).json({ message: "No se encontró el turno o no tienes permiso para cancelarlo." });
+            }
+
+            const userFoundedByEmail = await userRepository.getUserById(cancelledTurn.fk_user);
+            
+            const serviceFoundedById = await serviceRepository.getServiceById(cancelledTurn.fk_service);
+
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_ADMIN,
+                subject: "Turno cancelado",
+                text: `Hola admin,\n\nEl turno para el servicio "${serviceFoundedById.name}" el día ${cancelledTurn.date_turn} a las ${cancelledTurn.time_turn} ha sido cancelado por el usuario ${userFoundedByEmail.name} ${userFoundedByEmail.surname} (${userFoundedByEmail.email}).`
+            };
+
+            mail_transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error("Error al enviar el correo de cancelación:", error);
+                } else {
+                    console.log("Correo de cancelación enviado:", info.response);
+                }
+            });
+
+            return res.status(200).json({ message: "Turno cancelado exitosamente.", turn: cancelledTurn });
         }
         catch(error){
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });

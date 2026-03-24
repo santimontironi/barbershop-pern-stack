@@ -56,8 +56,22 @@ export interface ActiveUserTurnResponse {
 
 export interface ActiveTurnProps {
     turn: ActiveTurn | null;
+    cancelTurnByUser: () => void;
 }
 
 export interface AdminTurnProps {
     turn: TurnsAdmin;
+}
+
+export interface CancelTurnByUserResponse {
+    message: string;
+    turn: {
+        id: number;
+        fk_user: number;
+        fk_service: number;
+        date_turn: string;
+        time_turn: string;
+        notes: string | null;
+        state: string;
+    };
 }

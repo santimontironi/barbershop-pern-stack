@@ -9,5 +9,6 @@ router.get("/userTurns", verifyToken, verifyRole("user"), turnController.getAllU
 router.get("/activeTurn", verifyToken, verifyRole("user"), turnController.userActiveTurn);
 router.get("/adminTurns", verifyToken, verifyRole("admin"), turnController.getAllAdminTurns);
 router.post("/newTurn", verifyToken, verifyRole("user"), turnController.createTurn);
+router.patch("/cancelTurnByUser/:turnId", verifyToken, verifyRole("user"), turnController.turnCancelByUser);
 
 export default router;

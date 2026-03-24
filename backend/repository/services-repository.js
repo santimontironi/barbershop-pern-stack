@@ -20,6 +20,13 @@ class ServiceRepository {
         const result = await db.query(query, values);
         return result.rows[0];
     }
+
+    getServiceById = async (id) => {
+        const query = "SELECT id, name, description, duration, price FROM services WHERE id = $1 AND active = true";
+        const values = [id];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
 }
 
 const serviceRepository = new ServiceRepository();
