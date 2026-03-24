@@ -3,6 +3,7 @@ export interface TurnsUser {
     date_turn: string;
     time_turn: string;
     notes: string | null;
+    cancel_reason: string | null;
     service_name: string;
 }
 

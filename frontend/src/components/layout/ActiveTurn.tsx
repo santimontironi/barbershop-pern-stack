@@ -100,10 +100,10 @@ const ActiveTurn = ({ turn, cancelTurnByUser }: ActiveTurnProps) => {
             </div>
           </div>
         ) : (
-          <div className="bg-blue-900/20 border border-blue-800/30 rounded-2xl px-6 py-8 flex flex-col items-start gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+          <div className="bg-blue-900/20 border border-blue-800/30 rounded-2xl px-8 py-10 flex flex-col items-start gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
             <i className="bi bi-calendar-x text-red-400/60 text-2xl" />
-            <p className="text-red-400 text-base md:text-lg font-medium">No tenés turnos próximos</p>
-            <p className="text-blue-300/40 text-xs">Agendá uno cuando quieras</p>
+            <p className="text-red-400 text-base md:text-lg font-bold text-shadow-2xs">No tenés turnos próximos</p>
+            <p className="text-white text-xs">Agendá uno cuando quieras</p>
           </div>
         )}
 
