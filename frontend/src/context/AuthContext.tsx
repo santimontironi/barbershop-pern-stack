@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService } from "../services/authService";
 import type { Session, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types/auth.types";
-import type { LoadingState } from "../types/ui.state";
+import type { LoadingState } from "../types/ui.types";
 import { Outlet } from "react-router-dom";
 
 type AuthContextType = {

@@ -1,13 +1,14 @@
-import { useDashboardAdmin } from "../hooks/useDashboardAdmin"
+import { useDashboardAdmin } from "../../hooks/useDashboardAdmin"
 import { useEffect, useState } from "react"
-import Loader from "../components/ui/Loader"
+import Loader from "../../components/ui/Loader"
 import { useNavigate } from "react-router-dom"
-import HeaderDashboardAdmin from "../components/layout/HeaderDashboardAdmin"
-import useAuth from "../hooks/useAuth"
+import HeaderDashboardAdmin from "../../components/layout/HeaderDashboardAdmin"
+import useAuth from "../../hooks/useAuth"
 import AllServices from "./AllServices"
 import NewService from "./NewService"
-import AdminPanelHome from "./AdminPanelHome"
-import type { AdminPanelView } from "../types/ui.state"
+import AdminTurns from "./AdminTurns"
+import AllAdminTurns from "./AllAdminTurns"
+import type { AdminPanelView } from "../../types/ui.types"
 
 const AdminPanel = () => {
 
@@ -37,7 +38,9 @@ const AdminPanel = () => {
                     <HeaderDashboardAdmin logout={logout} selected={selectedItem} onSelect={setSelectedItem} />
 
                     <main className="flex-1">
-                        {selectedItem === "turns" && (<AdminPanelHome />)}
+                        {selectedItem === "turns" && (<AdminTurns />)}
+
+                        {selectedItem === "allTurns" && (<AllAdminTurns />)}
 
                         {selectedItem === "services" && <AllServices />}
 

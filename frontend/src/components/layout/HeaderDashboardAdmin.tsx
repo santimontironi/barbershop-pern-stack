@@ -1,4 +1,4 @@
-import type { HeaderDashboardAdminProps } from "../../types/ui.state"
+import type { HeaderDashboardAdminProps } from "../../types/ui.types"
 import { useState } from "react"
 
 const HeaderDashboardAdmin = ({ logout, selected, onSelect }: HeaderDashboardAdminProps) => {
@@ -53,6 +53,15 @@ const HeaderDashboardAdmin = ({ logout, selected, onSelect }: HeaderDashboardAdm
                     >
                         <i className="bi bi-calendar-check text-base text-amber-400" />
                         <span>Turnos activos</span>
+                    </button>
+
+                    <button
+                        onClick={() => { onSelect("allTurns"); setIsOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-200 cursor-pointer
+                            ${selected === "allTurns" ? "bg-amber-500/20 text-amber-200 border border-amber-500/40" : "text-zinc-300 hover:text-amber-200 hover:bg-zinc-800/70"}`}
+                    >
+                        <i className="bi bi-calendar2 text-base text-amber-400" />
+                        <span>Historial de turnos</span>
                     </button>
 
                     <button

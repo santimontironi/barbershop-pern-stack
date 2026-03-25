@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import type { RegisterUserData } from "../types/auth.types";
-import Loader from "../components/ui/Loader";
-import useAuth from "../hooks/useAuth";
+import type { RegisterUserData } from "../../types/auth.types";
+import Loader from "../../components/ui/Loader";
+import useAuth from "../../hooks/useAuth";
 
 const RegisterUser = () => {
 

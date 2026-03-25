@@ -28,6 +28,12 @@ class TurnRepository {
         return result.rows;
     }
 
+    adminAllTurns = async () => {
+        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, t.cancel_reason, t.state, s.name AS service_name, u.name AS user_name, u.surname as user_surname, u.phone as user_phone, u.photo as user_photo FROM turns t JOIN services s ON t.fk_service = s.id JOIN users u ON t.fk_user = u.id WHERE t.state != 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
+        const result = await db.query(query);
+        return result.rows;
+    }
+
     createTurn = async (userId, serviceId, dateTurn, timeTurn, notes) => {
         const query = "INSERT INTO turns (fk_user, fk_service, date_turn, time_turn, notes) VALUES ($1, $2, $3, $4, $5) RETURNING *"; //returning * devuelve el turno recién insertado
         const values = [userId, serviceId, dateTurn, timeTurn, notes];

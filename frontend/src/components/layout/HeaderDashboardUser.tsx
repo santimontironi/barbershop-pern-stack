@@ -1,5 +1,4 @@
-import type { HeaderDashboardUserProps } from "../../types/ui.state"
-import { Link } from "react-router-dom"
+import type { HeaderDashboardUserProps } from "../../types/ui.types"
 
 const HeaderDashboardUser = ({ photo, name, logout }: HeaderDashboardUserProps) => {
   return (
@@ -25,10 +24,6 @@ const HeaderDashboardUser = ({ photo, name, logout }: HeaderDashboardUserProps) 
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <Link to="/editar-perfil" className="flex items-center gap-2 px-3 py-2 md:px-4 xl:px-5 xl:py-2.5 rounded-lg border border-blue-700 text-blue-200 text-xs xl:text-sm font-medium tracking-wide transition-all duration-200 hover:border-white hover:text-white hover:bg-white/10 cursor-pointer">
-            <i className="bi bi-person-gear text-base xl:text-lg" />
-            <span>Editar perfil</span>
-          </Link>
           <button onClick={logout} className="flex items-center gap-2 px-3 py-2 md:px-4 xl:px-5 xl:py-2.5 rounded-lg border border-red-500 bg-red-500/10 text-red-400 text-xs xl:text-sm font-medium tracking-wide transition-all duration-200 hover:bg-red-500 hover:text-white cursor-pointer">
             <i className="bi bi-box-arrow-right text-base xl:text-lg" />
             <span>Cerrar sesión</span>

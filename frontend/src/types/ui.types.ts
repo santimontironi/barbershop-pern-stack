@@ -4,6 +4,7 @@ export interface LoadingState {
     dashboard?: boolean;
     confirm?: boolean;
     adminTurns?: boolean;
+    allAdminTurns?: boolean;
     userTurns?: boolean;
     createTurn?: boolean;
     createService?: boolean;
@@ -21,10 +22,23 @@ export interface HeaderDashboardUserProps {
     logout: () => void;
 }
 
-export type AdminPanelView = "turns" | "services" | "newService"; //type union para las vistas del panel de admin
+export type AdminPanelView = "turns" | "services" | "newService" | "allTurns"; //type union para las vistas del panel de admin
 
 export interface HeaderDashboardAdminProps {
     logout: () => void;
     selected: AdminPanelView; //vista seleccionada
     onSelect: (item: AdminPanelView) => void; //funcion para cambiar la vista seleccionada, se pasa al header para que pueda cambiar la vista desde el menu. es como un setState
+}
+
+export interface ScheduleRowProps {
+    day: string
+    hours: string
+    open: boolean
+    isLast: boolean
+}
+
+export interface ServiceItemProps {
+    icon: string
+    title: string
+    desc: string
 }

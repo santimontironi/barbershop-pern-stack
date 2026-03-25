@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { GoBackProps } from "../../types/ui.state"
+import type { GoBackProps } from "../../types/ui.types"
 
 const GoBack = ({ url }: GoBackProps) => {
     return (

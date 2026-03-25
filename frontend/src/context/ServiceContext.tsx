@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import type { Service, NewServiceResponse, NewServiceData, ServicesResponse, ServiceDeleteResponse } from "../types/services.types";
-import type { LoadingState } from "../types/ui.state";
-import { createServiceService, getServicesService, deleteServiceService } from "../services/serviceService";
+import type { LoadingState } from "../types/ui.types";
+import { createServiceService, getServicesService, deleteServiceService } from "../services/services";
 import { Outlet } from "react-router-dom";
 
 type ServiceContextType = {

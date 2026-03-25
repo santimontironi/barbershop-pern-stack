@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import useServices from "../hooks/useServices";
-import Loader from "../components/ui/Loader";
-import type { NewServiceData } from "../types/services.types";
+import useServices from "../../hooks/useServices";
+import Loader from "../../components/ui/Loader";
+import type { NewServiceData } from "../../types/services.types";
 import Swal from "sweetalert2";
 
 const NewService = () => {

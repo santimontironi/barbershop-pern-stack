@@ -1,7 +1,7 @@
-import useServices from "../hooks/useServices"
+import useServices from "../../hooks/useServices"
 import { useEffect } from "react";
-import Loader from "../components/ui/Loader";
-import ServiceCard from "../components/layout/ServiceCard";
+import Loader from "../../components/ui/Loader";
+import ServiceCard from "../../components/admin/ServiceCard";
 
 const AllServices = () => {
 

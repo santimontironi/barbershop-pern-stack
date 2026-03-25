@@ -2,8 +2,7 @@ import { Link } from "react-router-dom"
 
 const Home = () => {
     return (
-        <>
-            <div className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden pt-20">
+        <div className="min-h-screen bg-linear-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden pt-20">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-red-500 rounded-full blur-3xl opacity-20"></div>
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-white rounded-full blur-3xl opacity-5"></div>
@@ -12,7 +11,6 @@ const Home = () => {
                     <div className="container mx-auto px-6 py-20 md:py-32">
                         <div className="grid md:grid-cols-2 gap-16 items-center">
                             <div className="space-y-8">
-                            
                                 <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                                     Tu estilo,
                                     <span className="block text-transparent bg-clip-text bg-linear-to-r from-red-400 via-white to-blue-400 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)]">
@@ -42,7 +40,6 @@ const Home = () => {
 
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-linear-to-r from-red-500 to-blue-500 rounded-3xl blur-2xl opacity-30"></div>
-
                                     <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
                                         <img
                                             src="/images/logo.jpg"
@@ -50,11 +47,9 @@ const Home = () => {
                                             className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-2xl shadow-xl"
                                         />
                                     </div>
-
                                     <div className="absolute -top-4 -right-4 w-20 h-20 bg-linear-to-br from-red-700 to-red-800 rounded-full flex items-center justify-center shadow-lg">
                                         <span className="text-3xl">✂️</span>
                                     </div>
-
                                     <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-linear-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                                         <span className="text-2xl">💈</span>
                                     </div>
@@ -75,8 +70,7 @@ const Home = () => {
                         </div>
                     </div>
                 </section>
-            </div>
-        </>
+        </div>
     )
 }
 

@@ -1,7 +1,7 @@
-import useTurns from "../hooks/useTurns"
-import useServices from "../hooks/useServices";
+import useTurns from "../../hooks/useTurns"
+import useServices from "../../hooks/useServices";
 import { useForm } from "react-hook-form"
-import type { NewTurnData } from "../types/turns.types";
+import type { NewTurnData } from "../../types/turns.types";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +67,28 @@ const NewTurn = () => {
                 <label htmlFor="time" className="block text-blue-200/70 text-xs tracking-widest mb-2">
                   <i className="bi bi-clock text-red-400 mr-1.5" />Hora
                 </label>
-                <input type="time" id="time" className="w-full bg-blue-950/40 border border-blue-800/50 text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-red-500/70 focus:ring-2 focus:ring-red-500/20 transition-all duration-200 scheme-dark" {...register("time", { required: "La hora es obligatoria" })} />
+                <select id="time" className="w-full bg-blue-950/40 border border-blue-800/50 text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-red-500/70 focus:ring-2 focus:ring-red-500/20 transition-all duration-200 cursor-pointer scheme-dark" {...register("time", { required: "La hora es obligatoria" })}>
+                  <option value="" className="bg-blue-950 text-blue-300/50">Seleccioná un horario</option>
+                  <option value="08:00" className="bg-blue-950 text-white">08:00</option>
+                  <option value="08:30" className="bg-blue-950 text-white">08:30</option>
+                  <option value="09:00" className="bg-blue-950 text-white">09:00</option>
+                  <option value="09:30" className="bg-blue-950 text-white">09:30</option>
+                  <option value="10:00" className="bg-blue-950 text-white">10:00</option>
+                  <option value="10:30" className="bg-blue-950 text-white">10:30</option>
+                  <option value="11:00" className="bg-blue-950 text-white">11:00</option>
+                  <option value="11:30" className="bg-blue-950 text-white">11:30</option>
+                  <option value="12:00" className="bg-blue-950 text-white">12:00</option>
+                  <option value="12:30" className="bg-blue-950 text-white">12:30</option>
+                  <option value="13:00" className="bg-blue-950 text-white">13:00</option>
+                  <option value="13:30" className="bg-blue-950 text-white">13:30</option>
+                  <option value="14:00" className="bg-blue-950 text-white">14:00</option>
+                  <option value="14:30" className="bg-blue-950 text-white">14:30</option>
+                  <option value="15:00" className="bg-blue-950 text-white">15:00</option>
+                  <option value="15:30" className="bg-blue-950 text-white">15:30</option>
+                  <option value="16:00" className="bg-blue-950 text-white">16:00</option>
+                  <option value="16:30" className="bg-blue-950 text-white">16:30</option>
+                  <option value="17:00" className="bg-blue-950 text-white">17:00</option>
+                </select>
                 {errors.time && <span className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><i className="bi bi-exclamation-circle" />{errors.time.message}</span>}
               </div>
             </div>
@@ -79,7 +100,7 @@ const NewTurn = () => {
               <select id="service" className="w-full bg-blue-950/40 border border-blue-800/50 text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-red-500/70 focus:ring-2 focus:ring-red-500/20 transition-all duration-200 cursor-pointer scheme-dark" {...register("service", { required: "El servicio es obligatorio" })}>
                 <option value="" className="bg-blue-950 text-blue-300/50">Selecciona un servicio</option>
                 {services.map(service => (
-                  <option key={service.id} value={service.id} className="bg-blue-950 text-white">{service.name}</option>
+                  <option key={service.id} value={service.id} className="bg-blue-950 text-white">{service.name} (${service.price} - duración de: {service.duration <= 1 ? `${service.duration} hora` : `${service.duration} horas`})</option>
                 ))}
               </select>
               {errors.service && <span className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><i className="bi bi-exclamation-circle" />{errors.service.message}</span>}
