@@ -7,3 +7,84 @@ html{
 body{
     font-family: "Montserrat", sans-serif;
 }
+
+.custom-datepicker {
+    background-color: #0d1b35;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 0.75rem;
+    font-family: "Montserrat", sans-serif;
+    color: #e2e8f0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.custom-datepicker .react-datepicker__header {
+    background-color: #0a1628;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding-top: 0.75rem;
+}
+
+.custom-datepicker .react-datepicker__current-month {
+    color: #bfdbfe;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.custom-datepicker .react-datepicker__day-name {
+    color: #60a5fa;
+    font-size: 0.75rem;
+}
+
+.custom-datepicker .react-datepicker__day {
+    color: #1b68ce;
+    border-radius: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.custom-datepicker .react-datepicker__day:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.custom-datepicker .react-datepicker__day--selected {
+    background-color: #ef4444;
+    color: white;
+    font-weight: 600;
+}
+
+.custom-datepicker .react-datepicker__day--selected:hover {
+    background-color: #dc2626;
+}
+
+.custom-datepicker .react-datepicker__day--keyboard-selected {
+    background-color: rgba(239, 68, 68, 0.3);
+    color: white;
+}
+
+.custom-datepicker .react-datepicker__day--disabled {
+    color: rgba(255, 255, 255, 0.15);
+    cursor: not-allowed;
+}
+
+.custom-datepicker .react-datepicker__day--disabled:hover {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.custom-datepicker .react-datepicker__day--outside-month {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-datepicker .react-datepicker__navigation-icon::before {
+    border-color: #60a5fa;
+}
+
+.custom-datepicker .react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+    border-color: #93c5fd;
+}
+
+.custom-datepicker .react-datepicker__day--today {
+    font-weight: 700;
+    color: #fbbf24;
+}

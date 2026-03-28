@@ -52,14 +52,16 @@ const CancelTurnModal = ({ onClose, onConfirm }: CancelTurnModalProps) => {
                             Motivo de cancelación
                             <span className="text-zinc-600 font-normal">(opcional)</span>
                         </label>
-                        <textarea
-                            value={reason}
-                            onChange={(e) => setReason(e.target.value)}
-                            maxLength={200}
-                            rows={4}
-                            placeholder="Ingresá el motivo de la cancelación..."
-                            className="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 resize-none transition-colors duration-200"
-                        />
+                        <select name="cancelReason" id="cancelReason" className="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/30 transition-colors duration-200" value={reason} onChange={(e) => setReason(e.target.value)}>
+                            <option value="">Seleccioná un motivo</option>
+                            <option value="cliente_no_asiste">Cliente no asiste</option>
+                            <option value="cliente_llega_tarde">Cliente llega tarde</option>
+                            <option value="problema_interno">Problema interno</option>
+                            <option value="servicio_no_disponible">Servicio no disponible</option>
+                            <option value="corte_de_luz">Corte de luz</option>
+                            <option value="emergencia">Emergencia</option>
+                            <option value="otro">Otro</option>
+                        </select>
                         <span className="text-zinc-600 text-xs text-right font-mono">{reason.length}/200</span>
                     </div>
 

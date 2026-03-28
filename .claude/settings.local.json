@@ -4,7 +4,8 @@
       "Bash(npm uninstall:*)",
       "mcp__excalidraw__read_checkpoint",
       "mcp__excalidraw__export_to_excalidraw",
-      "mcp__excalidraw__create_view"
+      "mcp__excalidraw__create_view",
+      "Bash(npm install:*)"
     ]
   }
 }

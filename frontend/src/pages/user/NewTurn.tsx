@@ -1,10 +1,15 @@
 import useTurns from "../../hooks/useTurns"
 import useServices from "../../hooks/useServices";
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import type { NewTurnData } from "../../types/turns.types";
 import Swal from "sweetalert2";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker, { registerLocale } from "react-datepicker";
+import { es } from "date-fns/locale";
+import "react-datepicker/dist/react-datepicker.css";
+
+registerLocale("es", es);
 
 const NewTurn = () => {
 
@@ -17,8 +22,17 @@ const NewTurn = () => {
     fetchServices();
   }, [])
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<NewTurnData>();
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<NewTurnData>();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const today = new Date(); // Obtiene la fecha actual
+  today.setHours(0, 0, 0, 0); // Establece la hora a 00:00:00 para comparar solo la fecha
+
+  // Función para deshabilitar domingos y lunes
+  const filterDate = (date: Date) => {
+    const day = date.getDay(); // Obtiene el día de la semana
+    return day !== 0 && day !== 1; // deshabilita domingo (0) y lunes (1)
+  };
 
   const formSubmit = async (data: NewTurnData) => {
     try {
@@ -59,7 +73,26 @@ const NewTurn = () => {
                 <label htmlFor="date" className="block text-blue-200/70 text-xs tracking-widest mb-2">
                   <i className="bi bi-calendar3 text-red-400 mr-1.5" />Fecha
                 </label>
-                <input type="date" id="date" className="w-full bg-blue-950/40 border border-blue-800/50 text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-red-500/70 focus:ring-2 focus:ring-red-500/20 transition-all duration-200 scheme-dark" {...register("date", { required: "La fecha es obligatoria" })} />
+                <Controller
+                  name="date"
+                  control={control}
+                  rules={{ required: "La fecha es obligatoria" }}
+                  render={({ field }) => (
+                    <DatePicker
+                      id="date"
+                      selected={field.value ? new Date(field.value + "T00:00:00") : null} // Convertir la fecha en un objeto Date
+                      onChange={(date: Date | null) => field.onChange(date ? date.toISOString().split("T")[0] : "")} // Convertir de nuevo a string en formato YYYY-MM-DD
+                      filterDate={filterDate} // Función para deshabilitar domingos y lunes
+                      minDate={new Date(today.getTime() + 86400000)} // Deshabilitar fechas anteriores a hoy
+                      dateFormat="dd/MM/yyyy" // Formato de la fecha
+                      placeholderText="Seleccioná una fecha"
+                      locale="es" // Establecer el idioma a español
+                      className="w-full bg-blue-950/40 border border-blue-800/50 text-white text-sm rounded-xl px-4 py-3 outline-none focus:border-red-500/70 focus:ring-2 focus:ring-red-500/20 transition-all duration-200"
+                      calendarClassName="custom-datepicker"
+                      autoComplete="off"
+                    />
+                  )}
+                />
                 {errors.date && <span className="text-red-400 text-xs mt-1.5 flex items-center gap-1"><i className="bi bi-exclamation-circle" />{errors.date.message}</span>}
               </div>
 
