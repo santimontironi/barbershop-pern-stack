@@ -18,98 +18,107 @@
   </defs>
 
   <!-- ── ACTOR HEADERS ── -->
-  <!-- Usuario: center=85 -->
   <rect x="20" y="44" width="130" height="36" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
-  <text x="85" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a5f">Usuario</text>
+  <text x="85" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a5f">Usuario</text>
 
-  <!-- Frontend: center=245 -->
   <rect x="180" y="44" width="130" height="36" rx="8" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
-  <text x="245" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#2d1b69">Frontend</text>
+  <text x="245" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#2d1b69">Frontend</text>
 
-  <!-- Backend: center=405 -->
   <rect x="340" y="44" width="130" height="36" rx="8" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
-  <text x="405" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a4d2e">Backend</text>
+  <text x="405" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a4d2e">Backend</text>
 
-  <!-- PostgreSQL: center=565 -->
   <rect x="500" y="44" width="130" height="36" rx="8" fill="#c3fae8" stroke="#22c55e" stroke-width="2"/>
-  <text x="565" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a4d4d">PostgreSQL</text>
+  <text x="565" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a4d4d">PostgreSQL</text>
 
-  <!-- Nodemailer: center=725 -->
   <rect x="660" y="44" width="130" height="36" rx="8" fill="#ffd8a8" stroke="#f59e0b" stroke-width="2"/>
-  <text x="725" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#5c3d1a">Nodemailer</text>
+  <text x="725" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#5c3d1a">Nodemailer</text>
 
   <!-- ── LIFELINES ── -->
-  <line x1="85"  y1="80" x2="85"  y2="615" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <line x1="245" y1="80" x2="245" y2="615" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <line x1="405" y1="80" x2="405" y2="615" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <line x1="565" y1="80" x2="565" y2="615" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,4"/>
-  <line x1="725" y1="80" x2="725" y2="615" stroke="#ccc" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="85"  y1="80" x2="85"  y2="615" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="245" y1="80" x2="245" y2="615" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="405" y1="80" x2="405" y2="615" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="565" y1="80" x2="565" y2="615" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="725" y1="80" x2="725" y2="615" stroke="#d0d0d0" stroke-width="1.5" stroke-dasharray="5,4"/>
 
   <!-- ── SECTION: REGISTRO ── -->
-  <rect x="10" y="96" width="880" height="202" rx="6" fill="#dbe4ff" fill-opacity="0.35" stroke="#4a9eed" stroke-width="0.5"/>
-  <text x="16" y="112" font-size="12" font-weight="bold" fill="#3b82f6">Registro</text>
+  <rect x="10" y="96" width="880" height="202" rx="6" fill="#dbe4ff" fill-opacity="0.4" stroke="#4a9eed" stroke-width="1"/>
+  <text x="16" y="113" font-size="14" font-weight="bold" fill="#3b82f6">Registro</text>
 
   <!-- m1: Usuario → Frontend -->
-  <line x1="88" y1="128" x2="241" y2="128" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="165" y="122" text-anchor="middle" font-size="11" fill="#555">Completa formulario + foto</text>
+  <line x1="88" y1="130" x2="241" y2="130" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="95" y="117" width="142" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="166" y="130" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">Completa formulario + foto</text>
 
   <!-- m2: Frontend → Backend -->
   <line x1="248" y1="158" x2="401" y2="158" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="324" y="152" text-anchor="middle" font-size="11" fill="#555">POST /registerUser</text>
+  <rect x="256" y="145" width="136" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="324" y="158" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">POST /registerUser</text>
 
   <!-- m3: Backend → PostgreSQL -->
   <line x1="408" y1="188" x2="561" y2="188" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="485" y="182" text-anchor="middle" font-size="11" fill="#555">INSERT usuario (is_confirmed=false)</text>
+  <rect x="414" y="175" width="141" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="485" y="188" text-anchor="middle" font-size="12" font-weight="600" fill="#1e1e1e">INSERT usuario (unconfirmed)</text>
 
   <!-- m4: Backend → Nodemailer -->
   <line x1="408" y1="218" x2="721" y2="218" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-orange)"/>
-  <text x="562" y="212" text-anchor="middle" font-size="11" fill="#555">Enviar email con token JWT (1h)</text>
+  <rect x="420" y="205" width="246" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="543" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">Enviar email con token JWT (1h)</text>
 
   <!-- m5: Backend → Frontend (dashed return) -->
-  <line x1="402" y1="270" x2="249" y2="270" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-left)"/>
-  <text x="325" y="264" text-anchor="middle" font-size="11" fill="#555">200 OK</text>
+  <line x1="402" y1="268" x2="249" y2="268" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-left)"/>
+  <rect x="287" y="255" width="52" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="313" y="268" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">200 OK</text>
 
   <!-- ── SECTION: CONFIRMACION ── -->
-  <rect x="10" y="308" width="880" height="110" rx="6" fill="#e5dbff" fill-opacity="0.35" stroke="#8b5cf6" stroke-width="0.5"/>
-  <text x="16" y="324" font-size="12" font-weight="bold" fill="#7c3aed">Confirmacion de cuenta</text>
+  <rect x="10" y="308" width="880" height="110" rx="6" fill="#e5dbff" fill-opacity="0.4" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="16" y="325" font-size="14" font-weight="bold" fill="#7c3aed">Confirmacion de cuenta</text>
 
   <!-- m6: Usuario → Frontend -->
-  <line x1="88" y1="340" x2="241" y2="340" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="165" y="334" text-anchor="middle" font-size="11" fill="#555">Click en link del email</text>
+  <line x1="88" y1="342" x2="241" y2="342" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="92" y="329" width="143" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="164" y="342" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">Click en link del email</text>
 
   <!-- m7: Frontend → Backend -->
-  <line x1="248" y1="368" x2="401" y2="368" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="324" y="362" text-anchor="middle" font-size="11" fill="#555">GET /confirmRegister/:token</text>
+  <line x1="248" y1="370" x2="401" y2="370" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="250" y="357" width="148" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="324" y="370" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">GET /confirmRegister/:token</text>
 
   <!-- m8: Backend → PostgreSQL -->
   <line x1="408" y1="398" x2="561" y2="398" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="485" y="392" text-anchor="middle" font-size="11" fill="#555">UPDATE is_confirmed=true</text>
+  <rect x="412" y="385" width="147" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="485" y="398" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">UPDATE is_confirmed=true</text>
 
   <!-- ── SECTION: LOGIN ── -->
-  <rect x="10" y="428" width="880" height="182" rx="6" fill="#d3f9d8" fill-opacity="0.35" stroke="#22c55e" stroke-width="0.5"/>
-  <text x="16" y="444" font-size="12" font-weight="bold" fill="#15803d">Login y sesion</text>
+  <rect x="10" y="428" width="880" height="182" rx="6" fill="#d3f9d8" fill-opacity="0.4" stroke="#22c55e" stroke-width="1"/>
+  <text x="16" y="445" font-size="14" font-weight="bold" fill="#15803d">Login y sesion</text>
 
   <!-- m9: Usuario → Frontend -->
-  <line x1="88" y1="460" x2="241" y2="460" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="165" y="454" text-anchor="middle" font-size="11" fill="#555">Email + contrasena</text>
+  <line x1="88" y1="462" x2="241" y2="462" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="96" y="449" width="141" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="167" y="462" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">Email + contrasena</text>
 
   <!-- m10: Frontend → Backend -->
-  <line x1="248" y1="488" x2="401" y2="488" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="324" y="482" text-anchor="middle" font-size="11" fill="#555">POST /loginUser</text>
+  <line x1="248" y1="490" x2="401" y2="490" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="261" y="477" width="103" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="312" y="490" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">POST /loginUser</text>
 
   <!-- m11: Backend → PostgreSQL -->
-  <line x1="408" y1="516" x2="561" y2="516" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="485" y="510" text-anchor="middle" font-size="11" fill="#555">SELECT + bcrypt.compare</text>
+  <line x1="408" y1="518" x2="561" y2="518" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="412" y="505" width="147" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="485" y="518" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">SELECT + bcrypt.compare</text>
 
-  <!-- m12: Backend → Frontend (dashed return) Set-Cookie -->
+  <!-- m12: Backend → Frontend (dashed) Set-Cookie -->
   <line x1="402" y1="546" x2="249" y2="546" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-left)"/>
-  <text x="325" y="540" text-anchor="middle" font-size="11" fill="#555">Set-Cookie JWT (httpOnly, 7d)</text>
+  <rect x="248" y="533" width="152" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="324" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">Set-Cookie JWT (httpOnly, 7d)</text>
 
   <!-- m13: Frontend → Backend GET /me -->
   <line x1="248" y1="574" x2="401" y2="574" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr-purple)"/>
-  <text x="324" y="568" text-anchor="middle" font-size="11" fill="#555">GET /me (cookie automatica)</text>
+  <rect x="250" y="561" width="150" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="325" y="574" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">GET /me (cookie automatica)</text>
 
-  <!-- m14: Backend → Frontend (dashed return) { id, role } -->
-  <line x1="402" y1="600" x2="249" y2="600" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-left)"/>
-  <text x="325" y="594" text-anchor="middle" font-size="11" fill="#555">{ id, role }</text>
+  <!-- m14: Backend → Frontend (dashed) { id, role } -->
+  <line x1="402" y1="602" x2="249" y2="602" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-left)"/>
+  <rect x="289" y="589" width="68" height="18" rx="3" fill="white" fill-opacity="0.92"/>
+  <text x="323" y="602" text-anchor="middle" font-size="13" font-weight="600" fill="#1e1e1e">{ id, role }</text>
 </svg>
