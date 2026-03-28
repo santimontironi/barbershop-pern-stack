@@ -30,3 +30,7 @@ export const cancelTurnByUserService = (turnId: number) => {
 export const cancelTurnByAdminService = (turnId: number, cancel_reason: string) => {
     return axios.patch(`${API_URL}/cancelTurnByAdmin/${turnId}`, { cancel_reason }, { withCredentials: true });
 }
+
+export const finishTurnService = (turnId: number) => {
+    return axios.patch(`${API_URL}/finishTurn/${turnId}`, {}, { withCredentials: true });
+}

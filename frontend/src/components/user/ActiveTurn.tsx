@@ -31,8 +31,8 @@ const ActiveTurn = ({ turn, cancelTurnByUser }: ActiveTurnProps) => {
   }
 
   return (
-    <div className="px-5 md:px-8 xl:px-30 2xl:px-60 mt-10 md:mt-14 xl:mt-16">
-      <div className="w-fit max-w-lg">
+    <div className="w-full">
+      <div className="w-full">
 
         <h1 className="text-blue-100 font-bold text-[10px] xl:text-xs tracking-widest uppercase mb-5 md:mb-6 flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />

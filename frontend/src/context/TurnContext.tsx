@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getTurnsAdminService, getTurnsUserService, newTurnService, activeTurnService, cancelTurnByUserService, cancelTurnByAdminService, getAllAdminTurnsService } from "../services/turnService";
+import { getTurnsAdminService, getTurnsUserService, newTurnService, activeTurnService, cancelTurnByUserService, cancelTurnByAdminService, getAllAdminTurnsService, finishTurnService } from "../services/turnService";
 import type { TurnsUser, TurnsAdmin, TurnsAdminAll, ActiveTurn, NewTurnData, NewTurnResponse } from "../types/turns.types";
 import type { LoadingState } from "../types/ui.types";
 import { Outlet } from "react-router-dom";
@@ -15,6 +15,7 @@ type TurnContextType = {
     fetchActiveTurn: () => Promise<void>;
     cancelTurnByUser: (turnId: number) => Promise<void>;
     cancelTurnByAdmin: (turnId: number, cancel_reason: string) => Promise<void>;
+    finishTurn: (turnId: number) => Promise<void>;
     newTurn: (data: NewTurnData) => Promise<NewTurnResponse>;
     loading: LoadingState;
 }
@@ -127,8 +128,19 @@ const TurnProvider = () => {
         }
     }
 
+    const finishTurn = async (turnId: number) => {
+        try {
+            await finishTurnService(turnId);
+            setTurnsAdmin(prev => prev.filter(t => t.id !== turnId));
+        }
+        catch (error) {
+            console.error("Error finishing turn:", error);
+            throw error;
+        }
+    }
+
     return (
-        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, allTurnsAdmin, fetchTurnsUser, fetchTurnsAdmin, fetchAllTurnsAdmin, loading, activeTurn, fetchActiveTurn, cancelTurnByUser, cancelTurnByAdmin }}>
+        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, allTurnsAdmin, fetchTurnsUser, fetchTurnsAdmin, fetchAllTurnsAdmin, loading, activeTurn, fetchActiveTurn, cancelTurnByUser, cancelTurnByAdmin, finishTurn }}>
             <Outlet />
         </TurnContext.Provider>
     )

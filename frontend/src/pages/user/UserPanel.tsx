@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth"
 import useTurns from "../../hooks/useTurns"
 import HeaderDashboardUser from "../../components/layout/HeaderDashboardUser"
 import ActiveTurn from "../../components/user/ActiveTurn"
-import UserTurnsCard from "../../components/user/UserTurnsCard"
+import TurnsHistoryTable from "../../components/user/TurnsHistoryTable"
 
 const UserPanel = () => {
 
@@ -14,7 +14,7 @@ const UserPanel = () => {
   const { user, logout } = auth
   const navigate = useNavigate()
   const { data, loading: dashboardLoading, fetchData } = useDashboardUser()
-  const { fetchActiveTurn, activeTurn, cancelTurnByUser, fetchTurnsUser, turnsUser, loading: turnsLoading } = useTurns()
+  const { fetchActiveTurn, activeTurn, cancelTurnByUser, fetchTurnsUser, turnsUser } = useTurns()
 
   useEffect(() => {
     fetchData()
@@ -40,33 +40,21 @@ const UserPanel = () => {
       {dashboardLoading ? <Loader /> : (
         <div className="relative z-10">
           <HeaderDashboardUser photo={data?.photo} name={data?.name} logout={logout} />
-          <ActiveTurn turn={activeTurn} cancelTurnByUser={() => activeTurn && cancelTurnByUser(activeTurn.id)} />
 
-          {/* ===== HISTORIAL DE TURNOS ===== */}
-          <div className="px-5 md:px-8 xl:px-30 2xl:px-60 mt-10 md:mt-14 pb-16">
-            <div className="w-fit max-w-5xl">
+          <div className="px-5 md:px-8 xl:px-16 2xl:px-32 mt-10 md:mt-14 xl:mt-16 pb-16 flex flex-col md:flex-row gap-10 md:gap-10 xl:gap-14 items-start">
+
+            <div className="w-full md:w-[45%] md:shrink-0">
+              <ActiveTurn turn={activeTurn} cancelTurnByUser={() => activeTurn && cancelTurnByUser(activeTurn.id)} />
+            </div>
+
+            <div className="w-full md:flex-1 min-w-0">
               <h2 className="text-blue-100 font-bold text-[10px] xl:text-xs tracking-widest uppercase mb-5 md:mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-400 inline-block" />
                 Historial de turnos
               </h2>
-
-              {turnsLoading.userTurns ? (
-                <div className="flex items-center gap-2 text-blue-300/50 text-sm py-6">
-                  <i className="bi bi-arrow-repeat animate-spin" />
-                  Cargando historial...
-                </div>
-              ) : turnsUser.length === 0 ? (
-                <div className="bg-blue-900/20 border border-blue-800/30 rounded-2xl px-8 py-8 flex flex-col items-start gap-2 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-                  <i className="bi bi-clock-history text-blue-400/40 text-2xl" />
-                  <p className="text-slate-300 text-base font-medium">Sin historial de turnos</p>
-                  <p className="text-slate-500 text-xs">Tus turnos pasados aparecerán aquí</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {turnsUser.map(turn => <UserTurnsCard key={turn.id} turn={turn} />)}
-                </div>
-              )}
+              <TurnsHistoryTable turns={turnsUser} />
             </div>
+
           </div>
         </div>
       )}

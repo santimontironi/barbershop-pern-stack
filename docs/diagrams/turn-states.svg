@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4a9eed"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1e1e1e">Estados de un Turno</text>
+
+  <!-- ── START: Nuevo Turno ── -->
+  <ellipse cx="380" cy="75" rx="140" ry="35" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="380" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a5f">Nuevo Turno</text>
+  <text x="380" y="87" text-anchor="middle" font-size="11" fill="#444">POST /newTurn</text>
+
+  <!-- Arrow: start → active -->
+  <line x1="380" y1="110" x2="380" y2="148" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="408" y="134" font-size="11" fill="#555">validaciones OK</text>
+
+  <!-- ── ACTIVE STATE ── -->
+  <rect x="265" y="152" width="230" height="60" rx="10" fill="#b2f2bb" stroke="#22c55e" stroke-width="3"/>
+  <text x="380" y="180" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a4d2e">state: active</text>
+  <text x="380" y="200" text-anchor="middle" font-size="10" fill="#666">turno vigente y visible</text>
+
+  <!-- Arrow: active → cancelled (diagonal left) -->
+  <line x1="295" y1="212" x2="148" y2="292" stroke="#ef4444" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="185" y="243" text-anchor="middle" font-size="11" fill="#ef4444" font-weight="bold">cancelTurnByUser</text>
+  <text x="185" y="257" text-anchor="middle" font-size="11" fill="#ef4444">o cancelTurnByAdmin</text>
+
+  <!-- Arrow: active → finished (diagonal right) -->
+  <line x1="465" y1="212" x2="610" y2="292" stroke="#4a9eed" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="567" y="243" text-anchor="middle" font-size="11" fill="#4a9eed" font-weight="bold">finishTurn</text>
+  <text x="567" y="257" text-anchor="middle" font-size="11" fill="#4a9eed">(solo admin)</text>
+
+  <!-- ── CANCELLED STATE ── -->
+  <rect x="28" y="296" width="230" height="62" rx="10" fill="#ffc9c9" stroke="#ef4444" stroke-width="2"/>
+  <text x="143" y="322" text-anchor="middle" font-size="15" font-weight="bold" fill="#5c1a1a">state: cancelled</text>
+  <text x="143" y="342" text-anchor="middle" font-size="10" fill="#666">cancelado por usuario o admin</text>
+
+  <!-- ── FINISHED STATE ── -->
+  <rect x="502" y="296" width="230" height="62" rx="10" fill="#c3fae8" stroke="#22c55e" stroke-width="2"/>
+  <text x="617" y="322" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a4d2e">state: finished</text>
+  <text x="617" y="342" text-anchor="middle" font-size="10" fill="#666">completado por admin</text>
+
+  <!-- ── NOTES ── -->
+  <!-- Validation note -->
+  <rect x="570" y="48" width="178" height="92" rx="7" fill="#fff3bf" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="659" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#5c3d1a">Validaciones:</text>
+  <text x="659" y="84" text-anchor="middle" font-size="11" fill="#555">&#x2022; Fecha futura</text>
+  <text x="659" y="99" text-anchor="middle" font-size="11" fill="#555">&#x2022; Hora 08:00 - 17:00</text>
+  <text x="659" y="114" text-anchor="middle" font-size="11" fill="#555">&#x2022; Un turno activo a la vez</text>
+  <text x="659" y="129" text-anchor="middle" font-size="11" fill="#555">&#x2022; Slot disponible</text>
+
+  <!-- Email notification note for cancelled -->
+  <rect x="28" y="372" width="230" height="62" rx="7" fill="#fff3bf" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="143" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#5c3d1a">Emails automaticos:</text>
+  <text x="143" y="406" text-anchor="middle" font-size="11" fill="#555">&#x2022; Al admin si cancela el usuario</text>
+  <text x="143" y="421" text-anchor="middle" font-size="11" fill="#555">&#x2022; Al usuario si cancela el admin</text>
+</svg>

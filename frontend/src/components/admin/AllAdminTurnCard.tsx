@@ -46,7 +46,11 @@ const AllAdminTurnCard = ({ turn }: AllAdminTurnProps) => {
                     </div>
                 )}
 
-                {turn.cancel_reason ? (
+                {turn.state === 'finished' ? (
+                    <div className="bg-green-950/30 border border-green-800/30 rounded-lg px-4 py-3">
+                        <span className="text-green-400/60 uppercase tracking-widest text-[9px] font-mono block mb-1">Completado</span>
+                    </div>
+                ) : turn.cancel_reason ? (
                     <div className="bg-red-950/30 border border-red-800/30 rounded-lg px-4 py-3">
                         <span className="text-red-400/60 uppercase tracking-widest text-[9px] font-mono block mb-1">Motivo cancelación</span>
                         <p className="text-red-300/80 text-sm leading-relaxed">{turn.cancel_reason}</p>

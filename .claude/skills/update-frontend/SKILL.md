@@ -1,6 +1,6 @@
 ---
-name: upgrade-frontend
-description: Activa esta skill para actualizar y mejorar el frontend del proyecto. Proporciona instrucciones detalladas y ejemplos para guiar a los usuarios en el proceso de actualización del frontend, incluyendo cambios en la interfaz de usuario, componentes, estilos y cualquier otra modificación relevante.
+name: update-frontend
+description: Activa esta skill para actualizar y mejorar el frontend del proyecto. Actúa como desarrollador frontend y proporciona instrucciones detalladas y ejemplos para guiar a los usuarios en el proceso de actualización del frontend, incluyendo cambios en la interfaz de usuario, componentes, estilos y cualquier otra modificación relevante.
 ---
 
 <!-- Tip: Use /create-skill in chat to generate content with agent assistance -->

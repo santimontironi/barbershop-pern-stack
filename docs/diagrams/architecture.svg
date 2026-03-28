@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="530" viewBox="0 0 900 530" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#1e1e1e">Turnero PERN — Arquitectura del Sistema</text>
+
+  <!-- ── FRONTEND ZONE ── -->
+  <rect x="10" y="48" width="262" height="468" rx="10" fill="#dbe4ff" fill-opacity="0.55" stroke="#4a9eed" stroke-width="1.5"/>
+  <rect x="10" y="48" width="262" height="38" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="141" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a5f">FRONTEND — React + TypeScript</text>
+
+  <rect x="22" y="98" width="238" height="58" rx="7" fill="#a5d8ff" stroke="#4a9eed" stroke-width="1"/>
+  <text x="141" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a5f">Paginas</text>
+  <text x="141" y="137" text-anchor="middle" font-size="11" fill="#444">Landing / UserPanel / AdminPanel</text>
+
+  <rect x="22" y="168" width="238" height="58" rx="7" fill="#b2f2bb" stroke="#22c55e" stroke-width="1"/>
+  <text x="141" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">Contextos</text>
+  <text x="141" y="207" text-anchor="middle" font-size="11" fill="#444">Auth / Turn / Service</text>
+
+  <rect x="22" y="238" width="238" height="58" rx="7" fill="#c3fae8" stroke="#22c55e" stroke-width="1"/>
+  <text x="141" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">Servicios HTTP</text>
+  <text x="141" y="277" text-anchor="middle" font-size="11" fill="#444">axios + Cookies + API_URL</text>
+
+  <rect x="22" y="308" width="238" height="58" rx="7" fill="#fff3bf" stroke="#f59e0b" stroke-width="1"/>
+  <text x="141" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c3d1a">Types TypeScript</text>
+  <text x="141" y="347" text-anchor="middle" font-size="11" fill="#444">turns / auth / services / ui</text>
+
+  <rect x="22" y="378" width="238" height="58" rx="7" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="141" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c3d1a">Librerias UI</text>
+  <text x="141" y="417" text-anchor="middle" font-size="11" fill="#444">TailwindCSS / SweetAlert2 / RHF</text>
+
+  <!-- ── BACKEND ZONE ── -->
+  <rect x="314" y="48" width="272" height="468" rx="10" fill="#e5dbff" fill-opacity="0.55" stroke="#8b5cf6" stroke-width="1.5"/>
+  <rect x="314" y="48" width="272" height="38" rx="10" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="450" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#2d1b69">BACKEND — Node.js + Express</text>
+
+  <rect x="326" y="98" width="248" height="58" rx="7" fill="#d0bfff" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="450" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#2d1b69">Rutas + Middleware</text>
+  <text x="450" y="137" text-anchor="middle" font-size="11" fill="#444">verifyToken (JWT) + verifyRole</text>
+
+  <rect x="326" y="168" width="248" height="58" rx="7" fill="#b2f2bb" stroke="#22c55e" stroke-width="1"/>
+  <text x="450" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">Controladores</text>
+  <text x="450" y="207" text-anchor="middle" font-size="11" fill="#444">Turn / User / Admin / Service</text>
+
+  <rect x="326" y="238" width="248" height="58" rx="7" fill="#c3fae8" stroke="#22c55e" stroke-width="1"/>
+  <text x="450" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">Repositorios</text>
+  <text x="450" y="277" text-anchor="middle" font-size="11" fill="#444">SQL queries via node-postgres</text>
+
+  <rect x="326" y="308" width="248" height="58" rx="7" fill="#ffc9c9" stroke="#ef4444" stroke-width="1"/>
+  <text x="450" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c1a1a">Seguridad</text>
+  <text x="450" y="347" text-anchor="middle" font-size="11" fill="#444">JWT / bcrypt / cookie-parser</text>
+
+  <rect x="326" y="378" width="248" height="58" rx="7" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="450" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c3d1a">Config + Utils</text>
+  <text x="450" y="417" text-anchor="middle" font-size="11" fill="#444">Multer / Cloudinary / Nodemailer</text>
+
+  <!-- ── DATA ZONE ── -->
+  <rect x="628" y="48" width="262" height="468" rx="10" fill="#d3f9d8" fill-opacity="0.55" stroke="#22c55e" stroke-width="1.5"/>
+  <rect x="628" y="48" width="262" height="38" rx="10" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
+  <text x="759" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">DATOS Y SERVICIOS</text>
+
+  <rect x="640" y="98" width="238" height="68" rx="7" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
+  <text x="759" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a4d2e">PostgreSQL</text>
+  <text x="759" y="139" text-anchor="middle" font-size="11" fill="#444">turns · users · services · admins</text>
+  <text x="759" y="155" text-anchor="middle" font-size="10" fill="#666">(4 tablas)</text>
+
+  <rect x="640" y="178" width="238" height="58" rx="7" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="759" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c3d1a">Cloudinary</text>
+  <text x="759" y="217" text-anchor="middle" font-size="11" fill="#444">Fotos de perfil de usuarios</text>
+
+  <rect x="640" y="248" width="238" height="58" rx="7" fill="#ffc9c9" stroke="#ef4444" stroke-width="1"/>
+  <text x="759" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c1a1a">Nodemailer</text>
+  <text x="759" y="287" text-anchor="middle" font-size="11" fill="#444">Emails registro y cancelacion</text>
+
+  <rect x="640" y="318" width="238" height="58" rx="7" fill="#fff3bf" stroke="#f59e0b" stroke-width="1"/>
+  <text x="759" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#5c3d1a">Sesion HTTP</text>
+  <text x="759" y="357" text-anchor="middle" font-size="11" fill="#444">JWT via Cookies (withCredentials)</text>
+
+  <!-- ── ARROWS ── -->
+  <!-- Frontend → Backend: HTTP REST -->
+  <line x1="261" y1="268" x2="313" y2="268" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+  <rect x="261" y="251" width="52" height="16" rx="3" fill="white" fill-opacity="0.9"/>
+  <text x="287" y="263" text-anchor="middle" font-size="10" fill="#8b5cf6" font-weight="bold">HTTP REST</text>
+
+  <!-- Backend → PostgreSQL: SQL -->
+  <line x1="575" y1="132" x2="627" y2="132" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="601" y="126" text-anchor="middle" font-size="10" fill="#22c55e" font-weight="bold">SQL</text>
+
+  <!-- Backend → Cloudinary -->
+  <line x1="575" y1="207" x2="627" y2="207" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Backend → Nodemailer -->
+  <line x1="575" y1="277" x2="627" y2="277" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr)"/>
+</svg>

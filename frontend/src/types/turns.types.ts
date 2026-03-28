@@ -4,11 +4,20 @@ export interface TurnsUser {
     time_turn: string;
     notes: string | null;
     cancel_reason: string | null;
+    state?: string;
     service_name: string;
 }
 
 export interface TurnsUserResponse {
     turns: TurnsUser[];
+}
+
+export interface TurnsHistoryTableProps {
+    turns: TurnsUser[]
+}
+
+export interface UserTurnsCardProps {
+    turn: TurnsUser
 }
 
 export interface TurnsAdmin extends TurnsUser {

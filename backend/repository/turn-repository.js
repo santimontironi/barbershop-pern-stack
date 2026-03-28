@@ -2,7 +2,7 @@ import db from "../config/bd.js";
 
 class TurnRepository {
     userTurns = async (userId) => {
-        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, t.cancel_reason, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state != 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
+        const query = "SELECT t.id, t.date_turn, t.time_turn, t.notes, t.cancel_reason, t.state, s.name AS service_name FROM turns t JOIN services s ON t.fk_service = s.id WHERE t.fk_user = $1 AND t.state != 'active' ORDER BY t.date_turn DESC, t.time_turn DESC";
         const values = [userId];
         const result = await db.query(query, values);
         return result.rows; //result.rows devuelve un array con los turnos del usuario, cada turno es un objeto con las propiedades id, date_turn, time_turn, notes y service_name
@@ -58,6 +58,13 @@ class TurnRepository {
     cancelTurnByAdmin = async (turnId, cancel_reason) => {
         const query = "UPDATE turns SET state = 'cancelled', cancel_reason = $2 WHERE id = $1 RETURNING *";
         const values = [turnId, cancel_reason];
+        const result = await db.query(query, values);
+        return result.rows[0];
+    }
+
+    finishTurn = async (turnId) => {
+        const query = "UPDATE turns SET state = 'finished' WHERE id = $1 AND state = 'active' RETURNING *";
+        const values = [turnId];
         const result = await db.query(query, values);
         return result.rows[0];
     }

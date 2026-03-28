@@ -16,7 +16,7 @@ const ScheduleSection = () => {
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-                    <ScheduleRow day="Lunes"     hours="08:00 — 17:00" open={true}  isLast={false} />
+                    <ScheduleRow day="Lunes"     hours="Cerrado"       open={false}  isLast={false} />
                     <ScheduleRow day="Martes"    hours="08:00 — 17:00" open={true}  isLast={false} />
                     <ScheduleRow day="Miércoles" hours="08:00 — 17:00" open={true}  isLast={false} />
                     <ScheduleRow day="Jueves"    hours="08:00 — 17:00" open={true}  isLast={false} />

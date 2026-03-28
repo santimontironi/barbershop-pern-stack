@@ -12,5 +12,6 @@ router.get("/allAdminTurns", verifyToken, verifyRole("admin"), turnController.ge
 router.post("/newTurn", verifyToken, verifyRole("user"), turnController.createTurn);
 router.patch("/cancelTurnByUser/:turnId", verifyToken, verifyRole("user"), turnController.turnCancelByUser);
 router.patch("/cancelTurnByAdmin/:turnId", verifyToken, verifyRole("admin"), turnController.turnCancelByAdmin);
+router.patch("/finishTurn/:turnId", verifyToken, verifyRole("admin"), turnController.finishTurn);
 
 export default router;

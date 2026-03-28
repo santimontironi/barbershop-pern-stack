@@ -1,41 +1,48 @@
+import { useState } from "react"
 import type { AdminTurnProps } from "../../types/turns.types"
 import { formatDateShort, formatTime } from "../../utils/formatTurn"
 import useTurns from "../../hooks/useTurns"
+import CancelTurnModal from "./CancelTurnModal"
 import Swal from "sweetalert2"
 
 const AdminTurnCard = ({ turn }: AdminTurnProps) => {
 
-  const { cancelTurnByAdmin } = useTurns()
+  const { cancelTurnByAdmin, finishTurn } = useTurns()
+  const [modalOpen, setModalOpen] = useState(false)
 
-  const handleCancel = async () => {
-    const { value: reason, isConfirmed } = await Swal.fire({
-      title: "Cancelar turno",
-      input: "textarea",
-      inputLabel: "Motivo de cancelación",
-      inputPlaceholder: "Ingresá el motivo...",
-      inputAttributes: { maxlength: "200" },
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#374151",
-      confirmButtonText: "Cancelar turno",
-      cancelButtonText: "Volver",
-      background: "#18181b",
-      color: "#fff",
-    })
-    if (isConfirmed) {
-      try {
-        await cancelTurnByAdmin(turn.id, reason || "")
-        Swal.fire({
-          icon: "success",
-          title: "Turno cancelado",
-          text: "El turno fue cancelado exitosamente",
-          confirmButtonColor: "#fbbf24",
-          background: "#18181b",
-          color: "#fff",
-        })
-      } catch (error) {
-        console.error(error)
-      }
+  const handleConfirmCancel = async (reason: string) => {
+    try {
+      await cancelTurnByAdmin(turn.id, reason)
+      setModalOpen(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleFinish = async () => {
+    try {
+      await Swal.fire({
+        title: "¿Querés finalizar este turno?",
+        text: "Esta acción marcará el turno como finalizado",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#fbbf24",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Si, finalizar",
+        cancelButtonText: "Cancelar",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await finishTurn(turn.id)
+          Swal.fire(
+            "Turno finalizado",
+            "El turno ha sido finalizado exitosamente",
+            "success"
+          )
+        }
+      })
+      
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -85,15 +92,32 @@ const AdminTurnCard = ({ turn }: AdminTurnProps) => {
 
         <div className="border-t border-zinc-800" />
 
-        <button
-          onClick={handleCancel}
-          className="flex items-center gap-2 px-3 py-2 rounded-xl border border-red-500/30 bg-red-950/20 text-red-400 text-xs font-medium tracking-wide transition-all duration-200 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-300 w-fit cursor-pointer"
-        >
-          <i className="bi bi-x-circle text-sm" />
-          Cancelar turno
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleFinish}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl border border-green-500/30 bg-green-950/20 text-green-400 text-xs font-medium tracking-wide transition-all duration-200 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 cursor-pointer"
+          >
+            <i className="bi bi-check-circle text-sm" />
+            Terminar turno
+          </button>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl border border-red-500/30 bg-red-950/20 text-red-400 text-xs font-medium tracking-wide transition-all duration-200 hover:bg-red-500/20 hover:border-red-500/50 hover:text-red-300 cursor-pointer"
+          >
+            <i className="bi bi-x-circle text-sm" />
+            Cancelar turno
+          </button>
+        </div>
 
       </div>
+
+      {modalOpen && (
+        <CancelTurnModal
+          onClose={() => setModalOpen(false)}
+          onConfirm={handleConfirmCancel}
+        />
+      )}
+
     </div>
   )
 }
