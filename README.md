@@ -70,7 +70,7 @@ turnero-pern/
 
 ### Diagrama de arquitectura
 
-![Arquitectura del sistema](docs/diagrams/architecture.svg)
+(docs/diagrams/architecture.svg)
 
 ---
 
@@ -92,7 +92,7 @@ turnero-pern/
 
 ### Flujo de autenticación
 
-![Flujo de autenticacion](docs/diagrams/auth-flow.svg)
+(docs/diagrams/auth-flow.svg)
 
 ### Protección de rutas
 
@@ -178,7 +178,7 @@ turnero-pern/
 
 ## Estados de un turno
 
-![Estados de un turno](docs/diagrams/turn-states.svg)
+(docs/diagrams/turn-states.svg)
 
 ---
 
