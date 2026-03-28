@@ -70,35 +70,7 @@ turnero-pern/
 
 ### Diagrama de arquitectura
 
-```mermaid
-graph TB
-    subgraph Frontend["Frontend (React + TypeScript + Vite)"]
-        Pages["Páginas\n(Home, UserPanel, AdminPanel,\nNewTurn, RegisterUser, LoginUser, LoginAdmin)"]
-        Ctx["Contextos\n(AuthContext, TurnContext, ServiceContext)"]
-        Hooks["Hooks\n(useAuth, useTurns, useServices,\nuseDashboardUser, useDashboardAdmin)"]
-        SVCs["Servicios HTTP\n(authService, turnService, serviceService)"]
-        Pages --> Ctx --> Hooks --> SVCs
-    end
-
-    subgraph Backend["Backend (Node.js + Express)"]
-        Routes["Rutas\n(/auth, /user, /turn, /admin, /services)"]
-        MW["Middlewares\n(verifyToken, verifyRole, multer)"]
-        Controllers["Controladores\n(auth, user, turn, admin, services)"]
-        Repos["Repositorios\n(user, turn, admin, services)"]
-        Routes --> MW --> Controllers --> Repos
-    end
-
-    subgraph Externos["Servicios externos"]
-        PG[(PostgreSQL)]
-        Cloud[Cloudinary]
-        Mail[Gmail SMTP]
-    end
-
-    SVCs -- "HTTP + Cookie JWT" --> Routes
-    Repos --> PG
-    Controllers --> Cloud
-    Controllers --> Mail
-```
+> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=rJ4se_tKrYdzvFO_EQv-n,f2ql5AKkdFRUbEGcd89TbQ)
 
 ---
 
@@ -120,37 +92,7 @@ graph TB
 
 ### Flujo de autenticación
 
-```mermaid
-sequenceDiagram
-    participant U as Usuario / Admin
-    participant FE as Frontend
-    participant BE as Backend
-    participant DB as PostgreSQL
-    participant Mailer as Gmail SMTP
-
-    Note over FE,BE: Registro de usuario
-    U->>FE: Completa formulario + foto
-    FE->>BE: POST /registerUser (multipart/form-data)
-    BE->>BE: Hash contraseña (bcrypt)
-    BE->>DB: INSERT usuario (is_confirmed=false)
-    BE->>Mailer: Envía email con token JWT (1h)
-    BE-->>FE: 200 OK
-
-    Note over FE,BE: Confirmación de cuenta
-    U->>FE: Click en link del email
-    FE->>BE: GET /confirmRegister/:token
-    BE->>DB: UPDATE is_confirmed=true
-    BE-->>FE: 200 OK
-
-    Note over FE,BE: Login y restauración de sesión
-    U->>FE: Email + contraseña
-    FE->>BE: POST /loginUser
-    BE->>DB: SELECT usuario por email
-    BE->>BE: Verifica contraseña (bcrypt)
-    BE-->>FE: Set-Cookie JWT (httpOnly, 7 días)
-    FE->>BE: GET /me (cookie automática)
-    BE-->>FE: { id, role }
-```
+> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=w8T0WIRAW331F5OZb7zPr,zcq5pMWCv42kEAWMYjP_9w)
 
 ### Protección de rutas
 
@@ -234,28 +176,9 @@ sequenceDiagram
 
 ---
 
-## Flujo de turnos
+## Estados de un turno
 
-```mermaid
-flowchart TD
-    A([Usuario autenticado]) --> B[/panel-usuario/]
-    B --> C{¿Tiene turno activo?}
-    C -- Sí --> D[Muestra ActiveTurn\nfecha, hora, servicio]
-    C -- No --> E[Muestra botón Nuevo Turno]
-    D --> F{¿Cancelar turno?}
-    F -- Confirmar --> G[PATCH /cancelTurnByUser/:id]
-    G --> H[Email de notificación al admin]
-    G --> I[state = cancelled]
-    E --> J[/nuevo-turno/]
-    J --> K[Selecciona fecha, hora, servicio]
-    K --> L[POST /newTurn]
-    L --> M{Validaciones}
-    M -- Fecha pasada --> N[❌ Error]
-    M -- Turno ya activo --> N
-    M -- Horario ocupado --> N
-    M -- OK --> O[✅ Turno creado]
-    O --> B
-```
+> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=-0cU3h8W1puHFUBAC3buQ,Ibz3umV6Eis2YjDsI-bq1g)
 
 ---
 
