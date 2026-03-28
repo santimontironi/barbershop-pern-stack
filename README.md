@@ -36,9 +36,9 @@ Sistema web para la gestión de turnos de una barbería. Permite a los usuarios 
 | jsonwebtoken | Autenticación con JWT | ^9.0.3 |
 | bcrypt | Hash de contraseñas | ^6.0.0 |
 | cookie-parser | Lectura de cookies HTTP | ^1.4.6 |
-| nodemailer | Envío de emails | ^7.0.13 |
-| cloudinary | Gestión de imágenes | ^2.9.0 |
-| multer | Subida de archivos | ^2.1.1 |
+| nodemailer | Envío de emails (registro y cancelaciones) | ^7.0.13 |
+| cloudinary | Gestión de imágenes (fotos de perfil) | ^2.9.0 |
+| multer | Subida de archivos (foto en registro) | ^2.1.1 |
 | dotenv | Variables de entorno | ^17.2.3 |
 | nodemon | Hot reload en desarrollo | ^3.1.11 |
 
@@ -54,6 +54,7 @@ turnero-pern/
 │   ├── middleware/      # verifyToken, verifyRole, multer
 │   ├── repository/      # Queries SQL directas a PostgreSQL
 │   ├── routes/          # Definición de rutas Express
+│   ├── utils/           # formatTurn.js (formatDate, formatTime, isPastDate)
 │   └── index.js         # Entry point del servidor
 │
 └── frontend/
@@ -197,6 +198,9 @@ sequenceDiagram
 | `GET` | `/activeTurn` | Devuelve el próximo turno activo del usuario | `verifyToken` + `verifyRole("user")` |
 | `GET` | `/adminTurns` | Lista todos los turnos activos con datos del usuario | `verifyToken` + `verifyRole("admin")` |
 | `PATCH` | `/cancelTurnByUser/:turnId` | Cancela el turno del usuario y notifica al admin por email | `verifyToken` + `verifyRole("user")` |
+| `GET` | `/allAdminTurns` | Lista el historial completo de turnos (cancelados y finalizados) | `verifyToken` + `verifyRole("admin")` |
+| `PATCH` | `/cancelTurnByAdmin/:turnId` | Cancela un turno con motivo y notifica al usuario por email | `verifyToken` + `verifyRole("admin")` |
+| `PATCH` | `/finishTurn/:turnId` | Marca un turno activo como finalizado | `verifyToken` + `verifyRole("admin")` |
 
 ### Servicios
 
@@ -271,6 +275,9 @@ flowchart TD
 - [x] Login con username y contraseña
 - [x] Dashboard con datos del admin
 - [x] Ver todos los turnos activos (con datos del usuario: nombre, apellido, teléfono, foto)
+- [x] Ver historial completo de turnos (cancelados y finalizados) con tabla dedicada
+- [x] Cancelar turno con motivo de cancelación (modal + email automático al usuario)
+- [x] Finalizar turno activo
 - [x] Crear servicios (nombre, descripción, duración, precio)
 - [x] Listar servicios activos
 - [x] Eliminar servicios (soft delete)
@@ -287,8 +294,11 @@ flowchart TD
 | `HeaderDashboardUser` | Cabecera del panel de usuario con foto, nombre, botones de editar y logout |
 | `HeaderDashboardAdmin` | Sidebar del admin con 3 opciones de navegación y logout |
 | `ActiveTurn` | Muestra el próximo turno activo con fecha formateada y botón de cancelación |
-| `UserTurns` | Lista el historial de turnos del usuario |
-| `AdminTurnCard` | Card de turno para el admin con foto del usuario, servicio, fecha y notas |
+| `UserTurnsCard` | Card individual de turno en el historial del usuario |
+| `TurnsHistoryTable` | Tabla de historial de turnos del usuario (cancelados y finalizados) |
+| `AdminTurnCard` | Card de turno activo para el admin con foto, datos del usuario y acciones (cancelar/finalizar) |
+| `AllAdminTurnCard` | Card de turno para el historial del admin (incluye estado y motivo de cancelación) |
+| `CancelTurnModal` | Modal para que el admin ingrese el motivo de cancelación (máx. 200 chars) |
 | `ServiceCard` | Card de servicio con nombre, descripción, duración, precio y botón de eliminar |
 
 ### Auth
@@ -327,13 +337,21 @@ flowchart TD
 
 | Interface | Descripción |
 |---|---|
-| `TurnsUser` | Turno del usuario: `id`, `date_turn`, `time_turn`, `notes`, `cancel_reason`, `service_name` |
+| `TurnsUser` | Turno del usuario: `id`, `date_turn`, `time_turn`, `notes`, `cancel_reason`, `state?`, `service_name` |
 | `TurnsAdmin` | Extiende `TurnsUser` con: `user_name`, `user_surname`, `user_phone`, `user_photo` |
+| `TurnsAdminAll` | Alias de `TurnsAdmin` — usado para el historial completo (state incluido) |
 | `ActiveTurn` | Próximo turno activo del usuario: `id`, `date_turn`, `time_turn`, `notes`, `service_name` |
 | `NewTurnData` | Datos para crear un turno: `date`, `time`, `service: number`, `notes?` |
 | `NewTurnResponse` | Respuesta de `POST /newTurn` |
-| `ActiveTurnProps` | Props del componente `ActiveTurn` |
-| `AdminTurnProps` | Props del componente `AdminTurnCard` |
+| `TurnsUserResponse` | Respuesta de `GET /userTurns`: `{ turns: TurnsUser[] }` |
+| `TurnsAdminResponse` | Respuesta de `GET /adminTurns`: `{ turns: TurnsAdmin[] }` |
+| `TurnsAdminAllResponse` | Respuesta de `GET /allAdminTurns`: `{ turns: TurnsAdminAll[] }` |
+| `ActiveUserTurnResponse` | Respuesta de `GET /activeTurn`: `{ activeTurn: ActiveTurn \| null }` |
+| `ActiveTurnProps` | Props del componente `ActiveTurn`: `turn: ActiveTurn \| null`, `cancelTurnByUser: () => void` |
+| `AdminTurnProps` | Props del componente `AdminTurnCard`: `turn: TurnsAdmin` |
+| `AllAdminTurnProps` | Props del componente `AllAdminTurnCard`: `turn: TurnsAdminAll` |
+| `UserTurnsCardProps` | Props del componente `UserTurnsCard`: `turn: TurnsUser` |
+| `TurnsHistoryTableProps` | Props del componente `TurnsHistoryTable`: `turns: TurnsUser[]` |
 
 ### `services.types.ts`
 
@@ -349,21 +367,27 @@ flowchart TD
 
 | Type / Interface | Descripción |
 |---|---|
-| `LoadingState` | Estados de carga por operación: `register`, `login`, `dashboard`, `confirm`, `adminTurns`, `userTurns`, `createTurn`, `createService`, `fetchServices`, `cancelTurnByUser` |
-| `AdminPanelView` | Union type para las vistas del panel admin: `"turns" \| "services" \| "newService"` |
+| `LoadingState` | Estados de carga por operación: `register`, `login`, `dashboard`, `confirm`, `adminTurns`, `allAdminTurns`, `userTurns`, `createTurn`, `createService`, `fetchServices`, `cancelTurnByUser` |
+| `AdminPanelView` | Union type para las vistas del panel admin: `"turns" \| "services" \| "newService" \| "allTurns"` |
 | `HeaderDashboardAdminProps` | Props del header del admin: `selected: AdminPanelView` y `onSelect` para cambiar la vista |
+| `ScheduleRowProps` | Props de una fila del horario en la landing: `day`, `hours`, `open`, `isLast` |
+| `ServiceItemProps` | Props de un ítem de servicio en la landing: `icon`, `title`, `desc` |
 
 ---
 
 ## Utilidades
 
-### `formatTurn.ts`
+### `formatTurn.ts` (frontend) y `formatTurn.js` (backend)
+
+Ambas capas usan el mismo conjunto de utilidades de formato (la versión backend está en `backend/utils/formatTurn.js`):
 
 | Función | Descripción |
 |---|---|
-| `formatTime(timeStr)` | Convierte `"HH:MM"` a formato localizado (es-AR), ej: `"10:00 a. m."` |
-| `formatDateShort(dateStr)` | Formatea a `"Lun, 24 mar"` (es-AR) |
-| `formatDateLong(dateStr)` | Formatea a `"lunes, 24 de marzo"` (es-AR) |
+| `formatTime(raw)` | Extrae `HH:MM` de un string de tiempo — elimina los segundos |
+| `formatDate(raw)` | Formatea a fecha larga en español, ej: `"lunes, 24 de marzo de 2025"` (zona `America/Argentina/Buenos_Aires`) |
+| `formatDateLong(raw)` | (frontend) igual que `formatDate` — para mostrar en componentes |
+| `formatDateShort(raw)` | (frontend) Formatea a `"Lun, 24 mar"` (es-AR) |
+| `isPastDate(dateStr)` | Verifica si una fecha es anterior a hoy (zona `America/Argentina/Buenos_Aires`) — usada en validación del backend |
 
 ---
 
@@ -417,7 +441,6 @@ npm run dev
 
 ## Futuras features
 
-- [ ] Cancelar turno por parte del admin
 - [ ] Notificación por email al usuario al reservar un turno
 - [ ] Paginación en el listado de turnos del admin
 - [ ] Testing unitario en el backend (controllers y repositories)
