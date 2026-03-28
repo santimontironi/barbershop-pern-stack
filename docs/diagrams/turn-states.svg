@@ -11,9 +11,6 @@
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="380" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1e1e1e">Estados de un Turno</text>
-
   <!-- ── START: Nuevo Turno ── -->
   <ellipse cx="380" cy="75" rx="140" ry="35" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
   <text x="380" y="70" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a5f">Nuevo Turno</text>

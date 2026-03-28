@@ -11,9 +11,6 @@
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="450" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#1e1e1e">Turnero PERN — Arquitectura del Sistema</text>
-
   <!-- ── FRONTEND ZONE ── -->
   <rect x="10" y="48" width="262" height="468" rx="10" fill="#dbe4ff" fill-opacity="0.55" stroke="#4a9eed" stroke-width="1.5"/>
   <rect x="10" y="48" width="262" height="38" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>

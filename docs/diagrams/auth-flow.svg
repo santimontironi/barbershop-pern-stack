@@ -17,9 +17,6 @@
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="450" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#1e1e1e">Turnero PERN — Flujo de Autenticacion</text>
-
   <!-- ── ACTOR HEADERS ── -->
   <!-- Usuario: center=85 -->
   <rect x="20" y="44" width="130" height="36" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
