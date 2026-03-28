@@ -70,7 +70,7 @@ turnero-pern/
 
 ### Diagrama de arquitectura
 
-> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=rJ4se_tKrYdzvFO_EQv-n,f2ql5AKkdFRUbEGcd89TbQ)
+![Arquitectura del sistema](docs/diagrams/architecture.svg)
 
 ---
 
@@ -92,7 +92,7 @@ turnero-pern/
 
 ### Flujo de autenticación
 
-> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=w8T0WIRAW331F5OZb7zPr,zcq5pMWCv42kEAWMYjP_9w)
+![Flujo de autenticacion](docs/diagrams/auth-flow.svg)
 
 ### Protección de rutas
 
@@ -178,7 +178,7 @@ turnero-pern/
 
 ## Estados de un turno
 
-> [Ver diagrama completo en Excalidraw](https://excalidraw.com/#json=-0cU3h8W1puHFUBAC3buQ,Ibz3umV6Eis2YjDsI-bq1g)
+![Estados de un turno](docs/diagrams/turn-states.svg)
 
 ---
 
