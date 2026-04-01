@@ -1,6 +1,6 @@
 # Barbershop — Sistema de gestión de turnos
 
-Sistema web para la gestión de turnos de una barbería. Permite a los usuarios registrarse con foto de perfil, confirmar su cuenta por email, iniciar sesión, reservar turnos y cancelarlos. Los administradores pueden gestionar turnos y servicios desde su panel.
+Proyecto personal. Sistema web para la gestión de turnos de una barbería. Permite a los usuarios registrarse con foto de perfil, confirmar su cuenta por email, iniciar sesión, reservar turnos y cancelarlos. Los administradores pueden gestionar turnos y servicios desde su panel.
 
 ---
 
@@ -347,6 +347,98 @@ VITE_API_URL=
 
 ---
 
+## Testing
+
+El backend cuenta con tests unitarios escritos con **Jest** y **Babel** (para soporte de ESModules).
+
+### Stack de testing
+
+| Herramienta | Rol |
+|---|---|
+| `jest` | Framework de testing |
+| `babel-jest` + `@babel/preset-env` | Transpila ESModules a CommonJS para que Jest pueda ejecutarlos |
+| `babel.config.cjs` | Configuración de Babel (`.cjs` porque el proyecto usa `"type": "module"`) |
+
+### Correr los tests
+
+```bash
+cd backend
+npm test
+```
+
+### Cobertura actual: 50 tests — 5 suites
+
+#### `__tests__/auth-controller.test.js`
+Cubre el endpoint `GET /me` que restaura la sesión desde la cookie.
+
+| Test | Qué verifica |
+|---|---|
+| Devuelve 200 con `id` y `role` | Happy path: `req.user` fue seteado por `verifyToken` |
+| Devuelve 401 sin `req.user` | El destructuring lanza `TypeError` → cae en el `catch` |
+| El payload solo expone `id` y `role` | No se filtran campos internos del JWT (`iat`, `exp`) |
+
+#### `__tests__/auth-middleware.test.js`
+Cubre `verifyToken` y `verifyRole`.
+
+| Test | Qué verifica |
+|---|---|
+| 401 sin cookie | El browser no mandó la cookie → request cortada |
+| 401 con token inválido/expirado | `jwt.verify` lanza → catch responde 401 |
+| Llama `next()` con token válido | `req.user` queda seteado con `{ id, role }` |
+| `req.user` solo tiene `id` y `role` | No se exponen `iat`/`exp` al controller |
+| 403 si el role no coincide | Usuario `user` accediendo a ruta de `admin` |
+| Llama `next()` si el role coincide | Acceso permitido |
+| `verifyRole` es una factory independiente | Cada llamada genera un middleware distinto |
+
+#### `__tests__/user-controller.test.js`
+Cubre registro, login, confirmación, dashboard y logout de usuarios.
+
+| Función | Tests |
+|---|---|
+| `registerUser` | Campos faltantes, email duplicado, sin foto, registro exitoso + email de confirmación |
+| `loginUser` | Usuario no encontrado, contraseña incorrecta, cuenta sin confirmar, login exitoso + cookie `httpOnly` |
+| `confirmRegistration` | Éxito, usuario no encontrado, token expirado |
+| `dashboardUser` | Usuario no encontrado, éxito con datos del perfil |
+| `logoutUser` | Limpia la cookie y retorna 200 |
+
+#### `__tests__/admin-controller.test.js`
+Cubre login y dashboard del administrador.
+
+| Función | Tests |
+|---|---|
+| `loginAdmin` | Admin no encontrado, contraseña incorrecta, login exitoso + cookie `httpOnly` |
+| `dashboardAdmin` | Admin no encontrado, éxito con datos del admin |
+
+#### `__tests__/turn-controller.test.js`
+Cubre toda la lógica de gestión de turnos.
+
+| Función | Tests |
+|---|---|
+| `createTurn` | Campos faltantes, fecha pasada, horario fuera de rango (08:00–17:00), turno activo duplicado, slot ocupado, creación exitosa |
+| `getAllUserTurns` | Sin historial (404), con historial (200) |
+| `userActiveTurn` | Sin turno activo (404), con turno activo (200) |
+| `getAllAdminTurns` | Sin turnos activos (404), con turnos + datos del usuario (200) |
+| `getAllAdminAllTurns` | Sin historial (404), historial con cancelados y finalizados (200) |
+| `turnCancelByUser` | Turno no encontrado, éxito + email al admin |
+| `turnCancelByAdmin` | Sin motivo (400), turno no encontrado (404), éxito + email al usuario (200) |
+| `finishTurn` | Turno no encontrado o ya finalizado (404), éxito (200) |
+
+### Estrategia de mocking
+
+Todos los tests son **unitarios puros**: ninguno toca la base de datos real ni servicios externos.
+
+| Módulo mockeado | Razón |
+|---|---|
+| Repositorios (`turnRepository`, `userRepository`, etc.) | Evitar consultas SQL reales a PostgreSQL |
+| `bcrypt` / `bcryptjs` | El hash real es lento; en tests se controla el resultado directamente |
+| `jsonwebtoken` | Se controla qué devuelve `sign` y `verify` sin generar tokens reales |
+| `cloudinary` | Evitar subidas reales a la nube |
+| `nodemailer` (mailConfig) | Evitar envío de emails reales |
+| `dotenv` | Evitar lectura del `.env`; las variables se setean manualmente en cada suite |
+| `utils/formatTurn.js` | `isPastDate` se mockea para controlar si una fecha es pasada o futura |
+
+---
+
 ## Correr el proyecto
 
 ### Backend
@@ -365,8 +457,3 @@ npm run dev
 
 ---
 
-## Futuras features
-
-- [ ] Notificación por email al usuario al reservar un turno
-- [ ] Paginación en el listado de turnos del admin
-- [ ] Testing unitario en el backend (controllers y repositories)
