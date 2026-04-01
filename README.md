@@ -4,6 +4,25 @@ Proyecto personal. Sistema web para la gestión de turnos de una barbería. Perm
 
 ---
 
+## Índice
+
+1. [Stack tecnológico](#stack-tecnológico)
+2. [Correr el proyecto](#correr-el-proyecto)
+3. [Variables de entorno](#variables-de-entorno)
+4. [Arquitectura general](#arquitectura-general)
+5. [Roles del sistema](#roles-del-sistema)
+6. [Autenticación](#autenticación)
+7. [Endpoints](#endpoints)
+8. [Rutas del Frontend](#rutas-del-frontend)
+9. [Estados de un turno](#estados-de-un-turno)
+10. [Funcionalidades implementadas](#funcionalidades-implementadas)
+11. [Componentes principales](#componentes-principales)
+12. [Types principales](#types-principales-typescript)
+13. [Utilidades](#utilidades)
+14. [Testing](#testing)
+
+---
+
 ## Stack tecnológico
 
 ### PERN Stack
@@ -44,12 +63,60 @@ Proyecto personal. Sistema web para la gestión de turnos de una barbería. Perm
 
 ---
 
+## Correr el proyecto
+
+### Backend
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Variables de entorno
+
+### Backend (`.env`)
+
+```env
+PORT=
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+DB_PORT=
+JWT_SECRET=
+EMAIL_USER=
+EMAIL_PASSWORD=
+EMAIL_ADMIN=
+FRONTEND_URL=
+NODE_ENV=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
+
+### Frontend (`.env`)
+
+```env
+VITE_API_URL=
+```
+
+---
+
 ## Arquitectura general
 
 ```
 turnero-pern/
 ├── backend/
-    ├── __tests__        # Test unitario
+│   ├── __tests__/       # Tests unitarios (Jest)
 │   ├── config/          # Conexión DB, Cloudinary, Nodemailer
 │   ├── controllers/     # Lógica de cada endpoint
 │   ├── middleware/      # verifyToken, verifyRole, multer
@@ -140,8 +207,8 @@ turnero-pern/
 | `GET` | `/userTurns` | Lista todos los turnos del usuario (activos e historial) | `verifyToken` + `verifyRole("user")` |
 | `GET` | `/activeTurn` | Devuelve el próximo turno activo del usuario | `verifyToken` + `verifyRole("user")` |
 | `GET` | `/adminTurns` | Lista todos los turnos activos con datos del usuario | `verifyToken` + `verifyRole("admin")` |
-| `PATCH` | `/cancelTurnByUser/:turnId` | Cancela el turno del usuario y notifica al admin por email | `verifyToken` + `verifyRole("user")` |
 | `GET` | `/allAdminTurns` | Lista el historial completo de turnos (cancelados y finalizados) | `verifyToken` + `verifyRole("admin")` |
+| `PATCH` | `/cancelTurnByUser/:turnId` | Cancela el turno del usuario y notifica al admin por email | `verifyToken` + `verifyRole("user")` |
 | `PATCH` | `/cancelTurnByAdmin/:turnId` | Cancela un turno con motivo y notifica al usuario por email | `verifyToken` + `verifyRole("admin")` |
 | `PATCH` | `/finishTurn/:turnId` | Marca un turno activo como finalizado | `verifyToken` + `verifyRole("admin")` |
 
@@ -199,8 +266,8 @@ turnero-pern/
 - [x] Login con username y contraseña
 - [x] Dashboard con datos del admin
 - [x] Ver todos los turnos activos (con datos del usuario: nombre, apellido, teléfono, foto)
-- [x] Ver historial completo de turnos (cancelados y finalizados) con tabla dedicada
-- [x] Buscar en el historial de turnos por nombre o apellido del usuario (filtrado en tiempo real, client-side)
+- [x] Ver historial completo de turnos (cancelados y finalizados)
+- [x] Buscar en el historial por nombre o apellido del usuario (filtrado en tiempo real, client-side)
 - [x] Cancelar turno con motivo de cancelación (modal + email automático al usuario)
 - [x] Finalizar turno activo
 - [x] Crear servicios (nombre, descripción, duración, precio)
@@ -212,31 +279,38 @@ turnero-pern/
 ## Componentes principales
 
 ### Layout
+
 | Componente | Descripción |
 |---|---|
 | `Header` | Navegación fija con logo, links y botones de auth; menú hamburguesa responsive |
 | `Landing` | Wrapper que combina `Header` + `Home` |
-| `HeaderDashboardUser` | Cabecera del panel de usuario con foto, nombre, botones de editar y logout |
+| `HeaderDashboardUser` | Cabecera del panel de usuario con foto, nombre y botón de logout |
 | `HeaderDashboardAdmin` | Sidebar del admin con 3 opciones de navegación y logout |
+
+### Turnos
+
+| Componente | Descripción |
+|---|---|
 | `ActiveTurn` | Muestra el próximo turno activo con fecha formateada y botón de cancelación |
 | `UserTurnsCard` | Card individual de turno en el historial del usuario |
 | `TurnsHistoryTable` | Tabla de historial de turnos del usuario (cancelados y finalizados) |
 | `AdminTurnCard` | Card de turno activo para el admin con foto, datos del usuario y acciones (cancelar/finalizar) |
-| `AllAdminTurnCard` | Card de turno para el historial del admin (incluye estado y motivo de cancelación); la página `AllAdminTurns` incluye un buscador por nombre/apellido que filtra en tiempo real usando `searchTurnsByUser` del `TurnContext` |
+| `AllAdminTurnCard` | Card de turno del historial del admin (incluye estado y motivo de cancelación) |
 | `CancelTurnModal` | Modal para que el admin ingrese el motivo de cancelación (máx. 200 chars) |
+
+### Servicios
+
+| Componente | Descripción |
+|---|---|
 | `ServiceCard` | Card de servicio con nombre, descripción, duración, precio y botón de eliminar |
 
-### Auth
+### Auth y UI
+
 | Componente | Descripción |
 |---|---|
 | `VerifyAuth` | Guard de ruta; valida el token y redirige a home si no está autenticado |
-
-### UI
-| Componente | Descripción |
-|---|---|
 | `Loader` | Spinner de carga |
 | `GoBack` | Botón de retroceso |
-| `NewTurnBtn` | Botón para ir a crear un nuevo turno |
 
 ---
 
@@ -278,7 +352,7 @@ turnero-pern/
 | `UserTurnsCardProps` | Props del componente `UserTurnsCard`: `turn: TurnsUser` |
 | `TurnsHistoryTableProps` | Props del componente `TurnsHistoryTable`: `turns: TurnsUser[]` |
 
-> **`TurnContext`** expone además `searchTurnsByUser(query: string): TurnsAdminAll[]`, que filtra `allTurnsAdmin` por nombre y apellido del usuario (case-insensitive). Si el query está vacío devuelve el array completo. El filtrado es client-side, sin llamadas adicionales al backend.
+> `TurnContext` expone `searchTurnsByUser(query: string): TurnsAdminAll[]` — filtra `allTurnsAdmin` por nombre y apellido (case-insensitive, client-side).
 
 ### `services.types.ts`
 
@@ -290,7 +364,7 @@ turnero-pern/
 | `NewServiceResponse` | Respuesta de `POST /services` |
 | `ServiceDeleteResponse` | Respuesta de `DELETE /services/:id` |
 
-### `ui.state.ts`
+### `ui.types.ts`
 
 | Type / Interface | Descripción |
 |---|---|
@@ -306,7 +380,7 @@ turnero-pern/
 
 ### `formatTurn.ts` (frontend) y `formatTurn.js` (backend)
 
-Ambas capas usan el mismo conjunto de utilidades de formato (la versión backend está en `backend/utils/formatTurn.js`):
+Ambas capas usan el mismo conjunto de utilidades de formato:
 
 | Función | Descripción |
 |---|---|
@@ -318,39 +392,9 @@ Ambas capas usan el mismo conjunto de utilidades de formato (la versión backend
 
 ---
 
-## Variables de entorno
-
-### Backend (`.env`)
-
-```env
-PORT=
-DB_HOST=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-DB_PORT=
-JWT_SECRET=
-EMAIL_USER=
-EMAIL_PASSWORD=
-EMAIL_ADMIN=
-FRONTEND_URL=
-NODE_ENV=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-```
-
-### Frontend (`.env`)
-
-```env
-VITE_API_URL=
-```
-
----
-
 ## Testing
 
-El backend cuenta con tests unitarios escritos con **Jest** y **Babel** (para soporte de ESModules).
+El backend cuenta con tests unitarios escritos con **Jest** y **Babel** (para soporte de ESModules). Ningún test toca la base de datos real ni servicios externos — todo se mockea.
 
 ### Stack de testing
 
@@ -367,94 +411,56 @@ cd backend
 npm test
 ```
 
-### Cobertura actual: 50 tests — 5 suites
+### Cobertura: 50 tests en 5 suites
 
-#### `__tests__/auth-controller.test.js`
-Cubre el endpoint `GET /me` que restaura la sesión desde la cookie.
+| Suite | Cubre | Tests |
+|---|---|---|
+| `auth-controller.test.js` | Endpoint `GET /me` | 3 |
+| `auth-middleware.test.js` | `verifyToken` y `verifyRole` | 7 |
+| `user-controller.test.js` | Registro, login, confirmación, dashboard, logout | 14 |
+| `admin-controller.test.js` | Login y dashboard del admin | 5 |
+| `turn-controller.test.js` | Toda la gestión de turnos | 21 |
 
-| Test | Qué verifica |
-|---|---|
-| Devuelve 200 con `id` y `role` | Happy path: `req.user` fue seteado por `verifyToken` |
-| Devuelve 401 sin `req.user` | El destructuring lanza `TypeError` → cae en el `catch` |
-| El payload solo expone `id` y `role` | No se filtran campos internos del JWT (`iat`, `exp`) |
+#### Detalle por suite
 
-#### `__tests__/auth-middleware.test.js`
-Cubre `verifyToken` y `verifyRole`.
+**`auth-controller.test.js`**
+- 200 con `id` y `role` cuando `req.user` existe
+- 401 cuando `req.user` no existe (error al desestructurar)
+- El payload solo expone `id` y `role` (no `iat`/`exp` del JWT)
 
-| Test | Qué verifica |
-|---|---|
-| 401 sin cookie | El browser no mandó la cookie → request cortada |
-| 401 con token inválido/expirado | `jwt.verify` lanza → catch responde 401 |
-| Llama `next()` con token válido | `req.user` queda seteado con `{ id, role }` |
-| `req.user` solo tiene `id` y `role` | No se exponen `iat`/`exp` al controller |
-| 403 si el role no coincide | Usuario `user` accediendo a ruta de `admin` |
-| Llama `next()` si el role coincide | Acceso permitido |
-| `verifyRole` es una factory independiente | Cada llamada genera un middleware distinto |
+**`auth-middleware.test.js`**
+- `verifyToken`: 401 sin cookie, 401 con token inválido/expirado, llama `next()` con token válido, `req.user` solo tiene `id` y `role`
+- `verifyRole`: 403 si el role no coincide, llama `next()` si coincide, es una factory independiente por role
 
-#### `__tests__/user-controller.test.js`
-Cubre registro, login, confirmación, dashboard y logout de usuarios.
+**`user-controller.test.js`**
+- `registerUser`: campos faltantes, email duplicado, sin foto, éxito + email de confirmación
+- `loginUser`: usuario no encontrado, contraseña incorrecta, cuenta sin confirmar, éxito + cookie `httpOnly`
+- `confirmRegistration`: éxito, usuario no encontrado, token expirado
+- `dashboardUser`: usuario no encontrado, éxito con datos del perfil
+- `logoutUser`: limpia la cookie y retorna 200
 
-| Función | Tests |
-|---|---|
-| `registerUser` | Campos faltantes, email duplicado, sin foto, registro exitoso + email de confirmación |
-| `loginUser` | Usuario no encontrado, contraseña incorrecta, cuenta sin confirmar, login exitoso + cookie `httpOnly` |
-| `confirmRegistration` | Éxito, usuario no encontrado, token expirado |
-| `dashboardUser` | Usuario no encontrado, éxito con datos del perfil |
-| `logoutUser` | Limpia la cookie y retorna 200 |
+**`admin-controller.test.js`**
+- `loginAdmin`: admin no encontrado, contraseña incorrecta, éxito + cookie `httpOnly`
+- `dashboardAdmin`: admin no encontrado, éxito con datos del admin
 
-#### `__tests__/admin-controller.test.js`
-Cubre login y dashboard del administrador.
+**`turn-controller.test.js`**
+- `createTurn`: campos faltantes, fecha pasada, horario fuera de rango, turno activo duplicado, slot ocupado, éxito
+- `getAllUserTurns`: sin historial (404), con historial (200)
+- `userActiveTurn`: sin turno activo (404), con turno activo (200)
+- `getAllAdminTurns`: sin turnos activos (404), con turnos + datos del usuario (200)
+- `getAllAdminAllTurns`: sin historial (404), historial completo (200)
+- `turnCancelByUser`: turno no encontrado (404), éxito + email al admin (200)
+- `turnCancelByAdmin`: sin motivo (400), turno no encontrado (404), éxito + email al usuario (200)
+- `finishTurn`: turno no encontrado o ya finalizado (404), éxito (200)
 
-| Función | Tests |
-|---|---|
-| `loginAdmin` | Admin no encontrado, contraseña incorrecta, login exitoso + cookie `httpOnly` |
-| `dashboardAdmin` | Admin no encontrado, éxito con datos del admin |
+### Módulos mockeados
 
-#### `__tests__/turn-controller.test.js`
-Cubre toda la lógica de gestión de turnos.
-
-| Función | Tests |
-|---|---|
-| `createTurn` | Campos faltantes, fecha pasada, horario fuera de rango (08:00–17:00), turno activo duplicado, slot ocupado, creación exitosa |
-| `getAllUserTurns` | Sin historial (404), con historial (200) |
-| `userActiveTurn` | Sin turno activo (404), con turno activo (200) |
-| `getAllAdminTurns` | Sin turnos activos (404), con turnos + datos del usuario (200) |
-| `getAllAdminAllTurns` | Sin historial (404), historial con cancelados y finalizados (200) |
-| `turnCancelByUser` | Turno no encontrado, éxito + email al admin |
-| `turnCancelByAdmin` | Sin motivo (400), turno no encontrado (404), éxito + email al usuario (200) |
-| `finishTurn` | Turno no encontrado o ya finalizado (404), éxito (200) |
-
-### Estrategia de mocking
-
-Todos los tests son **unitarios puros**: ninguno toca la base de datos real ni servicios externos.
-
-| Módulo mockeado | Razón |
+| Módulo | Razón |
 |---|---|
 | Repositorios (`turnRepository`, `userRepository`, etc.) | Evitar consultas SQL reales a PostgreSQL |
 | `bcrypt` / `bcryptjs` | El hash real es lento; en tests se controla el resultado directamente |
-| `jsonwebtoken` | Se controla qué devuelve `sign` y `verify` sin generar tokens reales |
+| `jsonwebtoken` | Se controla qué devuelven `sign` y `verify` sin generar tokens reales |
 | `cloudinary` | Evitar subidas reales a la nube |
-| `nodemailer` (mailConfig) | Evitar envío de emails reales |
-| `dotenv` | Evitar lectura del `.env`; las variables se setean manualmente en cada suite |
+| `nodemailer` | Evitar envío de emails reales |
+| `dotenv` | Las variables se setean manualmente en cada suite |
 | `utils/formatTurn.js` | `isPastDate` se mockea para controlar si una fecha es pasada o futura |
-
----
-
-## Correr el proyecto
-
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
