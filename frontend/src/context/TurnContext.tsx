@@ -17,6 +17,7 @@ type TurnContextType = {
     cancelTurnByAdmin: (turnId: number, cancel_reason: string) => Promise<void>;
     finishTurn: (turnId: number) => Promise<void>;
     newTurn: (data: NewTurnData) => Promise<NewTurnResponse>;
+    searchTurnsByUser: (query: string) => TurnsAdminAll[];
     loading: LoadingState;
 }
 
@@ -128,6 +129,14 @@ const TurnProvider = () => {
         }
     }
 
+    const searchTurnsByUser = (query: string): TurnsAdminAll[] => {
+        const q = query.toLowerCase().trim();
+        if (!q) return allTurnsAdmin;
+        return allTurnsAdmin.filter(t =>
+            `${t.user_name} ${t.user_surname}`.toLowerCase().includes(q)
+        );
+    }
+
     const finishTurn = async (turnId: number) => {
         try {
             await finishTurnService(turnId);
@@ -140,7 +149,7 @@ const TurnProvider = () => {
     }
 
     return (
-        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, allTurnsAdmin, fetchTurnsUser, fetchTurnsAdmin, fetchAllTurnsAdmin, loading, activeTurn, fetchActiveTurn, cancelTurnByUser, cancelTurnByAdmin, finishTurn }}>
+        <TurnContext.Provider value={{ turnsUser, newTurn, turnsAdmin, allTurnsAdmin, fetchTurnsUser, fetchTurnsAdmin, fetchAllTurnsAdmin, loading, activeTurn, fetchActiveTurn, cancelTurnByUser, cancelTurnByAdmin, finishTurn, searchTurnsByUser }}>
             <Outlet />
         </TurnContext.Provider>
     )

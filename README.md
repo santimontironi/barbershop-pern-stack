@@ -199,6 +199,7 @@ turnero-pern/
 - [x] Dashboard con datos del admin
 - [x] Ver todos los turnos activos (con datos del usuario: nombre, apellido, teléfono, foto)
 - [x] Ver historial completo de turnos (cancelados y finalizados) con tabla dedicada
+- [x] Buscar en el historial de turnos por nombre o apellido del usuario (filtrado en tiempo real, client-side)
 - [x] Cancelar turno con motivo de cancelación (modal + email automático al usuario)
 - [x] Finalizar turno activo
 - [x] Crear servicios (nombre, descripción, duración, precio)
@@ -220,7 +221,7 @@ turnero-pern/
 | `UserTurnsCard` | Card individual de turno en el historial del usuario |
 | `TurnsHistoryTable` | Tabla de historial de turnos del usuario (cancelados y finalizados) |
 | `AdminTurnCard` | Card de turno activo para el admin con foto, datos del usuario y acciones (cancelar/finalizar) |
-| `AllAdminTurnCard` | Card de turno para el historial del admin (incluye estado y motivo de cancelación) |
+| `AllAdminTurnCard` | Card de turno para el historial del admin (incluye estado y motivo de cancelación); la página `AllAdminTurns` incluye un buscador por nombre/apellido que filtra en tiempo real usando `searchTurnsByUser` del `TurnContext` |
 | `CancelTurnModal` | Modal para que el admin ingrese el motivo de cancelación (máx. 200 chars) |
 | `ServiceCard` | Card de servicio con nombre, descripción, duración, precio y botón de eliminar |
 
@@ -275,6 +276,8 @@ turnero-pern/
 | `AllAdminTurnProps` | Props del componente `AllAdminTurnCard`: `turn: TurnsAdminAll` |
 | `UserTurnsCardProps` | Props del componente `UserTurnsCard`: `turn: TurnsUser` |
 | `TurnsHistoryTableProps` | Props del componente `TurnsHistoryTable`: `turns: TurnsUser[]` |
+
+> **`TurnContext`** expone además `searchTurnsByUser(query: string): TurnsAdminAll[]`, que filtra `allTurnsAdmin` por nombre y apellido del usuario (case-insensitive). Si el query está vacío devuelve el array completo. El filtrado es client-side, sin llamadas adicionales al backend.
 
 ### `services.types.ts`
 
