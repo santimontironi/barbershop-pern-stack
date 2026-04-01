@@ -49,6 +49,7 @@ Proyecto personal. Sistema web para la gestión de turnos de una barbería. Perm
 ```
 turnero-pern/
 ├── backend/
+    ├── __tests__        # Test unitario
 │   ├── config/          # Conexión DB, Cloudinary, Nodemailer
 │   ├── controllers/     # Lógica de cada endpoint
 │   ├── middleware/      # verifyToken, verifyRole, multer
