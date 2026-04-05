@@ -101,7 +101,6 @@ class UserController {
             return res.status(200).json({ message: "Inicio de sesión exitoso.", user: { id: user.id, role: user.role } });
         }
         catch (error) {
-            console.error("loginUser error:", error);
             return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
         }
     }
