@@ -22,7 +22,10 @@ const LoginUser = () => {
             await loginUser(data)
         }
         catch (error: any) {
-            setErrorMessage(error.response?.data?.message)
+            if(error.response?.data?.message || error.response?.data?.error) {
+                setErrorMessage(error.response.data.message || error.response.data.error)
+                console.log(error.response.data.message || error.response.data.error);
+            }
             reset()
         }
     }
