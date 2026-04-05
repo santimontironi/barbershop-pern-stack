@@ -1,5 +1,5 @@
 import adminRepository from "../repository/admin-repository.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class AdminController {
