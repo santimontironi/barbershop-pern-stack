@@ -100,7 +100,7 @@ const LoginAdmin = () => {
                         <button
                             type="submit"
                             disabled={loading.login}
-                            className="w-full bg-linear-to-r from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-violet-500/30 hover:shadow-2xl hover:shadow-violet-500/50 hover:scale-105 transform mt-2 flex items-center justify-center gap-2"
+                            className="w-full bg-linear-to-r cursor-pointer from-violet-500 to-indigo-600 hover:from-violet-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-white px-8 py-4 rounded-xl font-semibold text-lg transition shadow-xl shadow-violet-500/30 hover:shadow-2xl hover:shadow-violet-500/50 hover:scale-105 transform mt-2 flex items-center justify-center gap-2"
                         >
                             {loading.login ? (
                                 <>
