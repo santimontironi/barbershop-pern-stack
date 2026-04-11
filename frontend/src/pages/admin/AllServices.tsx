@@ -27,11 +27,15 @@ const AllServices = () => {
                         <div className="mt-3 w-16 h-0.5 bg-yellow-500 rounded-full" />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                        {services.map(service => (
-                            <ServiceCard key={service.id} service={service} onDelete={() => deleteService(service.id)} />
-                        ))}
-                    </div>
+                    {services.length === 0 ? (
+                        <p className="text-gray-400 text-lg">No hay servicios disponibles.</p>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                            {services.map(service => (
+                                <ServiceCard key={service.id} service={service} onDelete={() => deleteService(service.id)} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
         </section>
