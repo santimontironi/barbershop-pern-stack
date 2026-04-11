@@ -1,6 +1,6 @@
 import type { HeaderDashboardUserProps } from "../../types/ui.types"
 
-const HeaderDashboardUser = ({ photo, name, logout }: HeaderDashboardUserProps) => {
+const HeaderDashboardUser = ({ photo, name, logout, onEditProfile }: HeaderDashboardUserProps) => {
   return (
     <header className="w-full bg-blue-950 border-b shadow-[10px_10px_12px_rgba(0,0,0,0.5)] sticky top-0 z-50">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0 px-5 py-4 md:px-8 md:py-0 md:h-20 xl:px-30 xl:h-24 2xl:px-60">
@@ -24,6 +24,10 @@ const HeaderDashboardUser = ({ photo, name, logout }: HeaderDashboardUserProps) 
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
+          <button onClick={onEditProfile} className="flex items-center gap-2 px-3 py-2 md:px-4 xl:px-5 xl:py-2.5 rounded-lg border border-blue-600/50 bg-blue-800/30 text-blue-300 text-xs xl:text-sm font-medium tracking-wide transition-all duration-200 hover:bg-blue-700/40 hover:text-white cursor-pointer">
+            <i className="bi bi-pencil-square text-base xl:text-lg" />
+            <span>Editar perfil</span>
+          </button>
           <button onClick={logout} className="flex items-center gap-2 px-3 py-2 md:px-4 xl:px-5 xl:py-2.5 rounded-lg border border-red-500 bg-red-500/10 text-red-400 text-xs xl:text-sm font-medium tracking-wide transition-all duration-200 hover:bg-red-500 hover:text-white cursor-pointer">
             <i className="bi bi-box-arrow-right text-base xl:text-lg" />
             <span>Cerrar sesión</span>

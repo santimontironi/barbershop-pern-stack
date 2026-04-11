@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService } from "../services/authService";
-import type { Session, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse } from "../types/auth.types";
+import { registerUserService, loginUserService, loginAdminService, meService, logoutService, confirmRegisterService, updateUserService } from "../services/authService";
+import type { Session, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, LoginUserResponse, confirmRegisterResponse, UpdateUserData } from "../types/auth.types";
 import type { LoadingState } from "../types/ui.types";
 import { Outlet } from "react-router-dom";
 
@@ -12,6 +12,7 @@ type AuthContextType = {
     logout: () => void,
     loading: LoadingState,
     confirmRegister: (token: string) => Promise<confirmRegisterResponse>,
+    updateUser: (data: UpdateUserData) => Promise<void>,
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -102,6 +103,15 @@ const AuthProvider = () => {
         }
     }
 
+    const updateUser = async (data: UpdateUserData) => {
+        try {
+            await updateUserService(data);
+        } catch (error) {
+            console.error("Error actualizando usuario:", error);
+            throw error;
+        }
+    }
+
     const confirmRegister = async (token: string) => {
         try {
             setLoading(prev => (
@@ -126,6 +136,7 @@ const AuthProvider = () => {
             logout,
             loading,
             confirmRegister,
+            updateUser,
         }}>
             <Outlet />
         </AuthContext.Provider>

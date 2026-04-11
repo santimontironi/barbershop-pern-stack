@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, DashboardUserResponse, DashboardAdminResponse, AuthType } from "../types/auth.types"
+import type { LoginUserResponse, RegisterUserData, RegisterUserResponse, LoginUserData, LoginAdminData, LoginAdminResponse, DashboardUserResponse, DashboardAdminResponse, AuthType, UpdateUserData, UpdateUserResponse } from "../types/auth.types"
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -43,4 +43,13 @@ export const meService = () => {
 
 export const confirmRegisterService = (token: string) => {
     return axios.get(`${API_URL}/confirmRegister/${token}`);
+}
+
+export const updateUserService = (data: UpdateUserData) => {
+    const formData = new FormData();
+    formData.append("phone", data.phone);
+    if (data.photo && data.photo.length > 0) {
+        formData.append("photo", data.photo[0]);
+    }
+    return axios.patch<UpdateUserResponse>(`${API_URL}/updateUser`, formData, { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } });
 }

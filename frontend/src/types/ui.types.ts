@@ -20,6 +20,7 @@ export interface HeaderDashboardUserProps {
     photo?: string;
     name?: string;
     logout: () => void;
+    onEditProfile: () => void;
 }
 
 export type AdminPanelView = "turns" | "services" | "newService" | "allTurns"; //type union para las vistas del panel de admin

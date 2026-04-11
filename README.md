@@ -191,6 +191,7 @@ turnero-pern/
 | `POST` | `/loginUser` | Inicia sesión del usuario | Pública |
 | `POST` | `/logout` | Cierra sesión y limpia la cookie | Pública |
 | `GET` | `/dashboardUser` | Devuelve los datos del perfil del usuario | `verifyToken` |
+| `PATCH` | `/updateUser` | Actualiza el teléfono y/o foto de perfil del usuario (multipart/form-data) | `verifyToken` |
 
 ### Administrador
 
@@ -257,6 +258,7 @@ turnero-pern/
 - [x] Login con email y contraseña
 - [x] Logout
 - [x] Dashboard con datos del perfil (nombre, apellido, email, teléfono, foto)
+- [x] Editar perfil (teléfono y foto de perfil desde un modal en el panel de usuario)
 - [x] Reservar turno (con validación de fecha futura, horario y turno activo único)
 - [x] Ver turno activo (próximo turno reservado)
 - [x] Ver historial de todos los turnos propios
@@ -309,6 +311,7 @@ turnero-pern/
 | Componente | Descripción |
 |---|---|
 | `VerifyAuth` | Guard de ruta; valida el token y redirige a home si no está autenticado |
+| `EditProfileModal` | Modal para editar teléfono y foto de perfil; incluye preview de la nueva foto antes de confirmar |
 | `Loader` | Spinner de carga |
 | `GoBack` | Botón de retroceso |
 
@@ -331,6 +334,8 @@ turnero-pern/
 | `LoginAdminResponse` | Respuesta de `POST /loginAdmin` |
 | `DashboardUserResponse` | Respuesta de `GET /dashboardUser` |
 | `DashboardAdminResponse` | Respuesta de `GET /dashboardAdmin` |
+| `UpdateUserData` | Datos del formulario de edición de perfil: `phone`, `photo?: FileList` |
+| `UpdateUserResponse` | Respuesta de `PATCH /updateUser`: `message` + `user: User` |
 
 ### `turns.types.ts`
 
@@ -370,6 +375,7 @@ turnero-pern/
 |---|---|
 | `LoadingState` | Estados de carga por operación: `register`, `login`, `dashboard`, `confirm`, `adminTurns`, `allAdminTurns`, `userTurns`, `createTurn`, `createService`, `fetchServices`, `cancelTurnByUser` |
 | `AdminPanelView` | Union type para las vistas del panel admin: `"turns" \| "services" \| "newService" \| "allTurns"` |
+| `HeaderDashboardUserProps` | Props del header del usuario: `photo?`, `name?`, `logout`, `onEditProfile` |
 | `HeaderDashboardAdminProps` | Props del header del admin: `selected: AdminPanelView` y `onSelect` para cambiar la vista |
 | `ScheduleRowProps` | Props de una fila del horario en la landing: `day`, `hours`, `open`, `isLast` |
 | `ServiceItemProps` | Props de un ítem de servicio en la landing: `icon`, `title`, `desc` |

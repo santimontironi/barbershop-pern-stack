@@ -75,3 +75,13 @@ export interface DashboardAdminResponse {
 export interface confirmRegisterResponse {
     message: string;
 }
+
+export interface UpdateUserData {
+    phone: string;
+    photo?: FileList;
+}
+
+export interface UpdateUserResponse {
+    message: string;
+    user: User;
+}

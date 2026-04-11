@@ -11,5 +11,6 @@ router.post("/registerUser", upload.single("photo"), userController.registerUser
 
 router.get("/confirmRegister/:token", userController.confirmRegistration);
 router.get("/dashboardUser", verifyToken, userController.dashboardUser);
+router.patch("/updateUser", verifyToken, upload.single("photo"), userController.updateUser);
 
 export default router;

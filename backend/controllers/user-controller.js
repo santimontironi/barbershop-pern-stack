@@ -126,6 +126,35 @@ class UserController {
         }
     }
 
+    updateUser = async (req, res) => {
+        try {
+            const userId = req.user.id;
+            const { phone } = req.body;
+
+            if (!phone) {
+                return res.status(400).json({ message: "El teléfono es obligatorio." });
+            }
+
+            let photoUrl = null;
+
+            if (req.file) {
+                const fileBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+                const result = await cloudinary.uploader.upload(fileBase64, { folder: "turnero/users" });
+                photoUrl = result.secure_url;
+            }
+
+            const updatedUser = await userRepository.updateUser(userId, phone, photoUrl);
+
+            if (!updatedUser) {
+                return res.status(404).json({ message: "Usuario no encontrado o no confirmado." });
+            }
+
+            return res.status(200).json({ message: "Datos actualizados exitosamente.", user: updatedUser });
+        } catch (error) {
+            return res.status(500).json({ message: "Error interno del servidor.", error: error.message });
+        }
+    }
+
     logoutUser = (req, res) => {
         res.clearCookie("token", {
             httpOnly: true,
