@@ -22,6 +22,12 @@ class TurnController {
                 return res.status(400).json({ message: "Hora incorrecta. Por favor, elige una hora entre las 08:00 y las 18:00." });
             }
 
+            const validService = await serviceRepository.getServiceById(service);
+
+            if (!validService) {
+                return res.status(400).json({ message: "El servicio seleccionado no existe o no está disponible." });
+            }
+
             const userHasActiveTurn = await turnRepository.userHasTurn(userId)
 
             if (userHasActiveTurn) {
