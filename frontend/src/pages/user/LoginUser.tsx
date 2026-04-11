@@ -116,7 +116,7 @@ const LoginUser = () => {
 
                     <Link
                         to="/registro-usuario"
-                        className="block w-full text-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/20 px-8 py-3 rounded-xl font-semibold transition hover:scale-105 transform"
+                        className="block w-full text-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/20 px-8 py-3 rounded-xl font-semibold transition hover:scale-105 transform cursor-pointer"
                     >
                         Crear cuenta
                     </Link>
