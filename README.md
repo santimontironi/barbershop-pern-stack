@@ -2,6 +2,8 @@
 
 Proyecto personal. Sistema web para la gestión de turnos de una barbería. Permite a los usuarios registrarse con foto de perfil, confirmar su cuenta por email, iniciar sesión, reservar turnos y cancelarlos. Los administradores pueden gestionar turnos y servicios desde su panel.
 
+# Ver proyecto - https://barbershop-pern-stack.vercel.app/
+
 ---
 
 ## Índice
